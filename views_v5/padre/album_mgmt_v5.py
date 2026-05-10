@@ -1,0 +1,1 @@
+from views_v5.padre.album_mgmt_padre_v5 import render_album_mgmt_v5
