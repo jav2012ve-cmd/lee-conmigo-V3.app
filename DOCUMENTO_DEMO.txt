@@ -1,0 +1,111 @@
+LeeConmigo V4 - Documento de la version DEMO
+=============================================
+
+1) Objetivo de la DEMO
+----------------------
+La version DEMO de LeeConmigo esta diseñada para presentaciones comerciales.
+Su objetivo es mostrar el flujo principal de la plataforma de forma estable,
+controlada y facil de navegar, sin exponer toda la complejidad de la version completa.
+
+2) Caracteristicas principales
+------------------------------
+- Entorno aislado de datos:
+  La DEMO utiliza una base de datos independiente (lee_conmigo_demo.db), evitando
+  mezclar informacion con la base de datos de producto.
+
+- Flujo de navegacion completo:
+  Incluye acceso a salon de entrada, zona de padres, registro de estudiantes,
+  hub del estudiante, lecciones, album e informe de sesion.
+
+- Panel lateral DEMO:
+  Permite navegar rapidamente a:
+  * Zona docentes
+  * Zona Tutores (acompanamiento en la app; campo nombre_tutor del perfil)
+  * Zona de padres
+  * Registro de nuevos estudiantes
+
+- Enfoque comercial:
+  La interfaz incorpora mensajes de contexto DEMO para orientar la presentacion.
+
+3) Funcionalidades habilitadas
+------------------------------
+3.1 Registro y acceso
+- Registro de estudiantes desde el flujo de configuracion.
+- Inicio de experiencia de estudiante dentro del entorno DEMO.
+- Uso de avatar de galeria (sin depender de fotos personales).
+
+3.2 Lecciones
+- En la DEMO solo estan habilitadas las lecciones de las letras:
+  * M
+  * P
+
+3.3 Album del estudiante
+- Se muestran todas las categorias visualmente para mantener una experiencia completa.
+- Solo 4 categorias estan activas y navegables:
+  * Familia
+  * Juguetes
+  * En la cocina
+  * Instrumentos musicales
+- Las demas categorias aparecen bloqueadas en modo DEMO.
+
+3.4 Guardado de contenido en album
+- El guardado en base de datos esta restringido a las 4 categorias activas.
+- Si una categoria no esta permitida en DEMO, el sistema no registra elementos en esa categoria.
+
+4) Datos iniciales de la DEMO
+-----------------------------
+- Padre DEMO preconfigurado.
+- Perfil de estudiante de ejemplo para pruebas de presentacion.
+- Posibilidad de reinicio del estado DEMO para partir desde un escenario limpio.
+
+5) Alcance y limites de esta version
+------------------------------------
+- La DEMO no reemplaza los flujos completos de las versiones V3/V4 de produccion.
+- El contenido esta intencionalmente acotado para priorizar:
+  * Claridad en la demostracion
+  * Rapidez de recorrido
+  * Estabilidad funcional
+
+6) Ejecucion recomendada
+------------------------
+Opcion 1:
+- Ejecutar run_demo.bat
+
+Opcion 2:
+- streamlit run main_DEMO.py
+
+Al iniciar, la app abre en http://localhost:8501
+
+7) Uso sugerido en presentaciones
+---------------------------------
+- Iniciar mostrando salon de entrada y zona de padres.
+- Crear o seleccionar estudiante para contextualizar la experiencia.
+- Recorrer hub del estudiante.
+- Mostrar lecciones M y P.
+- Entrar al album y destacar categorias activas vs bloqueadas.
+- Finalizar con informe de sesion para cerrar el flujo.
+
+8) Version 5.0 (main_V5.py / run_v5.bat)
+---------------------------------------
+- Flujo pedagogico alineado con 4.0 (views_v5), pero con **base de datos propia**:
+  `database/lee_conmigo_v5.db` (sin datos ni fotos heredados de otras versiones).
+- Al ejecutar por primera vez se crean las tablas vacias; tutores y ninos se
+  van registrando desde Configuracion / Salon como en el resto del producto.
+- Para **resetear por completo** la 5.0: cerrar Streamlit y borrar `lee_conmigo_v5.db`;
+  al volver a arrancar se genera de nuevo vacia.
+
+9) Zona docentes (main, V3, V4, V5 y DEMO)
+-------------------------------------------
+- En la barra lateral: **Zona docentes** (visible siempre).
+- Cada perfil de nino lleva el campo **nombre_docente** (texto: docente o grupo),
+  configurable en **Configuracion del salon** al crear o editar el perfil.
+- La docente busca por ese mismo texto y ve la lista del grupo, estrellas,
+  ultimo ingreso y enlace al **informe de sesion** de cada nino.
+
+10) Zona Tutores (main, V3, V4, V5 y DEMO)
+------------------------------------------
+- En la barra lateral: **Zona Tutores** (visible siempre, igual que Zona docentes).
+- Cada perfil lleva ademas el campo **nombre_tutor** (maestro o tutor que sigue al nino
+  **dentro de LeeConmigo**), configurable en **Configuracion del salon**. Puede ser la misma
+  persona que **nombre_docente** (docente de aula / grupo) o distinta (apoyo, coordinacion).
+- El tutor busca por ese mismo texto y ve lista, estrellas, ultimo ingreso e informe de sesion.

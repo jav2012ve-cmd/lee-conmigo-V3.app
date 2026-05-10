@@ -1,0 +1,128 @@
+{
+  "total_catalogo": 532,
+  "total_sonidos_configurados": 30,
+  "actualizados": 17,
+  "omitidos_sin_mapeo": 515,
+  "errores": [],
+  "detalles_actualizados": [
+    {
+      "palabra": "búho",
+      "palabra_slug": "buho",
+      "categoria": "Animales voladores",
+      "audio_texto": "uh uh",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_voladores\\buho.mp3"
+    },
+    {
+      "palabra": "delfín",
+      "palabra_slug": "delfin",
+      "categoria": "Animales del mar",
+      "audio_texto": "iii iiii",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_mar\\delfin.mp3"
+    },
+    {
+      "palabra": "FOCA",
+      "palabra_slug": "foca",
+      "categoria": "Animales del mar",
+      "audio_texto": "arf arf",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_mar\\foca.mp3"
+    },
+    {
+      "palabra": "GATO",
+      "palabra_slug": "gato",
+      "categoria": "Animales del bosque",
+      "audio_texto": "miau miau",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\gato.mp3"
+    },
+    {
+      "palabra": "GRILLO",
+      "palabra_slug": "grillo",
+      "categoria": "Insectos",
+      "audio_texto": "cri cri",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\insectos\\grillo.mp3"
+    },
+    {
+      "palabra": "LECHUZA",
+      "palabra_slug": "lechuza",
+      "categoria": "Animales del bosque",
+      "audio_texto": "uuuh",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\lechuza.mp3"
+    },
+    {
+      "palabra": "LEON",
+      "palabra_slug": "leon",
+      "categoria": "Animales del bosque",
+      "audio_texto": "roooar",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\leon.mp3"
+    },
+    {
+      "palabra": "LOBO",
+      "palabra_slug": "lobo",
+      "categoria": "Animales del bosque",
+      "audio_texto": "auuuuu",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\lobo.mp3"
+    },
+    {
+      "palabra": "LORO",
+      "palabra_slug": "loro",
+      "categoria": "Animales voladores",
+      "audio_texto": "hola hola",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_voladores\\loro.mp3"
+    },
+    {
+      "palabra": "MONO",
+      "palabra_slug": "mono",
+      "categoria": "Animales del bosque",
+      "audio_texto": "u u a a",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\mono.mp3"
+    },
+    {
+      "palabra": "OVEJA",
+      "palabra_slug": "oveja",
+      "categoria": "Animales del bosque",
+      "audio_texto": "beee",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\oveja.mp3"
+    },
+    {
+      "palabra": "pájaro",
+      "palabra_slug": "pajaro",
+      "categoria": "Animales voladores",
+      "audio_texto": "pío pío",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_voladores\\pajaro.mp3"
+    },
+    {
+      "palabra": "SAPO",
+      "palabra_slug": "sapo",
+      "categoria": "Animales del bosque",
+      "audio_texto": "croac",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\sapo.mp3"
+    },
+    {
+      "palabra": "TIGRE",
+      "palabra_slug": "tigre",
+      "categoria": "Animales del bosque",
+      "audio_texto": "grrrr",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\tigre.mp3"
+    },
+    {
+      "palabra": "TURPIAL",
+      "palabra_slug": "turpial",
+      "categoria": "Animales voladores",
+      "audio_texto": "trii trii",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_voladores\\turpial.mp3"
+    },
+    {
+      "palabra": "VACA",
+      "palabra_slug": "vaca",
+      "categoria": "Animales del bosque",
+      "audio_texto": "muuuu",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\vaca.mp3"
+    },
+    {
+      "palabra": "ZORRO",
+      "palabra_slug": "zorro",
+      "categoria": "Animales del bosque",
+      "audio_texto": "yip yip",
+      "archivo": "C:\\Users\\jav20\\OneDrive\\Documentos\\LeeConmigoV2\\LeeConmigoV4\\assets\\sfx\\animales_del_bosque\\zorro.mp3"
+    }
+  ]
+}

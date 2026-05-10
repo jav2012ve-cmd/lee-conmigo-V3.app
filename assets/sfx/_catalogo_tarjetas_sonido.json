@@ -1,0 +1,3794 @@
+[
+  {
+    "archivo_imagen": "Abuela_Margarita.jpg",
+    "palabra": "ABUELA MARGARITA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Abuelo_Alberto.jpg",
+    "palabra": "ABUELO ALBERTO",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Albert_Sanchez.jpg",
+    "palabra": "ALBERT SANCHEZ",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Camila.jpg",
+    "palabra": "CAMILA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Camila_Sanchez.jpg",
+    "palabra": "CAMILA SANCHEZ",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Giganotosaurus.jpg",
+    "palabra": "GIGANOTOSAURUS",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "Ignacio_José.jpg",
+    "palabra": "IGNACIO JOSÉ",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Iguanodon.jpg",
+    "palabra": "IGUANODON",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "Mama_Margarita.jpg",
+    "palabra": "MAMA MARGARITA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Norkis_Sanchez.jpg",
+    "palabra": "NORKIS SANCHEZ",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Ovni.jpg",
+    "palabra": "OVNI",
+    "categorias": [
+      "Animales voladores",
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "Papa_Jose.jpg",
+    "palabra": "PAPA JOSE",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Papa_Olegario.jpg",
+    "palabra": "PAPA OLEGARIO",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Prima_Abril.jpg",
+    "palabra": "PRIMA ABRIL",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Prima_Camila.JPG",
+    "palabra": "PRIMA CAMILA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Samanta.jpg",
+    "palabra": "SAMANTA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Tia_Johana.jpg",
+    "palabra": "TIA JOHANA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "Yo_José_Javier.jpg",
+    "palabra": "YO JOSÉ JAVIER",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "abogada.jpg",
+    "palabra": "ABOGADA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "abogado.jpg",
+    "palabra": "ABOGADO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "abuela.jpg",
+    "palabra": "ABUELA",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "administrador.jpg",
+    "palabra": "ADMINISTRADOR",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "administradora.jpg",
+    "palabra": "ADMINISTRADORA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "agua.jpg",
+    "palabra": "AGUA",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "aguacate.jpg",
+    "palabra": "aguacate",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "aguila.jpg",
+    "palabra": "águila",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "aji_rojo.jpg",
+    "palabra": "AJI ROJO",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "aji_verde.jpg",
+    "palabra": "AJI VERDE",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "ajo.jpg",
+    "palabra": "AJO",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "albañil.jpg",
+    "palabra": "ALBAÑIL",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "amarillo.jpg",
+    "palabra": "AMARILLO",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "ambulancia.jpg",
+    "palabra": "AMBULANCIA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "ambulancia2.jpg",
+    "palabra": "AMBULANCIA2",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "araguaney.jpg",
+    "palabra": "ARAGUANEY",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "ardilla.jpg",
+    "palabra": "ARDILLA",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "arpa.jpg",
+    "palabra": "ARPA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "artesano.jpg",
+    "palabra": "ARTESANO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "astronauta.jpg",
+    "palabra": "ASTRONAUTA",
+    "categorias": [
+      "Profesiones",
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "auto_de_carreras.jpg",
+    "palabra": "AUTO DE CARRERAS",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "autobus.jpg",
+    "palabra": "autobús",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "autobus_escolar.jpg",
+    "palabra": "AUTOBUS ESCOLAR",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "auyama.jpg",
+    "palabra": "AUYAMA",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "aviador.jpg",
+    "palabra": "AVIADOR",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "avion.jpg",
+    "palabra": "avión",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "avioneta.jpg",
+    "palabra": "AVIONETA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "azul.jpg",
+    "palabra": "AZUL",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "bajo.jpg",
+    "palabra": "BAJO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "ballena.jpg",
+    "palabra": "BALLENA",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "balonmano.jpg",
+    "palabra": "BALONMANO",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "bandola.jpg",
+    "palabra": "BANDOLA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "banera.jpg",
+    "palabra": "BANERA",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "barbero.jpg",
+    "palabra": "BARBERO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "barco.jpg",
+    "palabra": "BARCO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "bate.jpg",
+    "palabra": "BATE",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "bateria.jpg",
+    "palabra": "BATERIA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "beisbol.jpg",
+    "palabra": "BEISBOL",
+    "categorias": [
+      "Deportes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "berenjena.jpg",
+    "palabra": "berenjena",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "bicicleta.jpg",
+    "palabra": "BICICLETA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "bikini.jpg",
+    "palabra": "bikini",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "blanco.jpg",
+    "palabra": "BLANCO",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "bloques.jpg",
+    "palabra": "BLOQUES",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "boca.jpg",
+    "palabra": "boca",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "bolso.jpg",
+    "palabra": "BOLSO",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "bombera.jpg",
+    "palabra": "BOMBERA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "bombero.jpg",
+    "palabra": "BOMBERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "braquiosaurio.jpg",
+    "palabra": "BRAQUIOSAURIO",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "brazo.jpg",
+    "palabra": "brazo",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "brocoli.jpg",
+    "palabra": "brócoli",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "buho.jpg",
+    "palabra": "búho",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "cabeza.jpg",
+    "palabra": "cabeza",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "cafe.jpg",
+    "palabra": "CAFE",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "caiman.jpg",
+    "palabra": "CAIMAN",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "calabaza.jpg",
+    "palabra": "calabaza",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "cambur.jpg",
+    "palabra": "CAMBUR",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "camion.jpg",
+    "palabra": "camión",
+    "categorias": [
+      "Medios de transporte",
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "camion2.jpg",
+    "palabra": "CAMION2",
+    "categorias": [
+      "Medios de transporte",
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "camionero.jpg",
+    "palabra": "CAMIONERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "campo.jpg",
+    "palabra": "CAMPO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "cangrejo.jpg",
+    "palabra": "CANGREJO",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "canoa.jpg",
+    "palabra": "CANOA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "carpintero.jpg",
+    "palabra": "CARPINTERO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "carrito.jpg",
+    "palabra": "CARRITO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "carritos.jpg",
+    "palabra": "CARRITOS",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "carro.jpg",
+    "palabra": "CARRO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "casa.jpg",
+    "palabra": "CASA",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "casa_munecas.jpg",
+    "palabra": "CASA MUNECAS",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "castillo.jpg",
+    "palabra": "CASTILLO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "catorce.jpg",
+    "palabra": "CATORCE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "cebolla.jpg",
+    "palabra": "cebolla",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "cepillo_cabello.jpg",
+    "palabra": "CEPILLO CABELLO",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "cepillo_dental.jpg",
+    "palabra": "CEPILLO DENTAL",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "cerezas.jpg",
+    "palabra": "cerezas",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "cero.jpg",
+    "palabra": "CERO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "champu.jpg",
+    "palabra": "champú",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "chelo.jpg",
+    "palabra": "CHELO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "cholas.jpg",
+    "palabra": "CHOLAS",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "ciclismo.jpg",
+    "palabra": "CICLISMO",
+    "categorias": [
+      "Deportes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "cien.jpg",
+    "palabra": "CIEN",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "cilindro.jpg",
+    "palabra": "CILINDRO",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "cinco.jpg",
+    "palabra": "CINCO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "cincuenta.jpg",
+    "palabra": "CINCUENTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "circulo.jpg",
+    "palabra": "círculo",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "clarinete.jpg",
+    "palabra": "CLARINETE",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "clavos.jpg",
+    "palabra": "CLAVOS",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "cocina.jpg",
+    "palabra": "cocina",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "cocinera.jpg",
+    "palabra": "COCINERA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "cocinero.jpg",
+    "palabra": "COCINERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "coco.jpg",
+    "palabra": "coco",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "cocodrilo.jpg",
+    "palabra": "COCODRILO",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "cocuyos.jpg",
+    "palabra": "COCUYOS",
+    "categorias": [
+      "Animales voladores",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "cohete.jpg",
+    "palabra": "COHETE",
+    "categorias": [
+      "Medios de transporte",
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "colibri.jpg",
+    "palabra": "colibrí",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "colibri2.jpg",
+    "palabra": "COLIBRI2",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "coliflor.jpg",
+    "palabra": "coliflor",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "colores.jpg",
+    "palabra": "COLORES",
+    "categorias": [
+      "Colores",
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "colornaranja.jpg",
+    "palabra": "NARANJA",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "cometa.jpg",
+    "palabra": "COMETA",
+    "categorias": [
+      "Juguetes",
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "compas.jpg",
+    "palabra": "COMPAS",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "contrabajo.jpg",
+    "palabra": "CONTRABAJO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "copa.jpg",
+    "palabra": "COPA",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "coquito.jpg",
+    "palabra": "COQUITO",
+    "categorias": [
+      "Animales voladores",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "coral.jpg",
+    "palabra": "CORAL",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "corazon.jpg",
+    "palabra": "corazón",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "costurera.jpg",
+    "palabra": "COSTURERA",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "costurero.jpg",
+    "palabra": "COSTURERO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "crema_dental.jpg",
+    "palabra": "CREMA DENTAL",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "cuaderno.jpg",
+    "palabra": "cuaderno",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "cuadernos.jpg",
+    "palabra": "CUADERNOS",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "cuadrado.jpg",
+    "palabra": "CUADRADO",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "cuarenta.jpg",
+    "palabra": "CUARENTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "cuatrimoto.jpg",
+    "palabra": "CUATRIMOTO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "cuatro.jpg",
+    "palabra": "CUATRO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "cuatro_venezolano.jpg",
+    "palabra": "CUATRO VENEZOLANO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "cubo.jpg",
+    "palabra": "CUBO",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "cuchara.jpg",
+    "palabra": "cuchara",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "danza.jpg",
+    "palabra": "DANZA",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "dardo.jpg",
+    "palabra": "DARDO",
+    "categorias": [
+      "Juguetes",
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "decagono.jpg",
+    "palabra": "decágono",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "dedo.jpg",
+    "palabra": "DEDO",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "delfin.jpg",
+    "palabra": "delfín",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "destornillador.jpg",
+    "palabra": "DESTORNILLADOR",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "diecinueve.jpg",
+    "palabra": "DIECINUEVE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "dieciocho.jpg",
+    "palabra": "DIECIOCHO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "dieciseis.jpg",
+    "palabra": "dieciséis",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "diecisiete.jpg",
+    "palabra": "DIECISIETE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "dientes.jpg",
+    "palabra": "dientes",
+    "categorias": [
+      "Partes del cuerpo",
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "diez.jpg",
+    "palabra": "DIEZ",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "diplodocus.jpg",
+    "palabra": "DIPLODOCUS",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "diseñadora.jpg",
+    "palabra": "DISEÑADORA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "doce.jpg",
+    "palabra": "DOCE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "doctora.jpg",
+    "palabra": "DOCTORA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "dona.jpg",
+    "palabra": "DONA",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "dorado.jpg",
+    "palabra": "DORADO",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "dos.jpg",
+    "palabra": "DOS",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "ducha.jpg",
+    "palabra": "DUCHA",
+    "categorias": [
+      "En la cocina",
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "dulce.jpg",
+    "palabra": "DULCE",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "durazno.jpg",
+    "palabra": "durazno",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "electricista.jpg",
+    "palabra": "ELECTRICISTA",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "elefanta.jpg",
+    "palabra": "ELEFANTA",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "enfermera.jpg",
+    "palabra": "ENFERMERA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "enfermera2.jpg",
+    "palabra": "ENFERMERA2",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "enfermero.jpg",
+    "palabra": "ENFERMERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "equitacion.jpg",
+    "palabra": "EQUITACION",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "erizo.jpg",
+    "palabra": "ERIZO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "escalera.jpg",
+    "palabra": "escalera",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "escarabajo.jpg",
+    "palabra": "ESCARABAJO",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "escoba.jpg",
+    "palabra": "ESCOBA",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "escuela.jpg",
+    "palabra": "escuela",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "escultor.jpg",
+    "palabra": "ESCULTOR",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "escultora.jpg",
+    "palabra": "ESCULTORA",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "esfera.jpg",
+    "palabra": "ESFERA",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "esgrima.jpg",
+    "palabra": "ESGRIMA",
+    "categorias": [
+      "Deportes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "espaguiti.jpg",
+    "palabra": "ESPAGUITI",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "espejo.jpg",
+    "palabra": "espejo",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "espinaca.jpg",
+    "palabra": "espinaca",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "esqueleto.jpg",
+    "palabra": "ESQUELETO",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "esqueleto_de_dinosaurio.jpg",
+    "palabra": "ESQUELETO DE DINOSAURIO",
+    "categorias": [
+      "Partes del cuerpo",
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "estacion_espacial.jpg",
+    "palabra": "ESTACION ESPACIAL",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "estegosaurio.jpg",
+    "palabra": "ESTEGOSAURIO",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "estomago.jpg",
+    "palabra": "ESTOMAGO",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "estrella.jpg",
+    "palabra": "ESTRELLA",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "estrella_de_mar.jpg",
+    "palabra": "ESTRELLA DE MAR",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "examen.jpg",
+    "palabra": "examen",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "farol.jpg",
+    "palabra": "FAROL",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "flauta.jpg",
+    "palabra": "FLAUTA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "florista.jpg",
+    "palabra": "FLORISTA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "foca.jpg",
+    "palabra": "FOCA",
+    "categorias": [
+      "Animales del mar",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "fogata.jpg",
+    "palabra": "FOGATA",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "fresas.jpg",
+    "palabra": "fresas",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "fuente.jpg",
+    "palabra": "FUENTE",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "furruco.jpg",
+    "palabra": "FURRUCO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "futbol.jpg",
+    "palabra": "fútbol",
+    "categorias": [
+      "Juguetes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "futbol2.jpg",
+    "palabra": "FUTBOL2",
+    "categorias": [
+      "Juguetes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "garza.jpg",
+    "palabra": "GARZA",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "gato.jpg",
+    "palabra": "GATO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "globo.jpg",
+    "palabra": "GLOBO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "grillo.jpg",
+    "palabra": "GRILLO",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "gris.jpg",
+    "palabra": "GRIS",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "guacamaya.jpg",
+    "palabra": "GUACAMAYA",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "guacamaya_2.jpg",
+    "palabra": "GUACAMAYA 2",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "guitarra.jpg",
+    "palabra": "GUITARRA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "hacha.jpg",
+    "palabra": "HACHA",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "halcon.jpg",
+    "palabra": "HALCON",
+    "categorias": [
+      "Animales del bosque",
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "hamburguesa.jpg",
+    "palabra": "HAMBURGUESA",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "harina.jpg",
+    "palabra": "HARINA",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "helado.jpg",
+    "palabra": "HELADO",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "helicoptero.jpg",
+    "palabra": "helicóptero",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "hexagono.jpg",
+    "palabra": "hexágono",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "hielo.jpg",
+    "palabra": "HIELO",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "higado.jpg",
+    "palabra": "HIGADO",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "hipopotamo.jpg",
+    "palabra": "HIPOPOTAMO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "hipopoytamo.jpg",
+    "palabra": "HIPOPOYTAMO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "hoja.jpg",
+    "palabra": "HOJA",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "hormiga.jpg",
+    "palabra": "HORMIGA",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "hormigas.jpg",
+    "palabra": "HORMIGAS",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "huevo.jpg",
+    "palabra": "HUEVO",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "huevo_de_dinosaurio.jpg",
+    "palabra": "HUEVO DE DINOSAURIO",
+    "categorias": [
+      "En la cocina",
+      "Alimentos",
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "humo.jpg",
+    "palabra": "HUMO",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "idea.jpg",
+    "palabra": "idea",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "iglu.jpg",
+    "palabra": "IGLU",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "ignacio.jpg",
+    "palabra": "IGNACIO",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "iguana.jpg",
+    "palabra": "IGUANA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico",
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "iguana_2.jpg",
+    "palabra": "IGUANA 2",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico",
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "iman.jpg",
+    "palabra": "IMAN",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "ingeniera.jpg",
+    "palabra": "INGENIERA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "ingeniero.jpg",
+    "palabra": "INGENIERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "insecto.jpg",
+    "palabra": "INSECTO",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "invierno.jpg",
+    "palabra": "INVIERNO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "isla.jpg",
+    "palabra": "ISLA",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "jabon.jpg",
+    "palabra": "jabón",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "jardinero.jpg",
+    "palabra": "JARDINERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "jinete.jpg",
+    "palabra": "JINETE",
+    "categorias": [
+      "Profesiones",
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "juez.jpg",
+    "palabra": "JUEZ",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "jueza.jpg",
+    "palabra": "JUEZA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "karate.jpg",
+    "palabra": "KARATE",
+    "categorias": [
+      "Deportes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "kayak.jpg",
+    "palabra": "KAYAK",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "ketchup.jpg",
+    "palabra": "KETCHUP",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "kilogramo.jpg",
+    "palabra": "KILOGRAMO",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "kimono.jpg",
+    "palabra": "KIMONO",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "kinder.jpg",
+    "palabra": "KINDER",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "kiwi.jpg",
+    "palabra": "kiwi",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "koala.jpg",
+    "palabra": "KOALA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "lagartija.jpg",
+    "palabra": "LAGARTIJA",
+    "categorias": [
+      "Animales del bosque",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "lagarto.jpg",
+    "palabra": "LAGARTO",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "lancha.jpg",
+    "palabra": "LANCHA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "lancha2.jpg",
+    "palabra": "LANCHA2",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "lanzamiento_de_bala.jpg",
+    "palabra": "LANZAMIENTO DE BALA",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "lanzamiento_de_disco.jpg",
+    "palabra": "LANZAMIENTO DE DISCO",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "lanzamiento_de_jabalina.jpg",
+    "palabra": "LANZAMIENTO DE JABALINA",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "lapiz.jpg",
+    "palabra": "lápiz",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "leche.jpg",
+    "palabra": "LECHE",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "lechuga.jpg",
+    "palabra": "lechuga",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "lechuga_2.jpg",
+    "palabra": "LECHUGA 2",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "lechuza.jpg",
+    "palabra": "LECHUZA",
+    "categorias": [
+      "Animales del bosque",
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "lengua.jpg",
+    "palabra": "LENGUA",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "lenteja.jpg",
+    "palabra": "LENTEJA",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "lentes.jpg",
+    "palabra": "LENTES",
+    "categorias": [
+      "En la escuela",
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "leon.jpg",
+    "palabra": "LEON",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "leopardo.jpg",
+    "palabra": "LEOPARDO",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "libelula.jpg",
+    "palabra": "LIBELULA",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "libelulas.jpg",
+    "palabra": "LIBELULAS",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "libro.jpg",
+    "palabra": "libro",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "libros.jpg",
+    "palabra": "LIBROS",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "limon.jpg",
+    "palabra": "limón",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "lobo.jpg",
+    "palabra": "LOBO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "lombriz.jpg",
+    "palabra": "LOMBRIZ",
+    "categorias": [
+      "Animales del bosque",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "loro.jpg",
+    "palabra": "LORO",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "loro_2.jpg",
+    "palabra": "LORO 2",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "luciernagas.jpg",
+    "palabra": "LUCIERNAGAS",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "luna.jpg",
+    "palabra": "LUNA",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "lupa.jpg",
+    "palabra": "lupa",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "maestra.jpg",
+    "palabra": "MAESTRA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "maestro.jpg",
+    "palabra": "MAESTRO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "maiz.jpg",
+    "palabra": "MAIZ",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "mama_norkis (2).jpg",
+    "palabra": "MAMA NORKIS (2)",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "mama_norkis.jpg",
+    "palabra": "MAMA NORKIS",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "manati.jpg",
+    "palabra": "manatí",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "mango.jpg",
+    "palabra": "mango",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "maniqui.jpg",
+    "palabra": "maniquí",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "mano.jpg",
+    "palabra": "mano",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "manos.jpg",
+    "palabra": "manos",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "manzana.jpg",
+    "palabra": "manzana",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "mapa.jpg",
+    "palabra": "mapa",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "maracas.jpg",
+    "palabra": "MARACAS",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "maraton.jpg",
+    "palabra": "MARATON",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "mariposa.jpg",
+    "palabra": "MARIPOSA",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "mariposas.jpg",
+    "palabra": "MARIPOSAS",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "mariquita.jpg",
+    "palabra": "MARIQUITA",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "marron.jpg",
+    "palabra": "marrón",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "marte.jpg",
+    "palabra": "MARTE",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "martillo.jpg",
+    "palabra": "MARTILLO",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "masa.jpg",
+    "palabra": "MASA",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "mecanico.jpg",
+    "palabra": "MECANICO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "medica.jpg",
+    "palabra": "médica",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "medico.jpg",
+    "palabra": "médico",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "medusa.jpg",
+    "palabra": "MEDUSA",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "melocoton.jpg",
+    "palabra": "melocotón",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "melon.jpg",
+    "palabra": "melón",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "mercurio.jpg",
+    "palabra": "MERCURIO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "mesa.jpg",
+    "palabra": "mesa",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "mesonero.jpg",
+    "palabra": "MESONERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "metro.jpg",
+    "palabra": "METRO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "mimo.jpg",
+    "palabra": "MIMO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "modelo.jpg",
+    "palabra": "MODELO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "mono.jpg",
+    "palabra": "MONO",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "monopatin.jpg",
+    "palabra": "monopatín",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "morrocoy.jpg",
+    "palabra": "MORROCOY",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "moto.jpg",
+    "palabra": "MOTO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "motociclista.jpg",
+    "palabra": "MOTOCICLISTA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "muneca.jpg",
+    "palabra": "muñeca",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "nabo.jpg",
+    "palabra": "NABO",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "nado_sincronizado.jpg",
+    "palabra": "NADO SINCRONIZADO",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "naranja.jpg",
+    "palabra": "naranja",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "nariz.jpg",
+    "palabra": "nariz",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "nata.jpg",
+    "palabra": "NATA",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "natacion.jpg",
+    "palabra": "NATACION",
+    "categorias": [
+      "Deportes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "negro.jpg",
+    "palabra": "NEGRO",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "nene.jpg",
+    "palabra": "NENE",
+    "categorias": [
+      "Familia"
+    ]
+  },
+  {
+    "archivo_imagen": "neptuno.jpg",
+    "palabra": "NEPTUNO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "nido.jpg",
+    "palabra": "NIDO",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "nido_2.jpg",
+    "palabra": "NIDO 2",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "nieve.jpg",
+    "palabra": "NIEVE",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "nota_musical.jpg",
+    "palabra": "NOTA MUSICAL",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "notas_musicales.jpg",
+    "palabra": "NOTAS MUSICALES",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "noventa.jpg",
+    "palabra": "NOVENTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "nube.jpg",
+    "palabra": "NUBE",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "nube_2.jpg",
+    "palabra": "NUBE 2",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "nubes.jpg",
+    "palabra": "NUBES",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "nudo.jpg",
+    "palabra": "NUDO",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "nueve.jpg",
+    "palabra": "NUEVE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "ochenta.jpg",
+    "palabra": "OCHENTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "ocho.jpg",
+    "palabra": "OCHO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "octogono.jpg",
+    "palabra": "octógono",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "oficina.jpg",
+    "palabra": "OFICINA",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "oftalmologo.jpg",
+    "palabra": "OFTALMOLOGO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "ojo.jpg",
+    "palabra": "ojo",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "olla.jpg",
+    "palabra": "olla",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "once.jpg",
+    "palabra": "ONCE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "orca.jpg",
+    "palabra": "ORCA",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "oreja.jpg",
+    "palabra": "oreja",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "orfebre.jpg",
+    "palabra": "ORFEBRE",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "oruga.jpg",
+    "palabra": "ORUGA",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "oruga2.jpg",
+    "palabra": "ORUGA2",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "osito.jpg",
+    "palabra": "OSITO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "ostra.jpg",
+    "palabra": "OSTRA",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "ovalo.jpg",
+    "palabra": "óvalo",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "oveja.jpg",
+    "palabra": "OVEJA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "pajaro.jpg",
+    "palabra": "pájaro",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "pajaro_carpintero.jpg",
+    "palabra": "PAJARO CARPINTERO",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "pala.jpg",
+    "palabra": "PALA",
+    "categorias": [
+      "Juguetes",
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "pala2.jpg",
+    "palabra": "PALA2",
+    "categorias": [
+      "Juguetes",
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "pancreas.jpg",
+    "palabra": "PANCREAS",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "pargo.jpg",
+    "palabra": "PARGO",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "pastelera.jpg",
+    "palabra": "PASTELERA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "pastelero.jpg",
+    "palabra": "PASTELERO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "patilla.jpg",
+    "palabra": "PATILLA",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "patineta.jpg",
+    "palabra": "patineta",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "pediatra.jpg",
+    "palabra": "PEDIATRA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "peine.jpg",
+    "palabra": "PEINE",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "pelota.jpg",
+    "palabra": "PELOTA",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "peluquera.jpg",
+    "palabra": "PELUQUERA",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "peluquero.jpg",
+    "palabra": "PELUQUERO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "pentagono.jpg",
+    "palabra": "pentágono",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "pera.jpg",
+    "palabra": "pera",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "perico.jpg",
+    "palabra": "PERICO",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "periodista.jpg",
+    "palabra": "PERIODISTA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "pescado.jpg",
+    "palabra": "PESCADO",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "piano.jpg",
+    "palabra": "PIANO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "pico.jpg",
+    "palabra": "PICO",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "pie.jpg",
+    "palabra": "pie",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "pierna.jpg",
+    "palabra": "pierna",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "pies.jpg",
+    "palabra": "pies",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "piloto_de_avion.jpg",
+    "palabra": "PILOTO DE AVION",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "piloto_de_avion_2.jpg",
+    "palabra": "PILOTO DE AVION 2",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "pilotodecarreras.jpg",
+    "palabra": "PILOTODECARRERAS",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "pimenton.jpg",
+    "palabra": "pimentón",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "pimiento.jpg",
+    "palabra": "pimiento",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "pina.jpg",
+    "palabra": "piña",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "pino.jpg",
+    "palabra": "PINO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "platamo.jpg",
+    "palabra": "PLATAMO",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "plomero.jpg",
+    "palabra": "PLOMERO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "policia.jpg",
+    "palabra": "POLICIA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "policia_2.jpg",
+    "palabra": "POLICIA 2",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "programador.jpg",
+    "palabra": "PROGRAMADOR",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "programadora.jpg",
+    "palabra": "PROGRAMADORA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "psicologa.jpg",
+    "palabra": "PSICOLOGA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "pterodactilo.jpg",
+    "palabra": "PTERODACTILO",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "pua.jpg",
+    "palabra": "PUA",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "pulmones.jpg",
+    "palabra": "PULMONES",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "pulpo.jpg",
+    "palabra": "PULPO",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "puma.jpg",
+    "palabra": "PUMA",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "queso.jpg",
+    "palabra": "QUESO",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "quince.jpg",
+    "palabra": "QUINCE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "quiosquero.jpg",
+    "palabra": "QUIOSQUERO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "radio.jpg",
+    "palabra": "RADIO",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "raiz.jpg",
+    "palabra": "RAIZ",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "raqueta.jpg",
+    "palabra": "RAQUETA",
+    "categorias": [
+      "Deportes",
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "rayo.jpg",
+    "palabra": "RAYO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "rectangulo.jpg",
+    "palabra": "rectángulo",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "refrigerador.jpg",
+    "palabra": "REFRIGERADOR",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "regla.jpg",
+    "palabra": "regla",
+    "categorias": [
+      "En la escuela",
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "reja.jpg",
+    "palabra": "REJA",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "relampago.jpg",
+    "palabra": "RELAMPAGO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "reloj.jpg",
+    "palabra": "RELOJ",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "repartidor.jpg",
+    "palabra": "REPARTIDOR",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "rinoceronte.jpg",
+    "palabra": "RINOCERONTE",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "rio.jpg",
+    "palabra": "RIO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "riñones.jpg",
+    "palabra": "RIÑONES",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "robot.jpg",
+    "palabra": "ROBOT",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "robot_2.jpg",
+    "palabra": "ROBOT 2",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "roca.jpg",
+    "palabra": "ROCA",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "rodilla.jpg",
+    "palabra": "RODILLA",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "rojo.jpg",
+    "palabra": "ROJO",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "rombo.jpg",
+    "palabra": "ROMBO",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "rosa.jpg",
+    "palabra": "ROSA",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "rosado.jpg",
+    "palabra": "ROSADO",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "rubi.jpg",
+    "palabra": "RUBI",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "rueda.jpg",
+    "palabra": "RUEDA",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "safa_2.jpg",
+    "palabra": "SAFA 2",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "safari.jpg",
+    "palabra": "SAFARI",
+    "categorias": [
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "sal.jpg",
+    "palabra": "SAL",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "salto_largo.jpg",
+    "palabra": "SALTO LARGO",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "saman.jpg",
+    "palabra": "SAMAN",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "sapo.jpg",
+    "palabra": "SAPO",
+    "categorias": [
+      "Animales del bosque",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "sapo_2.jpg",
+    "palabra": "SAPO 2",
+    "categorias": [
+      "Animales del bosque",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "saturno.jpg",
+    "palabra": "SATURNO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "saxofon.jpg",
+    "palabra": "SAXOFON",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "secretaria.jpg",
+    "palabra": "SECRETARIA",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "secretario.jpg",
+    "palabra": "SECRETARIO",
+    "categorias": [
+      "Oficios"
+    ]
+  },
+  {
+    "archivo_imagen": "seis.jpg",
+    "palabra": "SEIS",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "selva.jpg",
+    "palabra": "SELVA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "semicirculo.jpg",
+    "palabra": "semicírculo",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "serrucho.jpg",
+    "palabra": "SERRUCHO",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "sesenta.jpg",
+    "palabra": "SESENTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "set_de_te.jpg",
+    "palabra": "SET DE TE",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "setenta.jpg",
+    "palabra": "SETENTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "siete.jpg",
+    "palabra": "SIETE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "silla.jpg",
+    "palabra": "silla",
+    "categorias": [
+      "En la escuela"
+    ]
+  },
+  {
+    "archivo_imagen": "softbol.jpg",
+    "palabra": "SOFTBOL",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "sol.jpg",
+    "palabra": "SOL",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "soldada.jpg",
+    "palabra": "SOLDADA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "soldado.jpg",
+    "palabra": "SOLDADO",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "sopa.jpg",
+    "palabra": "sopa",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "sopa_2.jpg",
+    "palabra": "SOPA 2",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "submarino.jpg",
+    "palabra": "SUBMARINO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "submarino2.jpg",
+    "palabra": "SUBMARINO2",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "suma.jpg",
+    "palabra": "SUMA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "suma_2.jpg",
+    "palabra": "SUMA 2",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "tambor.jpg",
+    "palabra": "tambor",
+    "categorias": [
+      "Juguetes",
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "tambor}.jpg",
+    "palabra": "TAMBOR}",
+    "categorias": [
+      "Juguetes",
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "tapa.jpg",
+    "palabra": "TAPA",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "taxi.jpg",
+    "palabra": "TAXI",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "taxista.jpg",
+    "palabra": "TAXISTA",
+    "categorias": [
+      "Profesiones"
+    ]
+  },
+  {
+    "archivo_imagen": "teleferico.jpg",
+    "palabra": "TELEFERICO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "tiburon.jpg",
+    "palabra": "tiburón",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "tierra.jpg",
+    "palabra": "TIERRA",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "tigre.jpg",
+    "palabra": "TIGRE",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "tiranosaurio.jpg",
+    "palabra": "TIRANOSAURIO",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "toalla.jpg",
+    "palabra": "TOALLA",
+    "categorias": [
+      "En el baño"
+    ]
+  },
+  {
+    "archivo_imagen": "tomate.jpg",
+    "palabra": "tomate",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "tornillo.jpg",
+    "palabra": "TORNILLO",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "tortuga.jpg",
+    "palabra": "TORTUGA",
+    "categorias": [
+      "Animales del mar"
+    ]
+  },
+  {
+    "archivo_imagen": "tractor.jpg",
+    "palabra": "TRACTOR",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "tractor2.jpg",
+    "palabra": "TRACTOR2",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "transbordador.jpg",
+    "palabra": "TRANSBORDADOR",
+    "categorias": [
+      "Medios de transporte",
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "tranvia.jpg",
+    "palabra": "TRANVIA",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "tranvia2.jpg",
+    "palabra": "TRANVIA2",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "trece.jpg",
+    "palabra": "TRECE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "treinta.jpg",
+    "palabra": "TREINTA",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "tren.jpg",
+    "palabra": "TREN",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "tres.jpg",
+    "palabra": "TRES",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "triangulo.jpg",
+    "palabra": "triángulo",
+    "categorias": [
+      "Figuras geométricas"
+    ]
+  },
+  {
+    "archivo_imagen": "triceratops.jpg",
+    "palabra": "TRICERATOPS",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "trombon.jpg",
+    "palabra": "TROMBON",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "trompeta.jpg",
+    "palabra": "TROMPETA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "trompo.jpg",
+    "palabra": "TROMPO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "tuerca.jpg",
+    "palabra": "TUERCA",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "turpial.jpg",
+    "palabra": "TURPIAL",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "tyrannosaurus_rex.jpg",
+    "palabra": "TYRANNOSAURUS REX",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "ukelele.jpg",
+    "palabra": "UKELELE",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "ula_ula.jpg",
+    "palabra": "ULA ULA",
+    "categorias": [
+      "Juguetes",
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "unicornio.jpg",
+    "palabra": "UNICORNIO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "universo.jpg",
+    "palabra": "UNIVERSO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "uno.jpg",
+    "palabra": "UNO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "urano.jpg",
+    "palabra": "URANO",
+    "categorias": [
+      "En el espacio"
+    ]
+  },
+  {
+    "archivo_imagen": "urraca.jpg",
+    "palabra": "URRACA",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "uva.jpg",
+    "palabra": "uva",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "uñas.jpg",
+    "palabra": "uñas",
+    "categorias": [
+      "Partes del cuerpo"
+    ]
+  },
+  {
+    "archivo_imagen": "vaca.jpg",
+    "palabra": "VACA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "varita_magica.jpg",
+    "palabra": "VARITA MAGICA",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "veinte.jpg",
+    "palabra": "VEINTE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "veinticinco.jpg",
+    "palabra": "VEINTICINCO",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "veintisiete.jpg",
+    "palabra": "VEINTISIETE",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "veintitres.jpg",
+    "palabra": "veintitrés",
+    "categorias": [
+      "Números"
+    ]
+  },
+  {
+    "archivo_imagen": "vela.jpg",
+    "palabra": "VELA",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "velero.jpg",
+    "palabra": "VELERO",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "velociraptor.jpg",
+    "palabra": "VELOCIRAPTOR",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "velociraptores.jpg",
+    "palabra": "VELOCIRAPTORES",
+    "categorias": [
+      "Dinosaurios"
+    ]
+  },
+  {
+    "archivo_imagen": "venado.jpg",
+    "palabra": "VENADO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "verde.jpg",
+    "palabra": "VERDE",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "vestido.jpg",
+    "palabra": "VESTIDO",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "viola.jpg",
+    "palabra": "VIOLA",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "violeta.jpg",
+    "palabra": "VIOLETA",
+    "categorias": [
+      "Colores"
+    ]
+  },
+  {
+    "archivo_imagen": "violin.jpg",
+    "palabra": "VIOLIN",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "violonchelo.jpg",
+    "palabra": "VIOLONCHELO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "xilofago.jpg",
+    "palabra": "XILOFAGO",
+    "categorias": [
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "xilofono.jpg",
+    "palabra": "XILOFONO",
+    "categorias": [
+      "Instrumentos musicales"
+    ]
+  },
+  {
+    "archivo_imagen": "yate.jpg",
+    "palabra": "YATE",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "yate2.jpg",
+    "palabra": "YATE2",
+    "categorias": [
+      "Medios de transporte"
+    ]
+  },
+  {
+    "archivo_imagen": "yegua.jpg",
+    "palabra": "YEGUA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "yeso.jpg",
+    "palabra": "YESO",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "yoga.jpg",
+    "palabra": "YOGA",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "yogurt.jpg",
+    "palabra": "YOGURT",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "yoyo.jpg",
+    "palabra": "YOYO",
+    "categorias": [
+      "Juguetes"
+    ]
+  },
+  {
+    "archivo_imagen": "yuca.jpg",
+    "palabra": "YUCA",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "yudo.jpg",
+    "palabra": "YUDO",
+    "categorias": [
+      "En las Olimpiadas"
+    ]
+  },
+  {
+    "archivo_imagen": "yunque.jpg",
+    "palabra": "YUNQUE",
+    "categorias": [
+      "En la construcción"
+    ]
+  },
+  {
+    "archivo_imagen": "zamuro.jpg",
+    "palabra": "ZAMURO",
+    "categorias": [
+      "Animales voladores"
+    ]
+  },
+  {
+    "archivo_imagen": "zanahoria.jpg",
+    "palabra": "zanahoria",
+    "categorias": [
+      "En la cocina"
+    ]
+  },
+  {
+    "archivo_imagen": "zancudo.jpg",
+    "palabra": "ZANCUDO",
+    "categorias": [
+      "Animales voladores",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "zancudo2.jpg",
+    "palabra": "ZANCUDO2",
+    "categorias": [
+      "Animales voladores",
+      "Insectos"
+    ]
+  },
+  {
+    "archivo_imagen": "zapato.jpg",
+    "palabra": "ZAPATO",
+    "categorias": [
+      "Deportes"
+    ]
+  },
+  {
+    "archivo_imagen": "zebra.jpg",
+    "palabra": "ZEBRA",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "zoo.jpg",
+    "palabra": "ZOO",
+    "categorias": [
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "zoologico.jpg",
+    "palabra": "ZOOLOGICO",
+    "categorias": [
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "zorro.jpg",
+    "palabra": "ZORRO",
+    "categorias": [
+      "Animales del bosque"
+    ]
+  },
+  {
+    "archivo_imagen": "zumo.jpg",
+    "palabra": "ZUMO",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "ñandu.jpg",
+    "palabra": "ÑANDU",
+    "categorias": [
+      "Animales del bosque",
+      "Animales voladores",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "ñandu_2.jpg",
+    "palabra": "ÑANDU 2",
+    "categorias": [
+      "Animales del bosque",
+      "Animales voladores",
+      "En el zoológico"
+    ]
+  },
+  {
+    "archivo_imagen": "ñapa.jpg",
+    "palabra": "ÑAPA",
+    "categorias": [
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "ñoqui.jpg",
+    "palabra": "ÑOQUI",
+    "categorias": [
+      "En la cocina",
+      "Alimentos"
+    ]
+  },
+  {
+    "archivo_imagen": "ñu.jpg",
+    "palabra": "ÑU",
+    "categorias": [
+      "Animales del bosque",
+      "En el zoológico"
+    ]
+  }
+]
