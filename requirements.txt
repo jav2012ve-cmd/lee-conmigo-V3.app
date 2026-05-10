@@ -1,0 +1,5 @@
+# LeeConmigo V2 - dependencias
+streamlit>=1.28.0
+reportlab>=4.0.0
+fpdf2>=2.7.0
+Unidecode>=1.3.0
