@@ -11,16 +11,14 @@ def _project_root() -> str:
 
 def ruta_logo_app() -> str | None:
     """
-    Logo principal de la app.
-    Prioridad: assets/genericos/fondos/LogoLeeCommigo.png, luego assets/lee_conmigo_ia.*
+    Logo principal de la app: solo bajo assets/genericos/fondos/.
+    Prioridad: LogoLeeConmigo.*, luego LogoLeeCommigo.* (typo histórico), mismas bases con distintas extensiones.
     """
     root = _project_root()
-    preferido = os.path.join(root, "assets", "genericos", "fondos", "LogoLeeCommigo.png")
-    if os.path.isfile(preferido):
-        return preferido
-    d = os.path.join(root, "assets")
-    for ext in (".png", ".jpg", ".jpeg", ".webp"):
-        p = os.path.join(d, f"lee_conmigo_ia{ext}")
-        if os.path.isfile(p):
-            return p
+    fondos = os.path.join(root, "assets", "genericos", "fondos")
+    for base in ("LogoLeeConmigo", "LogoLeeCommigo"):
+        for ext in (".png", ".jpg", ".jpeg", ".webp"):
+            p = os.path.join(fondos, f"{base}{ext}")
+            if os.path.isfile(p):
+                return p
     return None

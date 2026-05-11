@@ -100,8 +100,8 @@ def render_salon_entrada():
                 st.image(_logo, width=_w, use_container_width=False)
         else:
             st.caption(
-                "Coloca el logo en **assets/genericos/fondos/LogoLeeCommigo.png** "
-                "o en **assets/lee_conmigo_ia.png**."
+                "Coloca el logo en **assets/genericos/fondos/** "
+                "(p. ej. **LogoLeeConmigo.png** o **LogoLeeCommigo.png**; también .jpg / .webp)."
             )
     with col_pregunta:
         st.markdown(
