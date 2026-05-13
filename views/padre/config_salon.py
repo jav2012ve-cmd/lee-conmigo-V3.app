@@ -27,41 +27,77 @@ from core.password_utils import normalizar_cedula_o_clave_numerica
 
 _PROJ_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 _AVATARES_NINO_DIR = os.path.join(_PROJ_ROOT, "assets", "avatars_nino")
+_IMG_EXTS_AVATAR = (".jpg", ".jpeg", ".png", ".webp")
+
+
+def _normalizar_ruta_abs(p):
+    if not p or not isinstance(p, str):
+        return None
+    try:
+        return os.path.normpath(os.path.abspath(p.strip()))
+    except Exception:
+        return None
+
+
+def _infer_genero_desde_ruta(path_abs):
+    """Clasifica avatares en nino / nina según carpeta o prefijo del archivo (resto = solo en «Todos»)."""
+    p = (path_abs or "").replace("\\", "/").lower()
+    for seg in p.split("/"):
+        s = seg.split(".")[0]
+        if s in ("nina", "niña", "girl", "girls", "ninas", "niñas"):
+            return "nina"
+        if s in ("nino", "niño", "boy", "boys", "ninos", "niños"):
+            return "nino"
+    base = os.path.basename(p)
+    if base.startswith(("nina_", "niña_", "girl_")) or "_nina_" in base or "_niña_" in base:
+        return "nina"
+    if base.startswith(("nino_", "niño_", "boy_")) or "_nino_" in base or "_niño_" in base:
+        return "nino"
+    return None
 
 
 def _listar_avatares_nino():
+    """Recorre assets/avatars_nino (incluye subcarpetas nino / nina). Cada ítem: label, path, genero."""
     avatares = []
     try:
         os.makedirs(_AVATARES_NINO_DIR, exist_ok=True)
         if not os.path.isdir(_AVATARES_NINO_DIR):
             return []
-        for name in sorted(os.listdir(_AVATARES_NINO_DIR)):
-            lower = name.lower()
-            if lower.endswith((".jpg", ".jpeg", ".png", ".webp")):
+        for root, _dirs, files in os.walk(_AVATARES_NINO_DIR):
+            for name in sorted(files):
+                lower = name.lower()
+                if not lower.endswith(_IMG_EXTS_AVATAR):
+                    continue
+                path_abs = os.path.join(root, name)
+                if not os.path.isfile(path_abs):
+                    continue
                 label = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").strip()
-                path_abs = os.path.join(_AVATARES_NINO_DIR, name)
-                if os.path.isfile(path_abs):
-                    avatares.append({"label": label.title() or name, "path": path_abs})
+                genero = _infer_genero_desde_ruta(path_abs)
+                avatares.append({"label": label.title() or name, "path": path_abs, "genero": genero})
+        avatares.sort(key=lambda x: (x.get("genero") is None, x.get("genero") or "", x["label"].lower()))
     except Exception:
         return []
     return avatares
 
 
-def _index_avatar_en_galeria_nino(ruta_resuelta, lista):
-    if not ruta_resuelta or not lista:
-        return 0
-    try:
-        ra = os.path.normpath(os.path.abspath(ruta_resuelta))
-    except Exception:
-        return 0
-    for i, av in enumerate(lista):
-        try:
-            ap = os.path.normpath(os.path.abspath(av["path"]))
-            if ap == ra:
-                return i
-        except Exception:
-            continue
-    return 0
+def _filtrar_avatares_nino_por_vista(lista, filtro):
+    if filtro == "Niños":
+        return [a for a in lista if a.get("genero") == "nino"]
+    if filtro == "Niñas":
+        return [a for a in lista if a.get("genero") == "nina"]
+    return list(lista)
+
+
+def _asegurar_sesion_avatar_path(path_key, ruta_actual_resuelta, lista_avatares):
+    if not lista_avatares:
+        return
+    por_norm = {_normalizar_ruta_abs(a["path"]): a["path"] for a in lista_avatares}
+    if path_key not in st.session_state:
+        ra = _normalizar_ruta_abs(ruta_actual_resuelta)
+        if ra and ra in por_norm:
+            st.session_state[path_key] = por_norm[ra]
+        else:
+            st.session_state[path_key] = lista_avatares[0]["path"]
 
 
 def _resolver_ruta_archivo(path):
@@ -277,47 +313,69 @@ def render_config_salon():
         st.subheader("📷 Avatar en la pantalla de bienvenida")
         st.caption(
             "El dibujo que elijas es el que verá el niño en el **Salón** al tocar su foto para entrar (junto al nombre). "
-            "Las imágenes vienen de la carpeta del proyecto **assets/avatars_nino**. "
+            "Coloca las imágenes en **assets/avatars_nino** (subcarpetas **nino** y **nina**, o nombres tipo `nino_…` / `nina_…`). "
             "Ese avatar tiene **prioridad** sobre una foto del álbum con palabra clave = nombre del niño."
         )
         avatares_nino = _listar_avatares_nino()
-        sel_key = f"config_avatar_nino_sel_{estudiante_id_actual or 'new'}"
+        _kid = estudiante_id_actual or "new"
+        path_key = f"config_avatar_nino_path_{_kid}"
+        filtro_key = f"config_avatar_nino_filtro_{_kid}"
         if avatares_nino:
-            if sel_key not in st.session_state:
-                ruta_vis = None
-                if estudiante_id_actual and perfil:
-                    ruta_vis = _foto_perfil_estudiante(
-                        estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, "")
-                    )
-                st.session_state[sel_key] = _index_avatar_en_galeria_nino(ruta_vis, avatares_nino)
+            ruta_vis = None
             if estudiante_id_actual and perfil:
-                ruta_prev = _foto_perfil_estudiante(
+                ruta_vis = _foto_perfil_estudiante(
                     estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, "")
                 )
-                if ruta_prev and os.path.isfile(ruta_prev):
-                    st.image(ruta_prev, caption="Vista previa (Salón / álbum)", width=120)
-            else:
-                st.caption("_Tras guardar el perfil, el avatar elegido aparecerá en el Salón._")
-            st.caption(f"**{len(avatares_nino)}** personajes disponibles. Elige uno y guarda el perfil.")
-            ncols = 6
-            for row0 in range(0, len(avatares_nino), ncols):
-                row_items = avatares_nino[row0 : row0 + ncols]
+            _asegurar_sesion_avatar_path(path_key, ruta_vis, avatares_nino)
+            n_nino = sum(1 for a in avatares_nino if a.get("genero") == "nino")
+            n_nina = sum(1 for a in avatares_nino if a.get("genero") == "nina")
+            st.caption(
+                f"**{len(avatares_nino)}** personajes en galería "
+                f"({n_nino} niño(s), {n_nina} niña(s), el resto solo en «Todos»). Elige uno y guarda el perfil."
+            )
+            filtro = st.radio(
+                "Mostrar avatares",
+                ["Todos", "Niños", "Niñas"],
+                horizontal=True,
+                key=filtro_key,
+            )
+            opts = _filtrar_avatares_nino_por_vista(avatares_nino, filtro)
+            if not opts:
+                st.warning(
+                    f"No hay imágenes clasificadas como **{filtro.lower()}**. "
+                    "Usa carpetas **nino** / **nina** o prefijos en el nombre del archivo, o elige «Todos»."
+                )
+                opts = list(avatares_nino)
+            opts_paths = [a["path"] for a in opts]
+            labels_por_path = {a["path"]: a["label"] for a in opts}
+            curr = st.session_state.get(path_key)
+            if curr not in opts_paths:
+                st.session_state[path_key] = opts_paths[0]
+            st.selectbox(
+                "Elige el avatar del niño o la niña",
+                opts_paths,
+                format_func=lambda p: labels_por_path.get(p, os.path.basename(p or "")),
+                key=path_key,
+            )
+            sel_preview = st.session_state.get(path_key) or opts_paths[0]
+            if sel_preview and os.path.isfile(sel_preview):
+                st.image(sel_preview, width=180, caption="Así se verá en el Salón al tocar la foto del perfil")
+            ncols = 5
+            for row0 in range(0, len(opts), ncols):
+                row_items = opts[row0 : row0 + ncols]
                 gcols = st.columns(ncols)
                 for j, av in enumerate(row_items):
                     with gcols[j]:
+                        es_sel = _normalizar_ruta_abs(av["path"]) == _normalizar_ruta_abs(
+                            st.session_state.get(path_key)
+                        )
                         st.image(av["path"], use_container_width=True)
-                        cap = av["label"][:22] + ("…" if len(av["label"]) > 22 else "")
-                        st.caption(cap)
-            st.selectbox(
-                "Selecciona el avatar del niño",
-                range(len(avatares_nino)),
-                format_func=lambda i: avatares_nino[i]["label"],
-                key=sel_key,
-            )
+                        cap = av["label"][:20] + ("…" if len(av["label"]) > 20 else "")
+                        st.caption(f"**{cap}**" if es_sel else cap)
         else:
             st.warning(
                 "Aún no hay dibujos en **assets/avatars_nino**. "
-                "Añade archivos .png o .jpg en esa carpeta del proyecto para poder elegir avatar."
+                "Añade archivos .png o .jpg (por ejemplo en **nino** y **nina**) para poder elegir avatar."
             )
             if estudiante_id_actual and perfil:
                 ruta_prev = _foto_perfil_estudiante(
@@ -470,12 +528,16 @@ def render_config_salon():
                 )
                 gal_nino = _listar_avatares_nino()
 
-                def _aplicar_avatar_salon(id_est, sk):
+                def _aplicar_avatar_salon(id_est, pk):
                     if not id_est or not gal_nino:
                         return
-                    idx = int(st.session_state.get(sk, 0))
-                    idx = max(0, min(idx, len(gal_nino) - 1))
-                    actualizar_avatar_estudiante(id_est, gal_nino[idx]["path"])
+                    p = st.session_state.get(pk)
+                    if not p or not isinstance(p, str):
+                        return
+                    permitidas = {_normalizar_ruta_abs(a["path"]) for a in gal_nino}
+                    pn = _normalizar_ruta_abs(p.strip())
+                    if pn and pn in permitidas:
+                        actualizar_avatar_estudiante(id_est, p.strip())
 
                 def _guardar_credenciales_doc_tut():
                     if ced_doc_digits and nd:
@@ -491,7 +553,7 @@ def render_config_salon():
                     st.session_state.color_favorito = color_fav
                     _aplicar_avatar_salon(
                         estudiante_id_actual,
-                        f"config_avatar_nino_sel_{estudiante_id_actual}",
+                        f"config_avatar_nino_path_{estudiante_id_actual}",
                     )
                     if gal_nino:
                         msg_ok += " 📷 Avatar del Salón actualizado."
@@ -503,7 +565,7 @@ def render_config_salon():
                         nuevo_id = crear_estudiante(datos_estudiante)
                         if nuevo_id:
                             _guardar_credenciales_doc_tut()
-                            _aplicar_avatar_salon(nuevo_id, "config_avatar_nino_sel_new")
+                            _aplicar_avatar_salon(nuevo_id, "config_avatar_nino_path_new")
                             st.session_state.estudiante_id = nuevo_id
                             st.session_state.nombre_nino = nombre
                             st.session_state.color_favorito = color_fav
