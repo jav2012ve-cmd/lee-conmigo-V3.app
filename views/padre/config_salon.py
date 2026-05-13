@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import html
+from pathlib import Path
 
 from components.page_title import render_titulo_pagina
 import unicodedata
@@ -25,7 +26,21 @@ from database.db_queries import (
 )
 from core.password_utils import normalizar_cedula_o_clave_numerica
 
-_PROJ_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+def _repo_root():
+    """Raíz del repo aunque cambie la profundidad de views/ (busca database/db_config.py)."""
+    cur = Path(__file__).resolve().parent
+    for _ in range(10):
+        if (cur / "database" / "db_config.py").is_file():
+            return cur
+        parent = cur.parent
+        if parent == cur:
+            break
+        cur = parent
+    return Path(__file__).resolve().parents[2]
+
+
+_PROJ_ROOT = str(_repo_root())
 _AVATARES_NINO_DIR = os.path.join(_PROJ_ROOT, "assets", "avatars_nino")
 _IMG_EXTS_AVATAR = (".jpg", ".jpeg", ".png", ".webp")
 
@@ -69,13 +84,14 @@ def _listar_avatares_nino():
                 if not lower.endswith(_IMG_EXTS_AVATAR):
                     continue
                 path_abs = os.path.join(root, name)
-                if not os.path.isfile(path_abs):
+                # No usar os.path.isfile: en OneDrive/archivos "solo en la nube" puede ser False aunque el nombre exista.
+                if not os.path.lexists(path_abs):
                     continue
                 label = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").strip()
                 genero = _infer_genero_desde_ruta(path_abs)
                 avatares.append({"label": label.title() or name, "path": path_abs, "genero": genero})
-        avatares.sort(key=lambda x: (x.get("genero") is None, x.get("genero") or "", x["label"].lower()))
-    except Exception:
+        avatares.sort(key=lambda x: (x.get("genero") is None, x.get("genero") or "", (x.get("label") or "").lower()))
+    except OSError:
         return []
     return avatares
 

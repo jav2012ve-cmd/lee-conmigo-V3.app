@@ -1,12 +1,21 @@
 """Galería unificada de avatares: carpeta Familia + avatares de estudiante (assets/avatars_nino)."""
 
 import os
+from pathlib import Path
 
 _IMG = (".jpg", ".jpeg", ".png", ".webp")
 
 
 def _proyecto_root():
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    cur = Path(__file__).resolve().parent
+    for _ in range(10):
+        if (cur / "database" / "db_config.py").is_file():
+            return cur
+        parent = cur.parent
+        if parent == cur:
+            break
+        cur = parent
+    return Path(__file__).resolve().parents[1]
 
 
 def listar_avatares_familia_galeria():
@@ -21,11 +30,14 @@ def listar_avatares_familia_galeria():
     root = _proyecto_root()
 
     def add(path_abs, filename):
-        if not path_abs or not os.path.isfile(path_abs):
+        if not path_abs:
+            return
+        # Evitar os.path.isfile: OneDrive / archivos bajo demanda pueden fallar aquí.
+        if not os.path.lexists(path_abs):
             return
         try:
             norm = os.path.normpath(os.path.abspath(path_abs))
-        except Exception:
+        except OSError:
             return
         if norm in seen:
             return
@@ -33,7 +45,7 @@ def listar_avatares_familia_galeria():
         label = os.path.splitext(filename)[0].replace("_", " ").replace("-", " ").strip()
         out.append({"label": label.title() or filename, "path": norm})
 
-    fam = os.path.join(root, "assets", "avatars_familia")
+    fam = os.path.join(str(root), "assets", "avatars_familia")
     try:
         if os.path.isdir(fam):
             for name in sorted(os.listdir(fam)):
@@ -42,10 +54,10 @@ def listar_avatares_familia_galeria():
                 if not name.lower().endswith(_IMG):
                     continue
                 add(os.path.join(fam, name), name)
-    except Exception:
+    except OSError:
         pass
 
-    nino = os.path.join(root, "assets", "avatars_nino")
+    nino = os.path.join(str(root), "assets", "avatars_nino")
     try:
         if os.path.isdir(nino):
             for wroot, _dirs, files in os.walk(nino):
@@ -55,7 +67,7 @@ def listar_avatares_familia_galeria():
                     if not name.lower().endswith(_IMG):
                         continue
                     add(os.path.join(wroot, name), name)
-    except Exception:
+    except OSError:
         pass
 
     return out
