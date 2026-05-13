@@ -297,6 +297,82 @@ def render_config_salon():
 
     st.write("---")
 
+    # Avatar del Salón: fuera del formulario (Streamlit no permite st.button dentro de st.form).
+    st.subheader("📷 Avatar en la pantalla de bienvenida")
+    st.caption(
+        "El dibujo que elijas es el que verá el niño en el **Salón** al tocar su foto para entrar (junto al nombre). "
+        "Coloca las imágenes en **assets/avatars_nino** (subcarpetas **nino** y **nina**, o nombres tipo `nino_…` / `nina_…`). "
+        "Ese avatar tiene **prioridad** sobre una foto del álbum con palabra clave = nombre del niño."
+    )
+    avatares_nino = _listar_avatares_nino()
+    _kid = estudiante_id_actual or "new"
+    path_key = f"config_avatar_nino_path_{_kid}"
+    filtro_key = f"config_avatar_nino_filtro_{_kid}"
+    if avatares_nino:
+        ruta_vis = None
+        if estudiante_id_actual and perfil:
+            ruta_vis = _foto_perfil_estudiante(
+                estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, "")
+            )
+        _asegurar_sesion_avatar_path(path_key, ruta_vis, avatares_nino)
+        n_nino = sum(1 for a in avatares_nino if a.get("genero") == "nino")
+        n_nina = sum(1 for a in avatares_nino if a.get("genero") == "nina")
+        st.caption(
+            f"**{len(avatares_nino)}** personajes en galería "
+            f"({n_nino} niño(s), {n_nina} niña(s), el resto solo en «Todos»). Pulsa **Elegir** debajo de un dibujo y luego guarda el perfil."
+        )
+        filtro = st.radio(
+            "Mostrar avatares",
+            ["Todos", "Niños", "Niñas"],
+            horizontal=True,
+            key=filtro_key,
+        )
+        opts = _filtrar_avatares_nino_por_vista(avatares_nino, filtro)
+        if not opts:
+            st.warning(
+                f"No hay imágenes clasificadas como **{filtro.lower()}**. "
+                "Usa carpetas **nino** / **nina** o prefijos en el nombre del archivo, o elige «Todos»."
+            )
+            opts = list(avatares_nino)
+        opts_paths = [a["path"] for a in opts]
+        curr = st.session_state.get(path_key)
+        if curr not in opts_paths:
+            st.session_state[path_key] = opts_paths[0]
+        sel_preview = st.session_state.get(path_key) or opts_paths[0]
+        if sel_preview and os.path.lexists(sel_preview):
+            st.image(sel_preview, width=180, caption="Así se verá en el Salón al tocar la foto del perfil")
+        st.markdown("**Elige el avatar del niño o la niña**")
+        ncols = 5
+        for row0 in range(0, len(opts), ncols):
+            row_items = opts[row0 : row0 + ncols]
+            gcols = st.columns(ncols)
+            for j, av in enumerate(row_items):
+                with gcols[j]:
+                    es_sel = _normalizar_ruta_abs(av["path"]) == _normalizar_ruta_abs(
+                        st.session_state.get(path_key)
+                    )
+                    st.image(av["path"], use_container_width=True)
+                    cap = av["label"][:18] + ("…" if len(av["label"]) > 18 else "")
+                    st.caption(f"**{cap}**" if es_sel else cap)
+                    idx_av = row0 + j
+                    btn_key = f"avatar_elegir_{_kid}_{filtro}_{idx_av}"
+                    if st.button("Elegir", key=btn_key, use_container_width=True, type="secondary"):
+                        st.session_state[path_key] = av["path"]
+                        st.rerun()
+    else:
+        st.warning(
+            "Aún no hay dibujos en **assets/avatars_nino**. "
+            "Añade archivos .png o .jpg (por ejemplo en **nino** y **nina**) para poder elegir avatar."
+        )
+        if estudiante_id_actual and perfil:
+            ruta_prev = _foto_perfil_estudiante(
+                estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, "")
+            )
+            if ruta_prev and os.path.lexists(ruta_prev):
+                st.image(ruta_prev, caption="Foto actual (álbum o avatar previo)", width=120)
+
+    st.write("---")
+
     with st.form("form_registro_nino", clear_on_submit=False):
         col1, col2 = st.columns(2)
         with col1:
@@ -325,80 +401,6 @@ def render_config_salon():
                 key="input_color",
             )
             animal = st.text_input("Animal Favorito", value=_v(perfil, 12, ""), key="input_animal")
-        st.write("---")
-        st.subheader("📷 Avatar en la pantalla de bienvenida")
-        st.caption(
-            "El dibujo que elijas es el que verá el niño en el **Salón** al tocar su foto para entrar (junto al nombre). "
-            "Coloca las imágenes en **assets/avatars_nino** (subcarpetas **nino** y **nina**, o nombres tipo `nino_…` / `nina_…`). "
-            "Ese avatar tiene **prioridad** sobre una foto del álbum con palabra clave = nombre del niño."
-        )
-        avatares_nino = _listar_avatares_nino()
-        _kid = estudiante_id_actual or "new"
-        path_key = f"config_avatar_nino_path_{_kid}"
-        filtro_key = f"config_avatar_nino_filtro_{_kid}"
-        if avatares_nino:
-            ruta_vis = None
-            if estudiante_id_actual and perfil:
-                ruta_vis = _foto_perfil_estudiante(
-                    estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, "")
-                )
-            _asegurar_sesion_avatar_path(path_key, ruta_vis, avatares_nino)
-            n_nino = sum(1 for a in avatares_nino if a.get("genero") == "nino")
-            n_nina = sum(1 for a in avatares_nino if a.get("genero") == "nina")
-            st.caption(
-                f"**{len(avatares_nino)}** personajes en galería "
-                f"({n_nino} niño(s), {n_nina} niña(s), el resto solo en «Todos»). Elige uno y guarda el perfil."
-            )
-            filtro = st.radio(
-                "Mostrar avatares",
-                ["Todos", "Niños", "Niñas"],
-                horizontal=True,
-                key=filtro_key,
-            )
-            opts = _filtrar_avatares_nino_por_vista(avatares_nino, filtro)
-            if not opts:
-                st.warning(
-                    f"No hay imágenes clasificadas como **{filtro.lower()}**. "
-                    "Usa carpetas **nino** / **nina** o prefijos en el nombre del archivo, o elige «Todos»."
-                )
-                opts = list(avatares_nino)
-            opts_paths = [a["path"] for a in opts]
-            labels_por_path = {a["path"]: a["label"] for a in opts}
-            curr = st.session_state.get(path_key)
-            if curr not in opts_paths:
-                st.session_state[path_key] = opts_paths[0]
-            st.selectbox(
-                "Elige el avatar del niño o la niña",
-                opts_paths,
-                format_func=lambda p: labels_por_path.get(p, os.path.basename(p or "")),
-                key=path_key,
-            )
-            sel_preview = st.session_state.get(path_key) or opts_paths[0]
-            if sel_preview and os.path.isfile(sel_preview):
-                st.image(sel_preview, width=180, caption="Así se verá en el Salón al tocar la foto del perfil")
-            ncols = 5
-            for row0 in range(0, len(opts), ncols):
-                row_items = opts[row0 : row0 + ncols]
-                gcols = st.columns(ncols)
-                for j, av in enumerate(row_items):
-                    with gcols[j]:
-                        es_sel = _normalizar_ruta_abs(av["path"]) == _normalizar_ruta_abs(
-                            st.session_state.get(path_key)
-                        )
-                        st.image(av["path"], use_container_width=True)
-                        cap = av["label"][:20] + ("…" if len(av["label"]) > 20 else "")
-                        st.caption(f"**{cap}**" if es_sel else cap)
-        else:
-            st.warning(
-                "Aún no hay dibujos en **assets/avatars_nino**. "
-                "Añade archivos .png o .jpg (por ejemplo en **nino** y **nina**) para poder elegir avatar."
-            )
-            if estudiante_id_actual and perfil:
-                ruta_prev = _foto_perfil_estudiante(
-                    estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, "")
-                )
-                if ruta_prev and os.path.isfile(ruta_prev):
-                    st.image(ruta_prev, caption="Foto actual (álbum o avatar previo)", width=120)
         st.write("---")
         st.subheader("Intereses para Lectura")
         col3, col4 = st.columns(2)
