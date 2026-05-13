@@ -110,3 +110,12 @@ Al iniciar, la app abre en http://localhost:8501
   en **Configuracion del salon**. Puede ser la misma persona que la docente de aula o distinta.
 - El tutor entra con ese nombre y la cédula registrada; en el primer acceso cambia contraseña.
 - DEMO: nombre **Tutor demo**, cédula inicial **87654321**.
+
+11) Zona administradores
+-------------------------
+- Boton lateral **Zona administradores** (main, V3, V4, V5 y DEMO).
+- PIN global: variable `LEE_CONMIGO_ADMIN_PIN` o en Streamlit Secrets la clave `admin_portal_pin`.
+- Desde ahi se crean o actualizan credenciales de **docente** y **tutor** (mismo nombre y cédula
+  que usaran en Zona docentes / Zona Tutores). Asi pueden existir credenciales antes de dar de alta
+  perfiles de niños.
+- **main_DEMO.py** define por defecto PIN `demo-admin` si no hay otro en el entorno (solo demo).

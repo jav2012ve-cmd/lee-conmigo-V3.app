@@ -29,6 +29,7 @@ from views_v5.estudiante.informe_sesion_v5 import render_informe_sesion_v5
 from views.estudiante.abecedario_matriz import render_abecedario_matriz
 from views.docente.zona_docente import render_zona_docente
 from views.tutor.zona_tutores import render_zona_tutores
+from views.admin.zona_administradores import render_zona_administradores
 
 
 def main():
@@ -57,6 +58,9 @@ def main():
         if st.button("🎓 Zona Tutores", use_container_width=True, key="v5_sidebar_tutor"):
             st.session_state.pagina_activa = "zona_tutores"
             st.rerun()
+        if st.button("🛠️ Zona administradores", use_container_width=True, key="v5_sidebar_admin"):
+            st.session_state.pagina_activa = "zona_admin"
+            st.rerun()
         if st.button("👨‍👩‍👧 Zona de padres", use_container_width=True, key="v5_sidebar_zona"):
             st.session_state.pagina_activa = "zona_padres"
             st.rerun()
@@ -82,6 +86,8 @@ def main():
         render_zona_docente()
     elif pagina == "zona_tutores":
         render_zona_tutores()
+    elif pagina == "zona_admin":
+        render_zona_administradores()
     elif pagina == "album_mgmt":
         render_album_mgmt_v5()
     elif pagina == "hub_nino":

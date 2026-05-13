@@ -27,6 +27,9 @@ def init_session_demo():
     if "tutor_pw_change_required" not in st.session_state:
         st.session_state.tutor_pw_change_required = False
 
+    if "admin_acceso_ok" not in st.session_state:
+        st.session_state.admin_acceso_ok = False
+
     if "demo_album_categoria_activa" not in st.session_state:
         st.session_state.demo_album_categoria_activa = None
     if "demo_flash_msg" not in st.session_state:

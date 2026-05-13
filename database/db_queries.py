@@ -403,6 +403,35 @@ def verificar_password_docente_tutor(rol: str, nombre_display: str, clave_ingres
     return False
 
 
+def listar_credenciales_docente_tutor():
+    """
+    Lista credenciales registradas (sin hash). nombre_clave es la forma normalizada
+    que debe coincidir con el texto en perfiles (mismo criterio que Zona docentes/tutores).
+    """
+    try:
+        res = ejecutar_query(
+            """
+            SELECT rol, nombre_norm, COALESCE(must_change_password, 1), updated_at
+            FROM acceso_docente_tutor
+            ORDER BY rol, nombre_norm
+            """,
+            fetch=True,
+        )
+    except Exception:
+        return []
+    out = []
+    for r in res or []:
+        out.append(
+            {
+                "rol": r[0] or "",
+                "nombre_clave": r[1] or "",
+                "debe_cambiar_pw": bool(int(r[2] or 1)),
+                "actualizado": r[3] or "",
+            }
+        )
+    return out
+
+
 def eliminar_estudiantes_duplicados(padre_id):
     """
     Elimina registros duplicados por (primer_nombre, segundo_nombre, apellidos),

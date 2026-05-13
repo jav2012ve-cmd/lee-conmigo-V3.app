@@ -25,6 +25,17 @@ def init_session_v3():
     if "pagina_activa" not in st.session_state:
         st.session_state.pagina_activa = "salon_entrada"
 
+    if "docente_acceso_ok" not in st.session_state:
+        st.session_state.docente_acceso_ok = False
+    if "docente_pw_change_required" not in st.session_state:
+        st.session_state.docente_pw_change_required = False
+    if "tutor_acceso_ok" not in st.session_state:
+        st.session_state.tutor_acceso_ok = False
+    if "tutor_pw_change_required" not in st.session_state:
+        st.session_state.tutor_pw_change_required = False
+    if "admin_acceso_ok" not in st.session_state:
+        st.session_state.admin_acceso_ok = False
+
     # Estado académico V3 (nuevo): ciclo/bloque y desbloqueos
     if "v3_ciclo_id" not in st.session_state:
         st.session_state.v3_ciclo_id = "C1"

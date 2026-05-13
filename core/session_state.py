@@ -38,6 +38,9 @@ def init_session():
     if "tutor_pw_change_required" not in st.session_state:
         st.session_state.tutor_pw_change_required = False
 
+    if "admin_acceso_ok" not in st.session_state:
+        st.session_state.admin_acceso_ok = False
+
     # 4. Estado Académico (Cache para evitar consultas constantes a DB)
     if 'ciclo_actual' not in st.session_state or not st.session_state.ciclo_actual:
         st.session_state.ciclo_actual = "Ciclo 1"  # Valor inicial robusto

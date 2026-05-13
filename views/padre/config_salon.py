@@ -321,7 +321,8 @@ def render_config_salon():
         st.subheader("👩‍🏫 Docente o grupo escolar")
         st.caption(
             "Opcional pero recomendado: la docente podrá ver en **Zona docentes** el listado y el avance "
-            "de todos los niños que compartan exactamente este nombre (sin distinguir mayúsculas)."
+            "de todos los niños que compartan exactamente este nombre (sin distinguir mayúsculas). "
+            "La cédula también puede registrarse desde **Zona administradores** antes de crear perfiles."
         )
         _doc_def = obtener_nombre_docente(estudiante_id_actual) if estudiante_id_actual else ""
         nombre_docente = st.text_input(
@@ -342,7 +343,8 @@ def render_config_salon():
         st.subheader("🎓 Tutor LeeConmigo (acompañamiento en la app)")
         st.caption(
             "Persona que seguirá el avance del niño **dentro de LeeConmigo** (Zona Tutores). "
-            "Puede ser **la misma** que la docente de aula o **otra** (ej. maestra de apoyo, coordinación)."
+            "Puede ser **la misma** que la docente de aula o **otra** (ej. maestra de apoyo, coordinación). "
+            "La cédula puede darse de alta también en **Zona administradores**."
         )
         _tut_def = obtener_nombre_tutor(estudiante_id_actual) if estudiante_id_actual else ""
         nombre_tutor = st.text_input(
