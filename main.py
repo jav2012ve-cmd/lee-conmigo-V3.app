@@ -22,7 +22,6 @@ from views.estudiante.informe_sesion import render_informe_sesion
 from views.estudiante.abecedario_matriz import render_abecedario_matriz
 from views.docente.zona_docente import render_zona_docente
 from views.tutor.zona_tutores import render_zona_tutores
-from views.admin.zona_administradores import render_zona_administradores
 
 
 def main():
@@ -84,6 +83,8 @@ def main():
         render_zona_tutores()
 
     elif pagina == "zona_admin":
+        from views.admin.zona_administradores import render_zona_administradores
+
         render_zona_administradores()
 
     elif pagina == 'album_mgmt':

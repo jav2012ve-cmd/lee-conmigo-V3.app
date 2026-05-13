@@ -18,7 +18,6 @@ from views_v4.estudiante.informe_sesion_v4 import render_informe_sesion_v4
 from views.estudiante.abecedario_matriz import render_abecedario_matriz
 from views.docente.zona_docente import render_zona_docente
 from views.tutor.zona_tutores import render_zona_tutores
-from views.admin.zona_administradores import render_zona_administradores
 
 
 def main():
@@ -71,6 +70,8 @@ def main():
     elif pagina == "zona_tutores":
         render_zona_tutores()
     elif pagina == "zona_admin":
+        from views.admin.zona_administradores import render_zona_administradores
+
         render_zona_administradores()
     elif pagina == "album_mgmt":
         render_album_mgmt_v4()

@@ -12,10 +12,11 @@ import streamlit as st
 from components.page_title import render_titulo_pagina
 from core.admin_portal import resolver_pin_administrador
 from core.password_utils import normalizar_cedula_o_clave_numerica
-from database.db_queries import listar_credenciales_docente_tutor, upsert_credencial_cedula_docente_tutor
 
 
 def render_zona_administradores():
+    from database.db_queries import listar_credenciales_docente_tutor, upsert_credencial_cedula_docente_tutor
+
     render_titulo_pagina("Zona administradores")
     pin_cfg = resolver_pin_administrador()
 
