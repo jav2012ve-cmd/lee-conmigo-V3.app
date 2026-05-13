@@ -70,6 +70,11 @@ def reset_demo_database() -> None:
     )
     conn.commit()
     conn.close()
+    # Credenciales de acceso a Zona docentes / Zona Tutores (demo)
+    from database.db_queries import upsert_credencial_cedula_docente_tutor
+
+    upsert_credencial_cedula_docente_tutor("docente", "Docente demo", "12345678")
+    upsert_credencial_cedula_docente_tutor("tutor", "Tutor demo", "87654321")
 
 
 def ensure_demo_database() -> None:

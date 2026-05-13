@@ -1,8 +1,17 @@
-import os
-from gtts import gTTS
 import hashlib
+import os
 
 from core.album_categories import texto_para_tts
+
+
+def _gtts_class():
+    """Import diferido: evita ModuleNotFoundError al arrancar si gTTS no está instalado (p. ej. Cloud)."""
+    try:
+        from gtts import gTTS as _GTTS
+
+        return _GTTS
+    except ImportError:
+        return None
 
 
 class SpeechEngine:
@@ -31,6 +40,13 @@ class SpeechEngine:
         # Si ya existe, no lo descargues de nuevo (ahorro de datos y tiempo)
         if os.path.exists(filepath):
             return filepath
+
+        gTTS = _gtts_class()
+        if gTTS is None:
+            print(
+                "gTTS no instalado: pip install gTTS (o añade gTTS al requirements.txt en Streamlit Cloud)."
+            )
+            return None
 
         try:
             # minúsculas: en español conserva tildes (í, á…); mejora pronunciación gTTS

@@ -28,6 +28,16 @@ def init_session():
     if 'pagina_activa' not in st.session_state:
         st.session_state.pagina_activa = 'salon_entrada'
 
+    # Zona docentes / tutores (acceso con contraseña)
+    if "docente_acceso_ok" not in st.session_state:
+        st.session_state.docente_acceso_ok = False
+    if "docente_pw_change_required" not in st.session_state:
+        st.session_state.docente_pw_change_required = False
+    if "tutor_acceso_ok" not in st.session_state:
+        st.session_state.tutor_acceso_ok = False
+    if "tutor_pw_change_required" not in st.session_state:
+        st.session_state.tutor_pw_change_required = False
+
     # 4. Estado Académico (Cache para evitar consultas constantes a DB)
     if 'ciclo_actual' not in st.session_state or not st.session_state.ciclo_actual:
         st.session_state.ciclo_actual = "Ciclo 1"  # Valor inicial robusto

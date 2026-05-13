@@ -97,15 +97,16 @@ Al iniciar, la app abre en http://localhost:8501
 9) Zona docentes (main, V3, V4, V5 y DEMO)
 -------------------------------------------
 - En la barra lateral: **Zona docentes** (visible siempre).
-- Cada perfil de nino lleva el campo **nombre_docente** (texto: docente o grupo),
-  configurable en **Configuracion del salon** al crear o editar el perfil.
-- La docente busca por ese mismo texto y ve la lista del grupo, estrellas,
-  ultimo ingreso y enlace al **informe de sesion** de cada nino.
+- Cada perfil de nino lleva el campo **nombre_docente** (texto: docente o grupo)
+  y la **cedula de la docente** (contraseña inicial), configurables en **Configuracion del salon**.
+- La docente entra con el mismo nombre y su cédula (solo números; se ignoran puntos y guiones).
+  En el **primer acceso** debe elegir una nueva contraseña (mínimo 6 caracteres).
+- DEMO: nombre de ejemplo **Docente demo**, cédula inicial **12345678**.
 
 10) Zona Tutores (main, V3, V4, V5 y DEMO)
 ------------------------------------------
 - En la barra lateral: **Zona Tutores** (visible siempre, igual que Zona docentes).
-- Cada perfil lleva ademas el campo **nombre_tutor** (maestro o tutor que sigue al nino
-  **dentro de LeeConmigo**), configurable en **Configuracion del salon**. Puede ser la misma
-  persona que **nombre_docente** (docente de aula / grupo) o distinta (apoyo, coordinacion).
-- El tutor busca por ese mismo texto y ve lista, estrellas, ultimo ingreso e informe de sesion.
+- Cada perfil lleva **nombre_tutor** y la **cedula del tutor LeeConmigo** (contraseña inicial),
+  en **Configuracion del salon**. Puede ser la misma persona que la docente de aula o distinta.
+- El tutor entra con ese nombre y la cédula registrada; en el primer acceso cambia contraseña.
+- DEMO: nombre **Tutor demo**, cédula inicial **87654321**.

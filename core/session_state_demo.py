@@ -18,6 +18,15 @@ def init_session_demo():
     if "pagina_activa" not in st.session_state:
         st.session_state.pagina_activa = "salon_entrada"
 
+    if "docente_acceso_ok" not in st.session_state:
+        st.session_state.docente_acceso_ok = False
+    if "docente_pw_change_required" not in st.session_state:
+        st.session_state.docente_pw_change_required = False
+    if "tutor_acceso_ok" not in st.session_state:
+        st.session_state.tutor_acceso_ok = False
+    if "tutor_pw_change_required" not in st.session_state:
+        st.session_state.tutor_pw_change_required = False
+
     if "demo_album_categoria_activa" not in st.session_state:
         st.session_state.demo_album_categoria_activa = None
     if "demo_flash_msg" not in st.session_state:

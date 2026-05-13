@@ -3,6 +3,12 @@ import os
 import unicodedata
 
 from database.db_config import DB_PATH
+from core.password_utils import (
+    hash_password,
+    nombre_docente_tutor_norm,
+    normalizar_cedula_o_clave_numerica,
+    verify_password,
+)
 
 
 def normalizar_clave_emoji_nino(s):
@@ -308,6 +314,93 @@ def obtener_estudiantes_por_tutor(nombre_tutor):
             }
         )
     return out
+
+
+# --- Credenciales Zona docentes / Zona tutores (cédula inicial, cambio en primer acceso) ---
+
+
+def credencial_docente_tutor_existe(rol: str, nombre_display: str) -> bool:
+    nn = nombre_docente_tutor_norm(nombre_display)
+    if not nn or rol not in ("docente", "tutor"):
+        return False
+    res = ejecutar_query(
+        "SELECT 1 FROM acceso_docente_tutor WHERE rol = ? AND nombre_norm = ? LIMIT 1",
+        (rol, nn),
+        fetch=True,
+    )
+    return bool(res)
+
+
+def obtener_credencial_docente_tutor(rol: str, nombre_display: str):
+    """Devuelve dict password_hash, must_change_password o None."""
+    nn = nombre_docente_tutor_norm(nombre_display)
+    if not nn or rol not in ("docente", "tutor"):
+        return None
+    res = ejecutar_query(
+        """
+        SELECT password_hash, COALESCE(must_change_password, 1)
+        FROM acceso_docente_tutor WHERE rol = ? AND nombre_norm = ?
+        """,
+        (rol, nn),
+        fetch=True,
+    )
+    if not res or not res[0] or not res[0][0]:
+        return None
+    return {"password_hash": res[0][0], "must_change_password": bool(int(res[0][1] or 1))}
+
+
+def upsert_credencial_cedula_docente_tutor(rol: str, nombre_display: str, cedula_solo_digitos: str):
+    """Registra o actualiza contraseña desde la cédula (obliga a cambiarla en el siguiente acceso)."""
+    nn = nombre_docente_tutor_norm(nombre_display)
+    if not nn or rol not in ("docente", "tutor"):
+        return None
+    digits = normalizar_cedula_o_clave_numerica(cedula_solo_digitos)
+    if len(digits) < 5:
+        return None
+    h = hash_password(digits)
+    return ejecutar_query(
+        """
+        INSERT INTO acceso_docente_tutor (rol, nombre_norm, password_hash, must_change_password)
+        VALUES (?, ?, ?, 1)
+        ON CONFLICT(rol, nombre_norm) DO UPDATE SET
+            password_hash = excluded.password_hash,
+            must_change_password = 1,
+            updated_at = CURRENT_TIMESTAMP
+        """,
+        (rol, nn, h),
+    )
+
+
+def actualizar_password_docente_tutor(rol: str, nombre_display: str, nueva_clave: str):
+    """Nueva contraseña elegida por docente/tutor; quita la obligación de cambio."""
+    nn = nombre_docente_tutor_norm(nombre_display)
+    if not nn or rol not in ("docente", "tutor"):
+        return None
+    if not (nueva_clave or "").strip() or len((nueva_clave or "").strip()) < 6:
+        return None
+    h = hash_password((nueva_clave or "").strip())
+    return ejecutar_query(
+        """
+        UPDATE acceso_docente_tutor
+        SET password_hash = ?, must_change_password = 0, updated_at = CURRENT_TIMESTAMP
+        WHERE rol = ? AND nombre_norm = ?
+        """,
+        (h, rol, nn),
+    )
+
+
+def verificar_password_docente_tutor(rol: str, nombre_display: str, clave_ingresada: str) -> bool:
+    """True si la clave coincide (cédula normalizada o contraseña actual)."""
+    row = obtener_credencial_docente_tutor(rol, nombre_display)
+    if not row:
+        return False
+    plain = (clave_ingresada or "").strip()
+    digits = normalizar_cedula_o_clave_numerica(plain)
+    if verify_password(plain, row["password_hash"]):
+        return True
+    if digits and verify_password(digits, row["password_hash"]):
+        return True
+    return False
 
 
 def eliminar_estudiantes_duplicados(padre_id):

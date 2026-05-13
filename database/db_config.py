@@ -172,6 +172,19 @@ def init_db():
         )
     ''')
 
+    # Credenciales Zona docentes / Zona tutores (nombre en perfil + contraseña; inicial = cédula)
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS acceso_docente_tutor (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            rol TEXT NOT NULL CHECK(rol IN ('docente', 'tutor')),
+            nombre_norm TEXT NOT NULL,
+            password_hash TEXT NOT NULL,
+            must_change_password INTEGER NOT NULL DEFAULT 1,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(rol, nombre_norm)
+        )
+    ''')
+
     conn.commit()
     conn.close()
     # Evitar emojis para compatibilidad con codificación Windows (cp1252)
