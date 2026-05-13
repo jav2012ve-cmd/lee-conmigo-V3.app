@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import html
 
 from components.page_title import render_titulo_pagina
 import unicodedata
@@ -154,80 +155,94 @@ def render_config_salon():
         st.session_state.config_emoji_perfil_key = perfil_emoji_key
     lista_emoji = st.session_state.get("config_emoji_clave") or []
 
-    st.subheader("Clave del niño (3 emojis)")
-    st.caption("Elige 3 emojis en orden. Se irán llenando los espacios de arriba al hacer clic en la matriz.")
-    # Tres espacios que se van llenando
-    slot1 = lista_emoji[0] if len(lista_emoji) > 0 else "—"
-    slot2 = lista_emoji[1] if len(lista_emoji) > 1 else "—"
-    slot3 = lista_emoji[2] if len(lista_emoji) > 2 else "—"
-    # Cajitas grises: más grandes, emoji centrado y bien proporcionado
-    st.markdown(
-        f"""
-        <style>
-        #config-clave-slots .slot-emoji {{
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 4.5rem; height: 4.5rem; font-size: 3rem; line-height: 1;
-            border: 3px solid #ccc; border-radius: 14px; margin: 0 8px;
-            background: #f8f9fa; vertical-align: middle;
-        }}
-        </style>
-        <div id="config-clave-slots" style="text-align: center; margin: 20px 0; letter-spacing: 0.5rem;">
-            <span class="slot-emoji">{slot1}</span>
-            <span class="slot-emoji">{slot2}</span>
-            <span class="slot-emoji">{slot3}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    # Matriz 3x3: solo estos botones usan type="primary" para poder darles emoji grande sin un <style> global que luego las pise.
-    _mc = (st.session_state.get("color_favorito") or "#4A90E2").strip()
-    if not _mc.startswith("#"):
-        _mc = "#" + _mc
-    st.markdown(
-        f"""
-        <style>
-        section[data-testid="stMain"] button[kind="primary"],
-        section[data-testid="stMain"] button[kind="primary"] * {{
-            font-size: clamp(2.85rem, 9vmin, 3.55rem) !important;
-            line-height: 1 !important;
-        }}
-        section[data-testid="stMain"] button[kind="primary"] {{
-            min-height: 3.95rem !important;
-            max-height: 3.95rem !important;
-            height: 3.95rem !important;
-            padding: 0.05rem 0.35rem !important;
-            box-sizing: border-box !important;
-            overflow: hidden !important;
-            background-color: {_mc} !important;
-            color: #fff !important;
-            border-radius: 20px !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-    for fila in range(3):
-        cols = st.columns(3)
-        for col in range(3):
-            idx = fila * 3 + col
-            if idx < len(EMOJIS_CLAVE):
-                with cols[col]:
-                    if st.button(
-                        EMOJIS_CLAVE[idx],
-                        key=f"emoji_grid_{perfil_emoji_key}_{idx}",
-                        use_container_width=True,
-                        type="primary",
-                    ):
-                        if len(lista_emoji) < 3:
-                            st.session_state.config_emoji_clave = lista_emoji + [EMOJIS_CLAVE[idx]]
-                            st.rerun()
-    if lista_emoji:
-        if st.button("🗑️ Quitar último emoji", key=f"emoji_quitar_{perfil_emoji_key}"):
-            st.session_state.config_emoji_clave = lista_emoji[:-1]
-            st.rerun()
+    # Misma experiencia visual que la pantalla de clave del Salón (dos columnas: bienvenida + círculos | matriz 3×3).
+    _nombre_saludo = ""
+    if estudiante_id_actual and perfil:
+        _nombre_saludo = " ".join(
+            x
+            for x in [
+                (_v(perfil, 2) or "").strip(),
+                (_v(perfil, 3) or "").strip(),
+                (_v(perfil, 21) or "").strip(),
+            ]
+            if x
+        ).strip()
+    if not _nombre_saludo:
+        _nombre_saludo = "tu hijo o hija"
+    _nombre_esc = html.escape(_nombre_saludo)
+
+    col_clave_left, col_clave_right = st.columns([1.3, 1])
+    n_ok = len(lista_emoji)
+
+    with col_clave_left:
+        st.markdown(
+            f"""
+            <div style="text-align: left; margin-bottom: 16px;">
+                <p style="font-size: 2.8rem; margin-bottom: 4px;">🦉 <span style="font-weight: 800; color: #e65100;">Lee Conmigo IA</span></p>
+                <p style="font-size: 1.05rem; color: #666;">Aprende a leer con las personas que amas.</p>
+            </div>
+            <div style="text-align: left; margin-bottom: 8px;">
+                <p style="font-size: 2.2rem; font-weight: 700; color: #333;">Hola {_nombre_esc} 👋</p>
+                <p style="font-size: 1.3rem; color: #555;">Ingresa tu clave secreta (toca 3 emojis):</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        circulos = "".join(
+            f'<span style="display: inline-block; width: 36px; height: 36px; border-radius: 50%; margin: 0 10px; background: {"#4CAF50" if i < n_ok else "transparent"}; border: 4px solid {"#4CAF50" if i < n_ok else "#ccc"};"></span>'
+            for i in range(3)
+        )
+        st.markdown(f'<div style="text-align: left; margin-bottom: 16px;">{circulos}</div>', unsafe_allow_html=True)
+        if lista_emoji:
+            if st.button("🗑️ Quitar último emoji", key=f"emoji_quitar_{perfil_emoji_key}"):
+                st.session_state.config_emoji_clave = lista_emoji[:-1]
+                st.rerun()
+
+    with col_clave_right:
+        st.markdown(
+            """
+            <style>
+            section[data-testid="stMain"] button[kind="primary"],
+            section[data-testid="stMain"] button[kind="primary"] * {
+                font-size: clamp(2.85rem, 9vmin, 3.55rem) !important;
+                line-height: 1 !important;
+            }
+            section[data-testid="stMain"] button[kind="primary"] {
+                min-height: 3.95rem !important;
+                max-height: 3.95rem !important;
+                height: 3.95rem !important;
+                padding: 0.05rem 0.35rem !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+                background-color: #E3F2FD !important;
+                color: #1565C0 !important;
+                border-radius: 20px !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+        st.write("")
+        for fila in range(3):
+            cols = st.columns(3)
+            for col in range(3):
+                idx = fila * 3 + col
+                if idx < len(EMOJIS_CLAVE):
+                    with cols[col]:
+                        if st.button(
+                            EMOJIS_CLAVE[idx],
+                            key=f"emoji_grid_{perfil_emoji_key}_{idx}",
+                            use_container_width=True,
+                            type="primary",
+                        ):
+                            if len(lista_emoji) < 3:
+                                st.session_state.config_emoji_clave = lista_emoji + [EMOJIS_CLAVE[idx]]
+                                st.rerun()
+        st.write("")
+
     st.write("---")
 
     with st.form("form_registro_nino", clear_on_submit=False):
