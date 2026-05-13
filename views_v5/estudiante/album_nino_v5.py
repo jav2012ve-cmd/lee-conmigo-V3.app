@@ -16,9 +16,9 @@ from core.album_categories import (
 )
 from core.curriculum_v4 import CurriculumV4
 from core import gamificacion
+from core.avatares_paths import listar_avatares_familia_galeria as _listar_avatares_familia
 
 _ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-_AVATARES_FAMILIA_DIR = os.path.join(_ROOT_DIR, "assets", "avatars_familia")
 
 # Misma lógica que views_v5/padre/album_mgmt_padre_v5: palabra clave → tokens en nombre de archivo
 _ROL_A_TOKENS_BUSQUEDA = {
@@ -58,23 +58,6 @@ DEMO_ALBUM_CATEGORIAS_ACTIVAS = [
     "En la cocina",
     "Instrumentos musicales",
 ]
-
-
-def _listar_avatares_familia():
-    avatares = []
-    try:
-        if not os.path.isdir(_AVATARES_FAMILIA_DIR):
-            return []
-        for name in sorted(os.listdir(_AVATARES_FAMILIA_DIR)):
-            lower = name.lower()
-            if lower.endswith((".jpg", ".jpeg", ".png", ".webp")):
-                label = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").strip()
-                path_abs = os.path.join(_AVATARES_FAMILIA_DIR, name)
-                if os.path.isfile(path_abs):
-                    avatares.append({"label": label.title() or name, "path": path_abs})
-    except Exception:
-        return []
-    return avatares
 
 
 def _solo_avatares_por_rol(palabra_upper, todos):

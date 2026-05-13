@@ -15,26 +15,9 @@ from core.album_categories import (
 )
 from core.curriculum_v3 import CurriculumV3
 from core import gamificacion
+from core.avatares_paths import listar_avatares_familia_galeria as _listar_avatares_familia
 
 _ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-_AVATARES_FAMILIA_DIR = os.path.join(_ROOT_DIR, "assets", "avatars_familia")
-
-
-def _listar_avatares_familia():
-    avatares = []
-    try:
-        if not os.path.isdir(_AVATARES_FAMILIA_DIR):
-            return []
-        for name in sorted(os.listdir(_AVATARES_FAMILIA_DIR)):
-            lower = name.lower()
-            if lower.endswith((".jpg", ".jpeg", ".png", ".webp")):
-                label = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").strip()
-                path_abs = os.path.join(_AVATARES_FAMILIA_DIR, name)
-                if os.path.isfile(path_abs):
-                    avatares.append({"label": label.title() or name, "path": path_abs})
-    except Exception:
-        return []
-    return avatares
 
 
 def _mensaje_ruta_v3():

@@ -15,11 +15,11 @@ from core.album_categories import (
     ruta_portada_album_categoria,
 )
 from core.asset_manager import AssetManager
+from core.avatares_paths import listar_avatares_familia_galeria as _listar_avatares_familia
 from components.cards import render_album_card_karaoke, render_album_card_placeholder
 from components.page_title import render_encabezado_logo_titulo_acciones
 
 _ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-_AVATARES_FAMILIA_DIR = os.path.join(_ROOT_DIR, "assets", "avatars_familia")
 _PORTADAS_ALBUM_DIR = os.path.join(_ROOT_DIR, "assets", "album_categorias")
 # Objetos mostrados por categoría en el álbum (vista usada por main.py)
 _ALBUM_ITEMS_POR_CATEGORIA = 18
@@ -44,23 +44,6 @@ def _portada_data_uri_cached(ruta_abs: str, mtime: float) -> str:
     b64 = base64.b64encode(raw).decode("ascii")
     mime = mimetypes.guess_type(ruta_abs)[0] or "image/jpeg"
     return f"data:{mime};base64,{b64}"
-
-
-def _listar_avatares_familia():
-    avatares = []
-    try:
-        if not os.path.isdir(_AVATARES_FAMILIA_DIR):
-            return []
-        for name in sorted(os.listdir(_AVATARES_FAMILIA_DIR)):
-            lower = name.lower()
-            if lower.endswith((".jpg", ".jpeg", ".png", ".webp")):
-                label = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").strip()
-                path_abs = os.path.join(_AVATARES_FAMILIA_DIR, name)
-                if os.path.isfile(path_abs):
-                    avatares.append({"label": label.title() or name, "path": path_abs})
-    except Exception:
-        return []
-    return avatares
 
 
 def apply_album_cat_query_navigation():

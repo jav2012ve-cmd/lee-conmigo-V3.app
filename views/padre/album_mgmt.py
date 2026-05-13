@@ -10,9 +10,9 @@ from database.db_queries import (
     obtener_claves_estudiante,
 )
 from core.album_categories import CATEGORIAS_ALBUM
+from core.avatares_paths import listar_avatares_familia_galeria as _listar_avatares_familia
 
 _ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-_AVATARES_FAMILIA_DIR = os.path.join(_ROOT_DIR, "assets", "avatars_familia")
 _FAMILIA_ROLES_AVATAR = {
     "PAPÁ",
     "PAPA",
@@ -64,21 +64,6 @@ def _filtrar_avatares_por_rol_familia(palabra_upper, todos):
         if any(t in blob for t in tokens):
             out.append(av)
     return out if out else list(todos)
-
-
-def _listar_avatares_familia():
-    avatares = []
-    try:
-        if not os.path.isdir(_AVATARES_FAMILIA_DIR):
-            return []
-        for name in sorted(os.listdir(_AVATARES_FAMILIA_DIR)):
-            lower = name.lower()
-            if lower.endswith((".jpg", ".jpeg", ".png", ".webp")):
-                nombre = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").strip()
-                avatares.append({"label": nombre.title() or name, "path": os.path.join(_AVATARES_FAMILIA_DIR, name)})
-    except Exception:
-        return []
-    return avatares
 
 
 def render_album_mgmt():
