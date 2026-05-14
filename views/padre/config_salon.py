@@ -211,16 +211,6 @@ def render_config_salon():
         st.session_state.config_emoji_perfil_key = perfil_emoji_key
     lista_emoji = st.session_state.get("config_emoji_clave") or []
 
-    # Inicializar selección de avatar en sesión (la galería completa está en página aparte).
-    _gal_ini = _listar_avatares_nino()
-    _kid_ini = estudiante_id_actual or "new"
-    _pk_ini = f"config_avatar_nino_path_{_kid_ini}"
-    if _gal_ini:
-        _rvis = None
-        if estudiante_id_actual and perfil:
-            _rvis = _foto_perfil_estudiante(estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, ""))
-        _asegurar_sesion_avatar_path(_pk_ini, _rvis, _gal_ini)
-
     # Misma experiencia visual que la pantalla de clave del Salón (dos columnas: bienvenida + círculos | matriz 3×3).
     _nombre_saludo = ""
     if estudiante_id_actual and perfil:
@@ -310,25 +300,34 @@ def render_config_salon():
         st.write("")
 
     st.write("---")
-    with st.expander("Selecciona tu avatar en la plataforma", expanded=False):
-        _gal_top = _listar_avatares_nino()
-        _kid_top = estudiante_id_actual or "new"
-        _pk_top = f"config_avatar_nino_path_{_kid_top}"
-        _sel_top = st.session_state.get(_pk_top)
-        if _gal_top and _sel_top and os.path.lexists(_sel_top):
-            _bn = os.path.basename(_sel_top)
-            _lbl = os.path.splitext(_bn)[0].replace("_", " ").replace("-", " ").strip() or _bn
+    st.markdown("**Selecciona tu avatar en la plataforma**")
+    _kid_av = estudiante_id_actual or "new"
+    _pk_av = f"config_avatar_nino_path_{_kid_av}"
+    _gal_av = _listar_avatares_nino()
+    if _gal_av:
+        _rvis_av = None
+        if estudiante_id_actual and perfil:
+            _rvis_av = _foto_perfil_estudiante(estudiante_id_actual, _v(perfil, 2, ""), _v(perfil, 15, ""))
+        _asegurar_sesion_avatar_path(_pk_av, _rvis_av, _gal_av)
+    _sel_av = st.session_state.get(_pk_av)
+    if not _gal_av:
+        st.caption("Aún no hay imágenes en `assets/avatars_nino` (carpetas **nino** / **nina**).")
+    elif _sel_av and os.path.lexists(_sel_av):
+        _bn = os.path.basename(_sel_av)
+        _lbl = os.path.splitext(_bn)[0].replace("_", " ").replace("-", " ").strip() or _bn
+        col_av_img, col_av_txt = st.columns([0.28, 0.72])
+        with col_av_img:
+            st.image(_sel_av, width=200, caption="Vista previa")
+        with col_av_txt:
             st.caption(
-                f"Selección actual: **{_lbl}**. La galería con todas las imágenes está en otra pantalla; "
-                "al volver, **guarda el perfil** para aplicar cambios."
+                f"Seleccionado: **{_lbl}**. Puedes cambiarlo en la galería. "
+                "Cuando termines, **guarda el perfil** para aplicar el avatar en el Salón."
             )
-        elif not _gal_top:
-            st.caption("Aún no hay imágenes en `assets/avatars_nino` (carpetas **nino** / **nina**).")
-        else:
-            st.caption("Abre la galería para elegir el personaje que verá el niño en el Salón.")
-        if st.button("🖼️ Abrir galería de avatares", key="btn_ir_galeria_avatares"):
-            st.session_state.pagina_activa = "config_salon_avatares"
-            st.rerun()
+    else:
+        st.caption("Abre la galería para elegir el personaje que verá el niño en el Salón.")
+    if _gal_av and st.button("🖼️ Abrir galería de avatares", key="btn_ir_galeria_avatares"):
+        st.session_state.pagina_activa = "config_salon_avatares"
+        st.rerun()
 
     with st.form("form_registro_alumno", clear_on_submit=False):
         col1, col2 = st.columns(2)
@@ -482,6 +481,10 @@ def render_config_salon():
                     estudiante_id_actual,
                     f"config_avatar_nino_path_{estudiante_id_actual}",
                 )
+                try:
+                    _listar_avatares_nino_cached.clear()
+                except Exception:
+                    pass
                 if gal_nino:
                     msg_ok += " 📷 Avatar del Salón actualizado."
                 st.success(msg_ok)
@@ -492,6 +495,10 @@ def render_config_salon():
                     nuevo_id = crear_estudiante(datos_estudiante)
                     if nuevo_id:
                         _aplicar_avatar_salon(nuevo_id, "config_avatar_nino_path_new")
+                        try:
+                            _listar_avatares_nino_cached.clear()
+                        except Exception:
+                            pass
                         st.session_state.estudiante_id = nuevo_id
                         st.session_state.nombre_nino = nombre
                         st.session_state.color_favorito = color_fav

@@ -79,7 +79,9 @@ def render_config_salon_avatares():
     if sel_preview and os.path.lexists(sel_preview):
         st.image(sel_preview, width=200, caption="Vista previa (Salón)")
     st.markdown("**Elige el avatar**")
-    ncols = 5
+    # Miniaturas con ancho fijo: menos píxeles por rerun que use_container_width (más fluido en OneDrive).
+    ncols = 4
+    _thumb_w = 130
     for row0 in range(0, len(opts), ncols):
         row_items = opts[row0 : row0 + ncols]
         gcols = st.columns(ncols)
@@ -88,7 +90,7 @@ def render_config_salon_avatares():
                 es_sel = cs._normalizar_ruta_abs(av["path"]) == cs._normalizar_ruta_abs(
                     st.session_state.get(path_key)
                 )
-                st.image(av["path"], use_container_width=True)
+                st.image(av["path"], width=_thumb_w)
                 cap = av["label"][:18] + ("…" if len(av["label"]) > 18 else "")
                 st.caption(f"**{cap}**" if es_sel else cap)
                 idx_av = row0 + j
