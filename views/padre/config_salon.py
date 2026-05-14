@@ -305,6 +305,25 @@ def render_config_salon():
         st.write("")
 
     st.write("---")
+    with st.expander("📷 Foto del niño en el Salón (opcional)", expanded=False):
+        _gal_top = _listar_avatares_nino()
+        _kid_top = estudiante_id_actual or "new"
+        _pk_top = f"config_avatar_nino_path_{_kid_top}"
+        _sel_top = st.session_state.get(_pk_top)
+        if _gal_top and _sel_top and os.path.lexists(_sel_top):
+            _bn = os.path.basename(_sel_top)
+            _lbl = os.path.splitext(_bn)[0].replace("_", " ").replace("-", " ").strip() or _bn
+            st.caption(
+                f"Selección actual: **{_lbl}**. La galería con todas las imágenes está en otra pantalla; "
+                "al volver, **guarda el perfil** para aplicar cambios."
+            )
+        elif not _gal_top:
+            st.caption("Aún no hay imágenes en `assets/avatars_nino` (carpetas **nino** / **nina**).")
+        else:
+            st.caption("Abre la galería para elegir el personaje que verá el niño en el Salón.")
+        if st.button("🖼️ Abrir galería de avatares", key="btn_ir_galeria_avatares"):
+            st.session_state.pagina_activa = "config_salon_avatares"
+            st.rerun()
 
     with st.form("form_registro_alumno", clear_on_submit=False):
         col1, col2 = st.columns(2)
@@ -493,29 +512,6 @@ def render_config_salon():
                     st.session_state.pop(k, None)
             st.success("Avance reiniciado. El niño volverá a empezar desde la primera letra.")
             st.rerun()
-
-    st.write("---")
-    st.subheader("📷 Avatar en el Salón")
-    _gal_res = _listar_avatares_nino()
-    _kid_res = estudiante_id_actual or "new"
-    _pk_res = f"config_avatar_nino_path_{_kid_res}"
-    _sel = st.session_state.get(_pk_res)
-    if _gal_res and _sel and os.path.lexists(_sel):
-        c_prev, c_txt = st.columns([1, 4])
-        with c_prev:
-            st.image(_sel, width=96, caption="Selección actual")
-        with c_txt:
-            st.caption(
-                "Para ver todos los personajes y elegir otro dibujo, abre la **galería de avatares**. "
-                "Después vuelve aquí y pulsa **Guardar perfil** (o **Crear perfil**) para aplicar el cambio."
-            )
-    elif not _gal_res:
-        st.caption("Aún no hay imágenes en la carpeta de avatares del proyecto (`assets/avatars_nino`).")
-    else:
-        st.caption("Abre la galería para elegir el personaje que verá el niño en el Salón.")
-    if st.button("🖼️ Abrir galería de avatares", key="btn_ir_galeria_avatares"):
-        st.session_state.pagina_activa = "config_salon_avatares"
-        st.rerun()
 
     if st.button("⬅️ Volver"):
         st.session_state.pop("config_estudiante_id", None)
