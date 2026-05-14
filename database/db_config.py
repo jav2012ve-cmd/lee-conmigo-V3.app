@@ -8,6 +8,12 @@ _default_db = os.path.join(BASE_DIR, "lee_conmigo.db")
 # main_DEMO.py puede fijar LEE_CONMIGO_DB_PATH antes de importar este módulo (lee_conmigo_demo.db)
 DB_PATH = os.path.abspath(os.environ.get("LEE_CONMIGO_DB_PATH") or _default_db)
 
+
+def using_demo_database() -> bool:
+    """True si la app usa `lee_conmigo_demo.db` (p. ej. main_DEMO.py). Para lecturas cacheadas solo en demo."""
+    return os.path.basename(DB_PATH).lower() == "lee_conmigo_demo.db"
+
+
 def init_db():
     """
     Inicializa la base de datos asegurando que el directorio exista 

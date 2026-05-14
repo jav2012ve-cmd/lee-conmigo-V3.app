@@ -461,6 +461,21 @@ def render_config_salon():
             )
             gal_nino = _listar_avatares_nino()
 
+            def _invalidate_listas_tras_guardado():
+                try:
+                    _listar_avatares_nino_cached.clear()
+                except Exception:
+                    pass
+                try:
+                    from database.db_config import using_demo_database
+
+                    if using_demo_database():
+                        from database.demo_read_cache import clear_demo_read_cache
+
+                        clear_demo_read_cache()
+                except Exception:
+                    pass
+
             def _aplicar_avatar_salon(id_est, pk):
                 if not id_est or not gal_nino:
                     return
@@ -481,10 +496,7 @@ def render_config_salon():
                     estudiante_id_actual,
                     f"config_avatar_nino_path_{estudiante_id_actual}",
                 )
-                try:
-                    _listar_avatares_nino_cached.clear()
-                except Exception:
-                    pass
+                _invalidate_listas_tras_guardado()
                 if gal_nino:
                     msg_ok += " 📷 Avatar del Salón actualizado."
                 st.success(msg_ok)
@@ -495,10 +507,7 @@ def render_config_salon():
                     nuevo_id = crear_estudiante(datos_estudiante)
                     if nuevo_id:
                         _aplicar_avatar_salon(nuevo_id, "config_avatar_nino_path_new")
-                        try:
-                            _listar_avatares_nino_cached.clear()
-                        except Exception:
-                            pass
+                        _invalidate_listas_tras_guardado()
                         st.session_state.estudiante_id = nuevo_id
                         st.session_state.nombre_nino = nombre
                         st.session_state.color_favorito = color_fav

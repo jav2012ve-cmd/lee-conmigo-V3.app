@@ -8,6 +8,7 @@ from database.db_queries import (
     obtener_claves_estudiante,
     obtener_avatar_estudiante,
 )
+from database.db_config import using_demo_database
 from components.cards import render_selector_avatar
 from components.styles import apply_fondo_pagina_principal_hub
 from core.branding import ruta_logo_app
@@ -17,6 +18,33 @@ EMOJIS_CLAVE = ["🐱", "🐶", "🌟", "❤️", "🌈", "🎈", "🦋", "⚽",
 
 # Raíz del proyecto (views/ → subir 2 niveles): misma idea que hub V3 para rutas guardadas relativas en BD.
 _PROJ_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+
+def _salon_estudiantes_por_padre(padre_id):
+    if using_demo_database():
+        from database.demo_read_cache import demo_obtener_estudiantes_por_padre
+
+        return demo_obtener_estudiantes_por_padre(padre_id) or []
+    return obtener_estudiantes_por_padre(padre_id) or []
+
+
+def _salon_album_nino_varios(ids_list):
+    if not ids_list:
+        return obtener_album_nino_varios([])
+    if using_demo_database():
+        from database.demo_read_cache import demo_obtener_album_nino_varios
+
+        tup = tuple(sorted({int(i) for i in ids_list}))
+        return demo_obtener_album_nino_varios(tup)
+    return obtener_album_nino_varios(ids_list)
+
+
+def _salon_avatar_estudiante(est_id):
+    if using_demo_database():
+        from database.demo_read_cache import demo_obtener_avatar_estudiante
+
+        return demo_obtener_avatar_estudiante(est_id)
+    return obtener_avatar_estudiante(est_id)
 
 
 @st.cache_data(show_spinner=False)
@@ -126,7 +154,7 @@ def render_salon_entrada():
     if 'padre_id' not in st.session_state or st.session_state.padre_id is None:
         st.session_state.padre_id = 1  # Forzamos el ID 1 para el piloto
     padre_id = st.session_state.padre_id
-    estudiantes = obtener_estudiantes_por_padre(padre_id)
+    estudiantes = _salon_estudiantes_por_padre(padre_id)
 
     if not estudiantes:
         st.info("Aún no hay estudiantes registrados. Usa **Registro** para crear el primer perfil.")
@@ -326,7 +354,7 @@ def render_salon_entrada():
         if key not in vistos or id_est > vistos[key][0]:
             vistos[key] = datos
     estudiantes_salon = list(vistos.values())
-    _albumes_salon = obtener_album_nino_varios([d[0] for d in estudiantes_salon])
+    _albumes_salon = _salon_album_nino_varios([d[0] for d in estudiantes_salon])
 
     # Entrada tocando la foto (enlace ?salon_entrar=id): más fiable que superponer un st.button con CSS
     _qp_entrar = st.query_params.get("salon_entrar")
@@ -383,7 +411,7 @@ def render_salon_entrada():
         id_est = datos[0]
         primer_nombre = datos[1] if len(datos) > 1 else ""
         # Ruta desde BD (más fiable que la tupla si hubo recarga / migración)
-        avatar_db = obtener_avatar_estudiante(id_est)
+        avatar_db = _salon_avatar_estudiante(id_est)
         if not avatar_db and len(datos) > 4 and datos[4]:
             avatar_db = (datos[4] or "").strip() or None
         nombre_completo = _nombre_completo(datos)

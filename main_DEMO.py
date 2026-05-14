@@ -7,8 +7,8 @@ os.environ.setdefault("LEE_CONMIGO_ADMIN_PIN", "demo-admin")
 
 import streamlit as st
 
-from database.db_config import init_db
-from database.demo_bootstrap import ensure_demo_database
+from database.db_config import DB_PATH
+from database.demo_streamlit_warmup import warm_demo_streamlit_database
 from core.session_state_demo import init_session_demo
 from components.styles import apply_styles, set_page_config
 from components.page_title import render_titulo_sidebar
@@ -29,15 +29,24 @@ from views_demo.estudiante.informe_sesion_demo import render_informe_sesion_demo
 from views.estudiante.abecedario_matriz import render_abecedario_matriz
 from views.docente.zona_docente import render_zona_docente
 from views.tutor.zona_tutores import render_zona_tutores
+from views.padre.config_salon_avatares import render_config_salon_avatares
+from views.admin.zona_administradores import render_zona_administradores
 
 
 def main():
     set_page_config()
-    init_db()
-    ensure_demo_database()
-    init_session_demo()
+    # Una vez por proceso/clave: esquema + seed demo (no repetir en cada rerun).
+    warm_demo_streamlit_database(
+        DB_PATH,
+        os.environ.get("LEE_CONMIGO_DEMO_RESET", ""),
+    )
+    init_session_demo(lazy=True)
     apply_styles()
 
+    # Navegación global: st.fragment (Streamlit >=1.33) solo rerun-ea el fragmento.
+    # Si el sidebar fuera un @st.fragment, al pulsar un botón NO se ejecutaría de nuevo el
+    # router de `pagina_activa` más abajo hasta un rerun completo → la pantalla principal no
+    # cambiaría. Por eso aquí seguimos usando st.rerun() al cambiar de vista.
     with st.sidebar:
         render_titulo_sidebar("Panel de Control DEMO")
         st.caption("Versión de demostración comercial")
@@ -80,8 +89,6 @@ def main():
     elif pagina == "config_salon":
         render_config_salon_demo()
     elif pagina == "config_salon_avatares":
-        from views.padre.config_salon_avatares import render_config_salon_avatares
-
         render_config_salon_avatares()
     elif pagina == "zona_padres":
         render_zona_padres_demo()
@@ -90,8 +97,6 @@ def main():
     elif pagina == "zona_tutores":
         render_zona_tutores()
     elif pagina == "zona_admin":
-        from views.admin.zona_administradores import render_zona_administradores
-
         render_zona_administradores()
     elif pagina == "album_mgmt":
         render_album_mgmt_demo()
