@@ -1,6 +1,6 @@
 import streamlit as st
 
-from database.db_config import init_db
+from database.db_config import streamlit_init_db_once
 from core.session_state_v4 import init_session_v4
 from components.styles import apply_styles, set_page_config
 from components.page_title import render_titulo_sidebar
@@ -22,7 +22,7 @@ from views.tutor.zona_tutores import render_zona_tutores
 
 def main():
     set_page_config()
-    init_db()
+    streamlit_init_db_once()
     init_session_v4()
     apply_styles()
 
@@ -41,21 +41,16 @@ def main():
         )
         if st.button("👩‍🏫 Zona docentes", use_container_width=True, key="v4_sidebar_docente"):
             st.session_state.pagina_activa = "zona_docente"
-            st.rerun()
         if st.button("🎓 Zona Tutores", use_container_width=True, key="v4_sidebar_tutor"):
             st.session_state.pagina_activa = "zona_tutores"
-            st.rerun()
         if st.button("🛠️ Zona administradores", use_container_width=True, key="v4_sidebar_admin"):
             st.session_state.pagina_activa = "zona_admin"
-            st.rerun()
         if st.button("👨‍👩‍👧 Zona de padres", use_container_width=True, key="v4_sidebar_zona"):
             st.session_state.pagina_activa = "zona_padres"
-            st.rerun()
         if st.button("➕ Registro de nuevos estudiantes", use_container_width=True, key="v4_sidebar_registro"):
             st.session_state.pagina_activa = "config_salon"
             st.session_state.config_selector_nino = "➕ Crear nuevo perfil"
             st.session_state.pop("config_estudiante_id", None)
-            st.rerun()
 
     pagina = st.session_state.pagina_activa
 

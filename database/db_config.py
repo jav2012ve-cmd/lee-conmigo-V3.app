@@ -229,5 +229,13 @@ def init_db():
     # Evitar emojis para compatibilidad con codificación Windows (cp1252)
     print(f"Base de datos inicializada en: {DB_PATH}")
 
+
+@st.cache_resource(show_spinner=False)
+def streamlit_init_db_once() -> bool:
+    """Ejecuta init_db() una vez por worker de Streamlit (evita repetir CREATE/ALTER en cada rerun)."""
+    init_db()
+    return True
+
+
 if __name__ == "__main__":
     init_db()

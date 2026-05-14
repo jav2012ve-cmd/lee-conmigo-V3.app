@@ -1,6 +1,6 @@
 import streamlit as st
 
-from database.db_config import init_db
+from database.db_config import streamlit_init_db_once
 from core.session_state_v3 import init_session_v3
 from components.styles import apply_styles, set_page_config
 from components.page_title import render_titulo_sidebar
@@ -24,7 +24,7 @@ from views.tutor.zona_tutores import render_zona_tutores
 def main():
     # 1. Configuración técnica inicial
     set_page_config()
-    init_db()          # Reusa DB existente (V2)
+    streamlit_init_db_once()
     init_session_v3()  # Sesión independiente V3
     apply_styles()
 
@@ -44,21 +44,16 @@ def main():
         )
         if st.button("👩‍🏫 Zona docentes", use_container_width=True, key="v3_sidebar_docente"):
             st.session_state.pagina_activa = "zona_docente"
-            st.rerun()
         if st.button("🎓 Zona Tutores", use_container_width=True, key="v3_sidebar_tutor"):
             st.session_state.pagina_activa = "zona_tutores"
-            st.rerun()
         if st.button("🛠️ Zona administradores", use_container_width=True, key="v3_sidebar_admin"):
             st.session_state.pagina_activa = "zona_admin"
-            st.rerun()
         if st.button("👨‍👩‍👧 Zona de padres", use_container_width=True, key="v3_sidebar_zona"):
             st.session_state.pagina_activa = "zona_padres"
-            st.rerun()
         if st.button("➕ Registro de nuevos estudiantes", use_container_width=True, key="v3_sidebar_registro"):
             st.session_state.pagina_activa = "config_salon"
             st.session_state.config_selector_nino = "➕ Crear nuevo perfil"
             st.session_state.pop("config_estudiante_id", None)
-            st.rerun()
 
     # 3. Router de Pantallas
     pagina = st.session_state.pagina_activa

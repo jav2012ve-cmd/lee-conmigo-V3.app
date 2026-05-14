@@ -3,7 +3,7 @@ import html
 import mimetypes
 import os
 import random
-from urllib.parse import quote, unquote
+from urllib.parse import quote
 
 import streamlit as st
 from database.db_queries import obtener_album_nino, guardar_en_album_reemplazando
@@ -44,28 +44,6 @@ def _portada_data_uri_cached(ruta_abs: str, mtime: float) -> str:
     b64 = base64.b64encode(raw).decode("ascii")
     mime = mimetypes.guess_type(ruta_abs)[0] or "image/jpeg"
     return f"data:{mime};base64,{b64}"
-
-
-def apply_album_cat_query_navigation():
-    """Si la URL incluye ?album_cat=..., navega a la pantalla de imágenes de esa categoría."""
-    try:
-        if "album_cat" not in st.query_params:
-            return
-        raw = st.query_params.get("album_cat")
-        if isinstance(raw, (list, tuple)):
-            raw = raw[0]
-        cand = unquote(str(raw))
-        if cand not in CATEGORIAS_ALBUM:
-            return
-        st.session_state.album_nino_categoria = cand
-        st.session_state.pagina_activa = "album_nino_categoria"
-        try:
-            del st.query_params["album_cat"]
-        except Exception:
-            pass
-        st.rerun()
-    except Exception:
-        pass
 
 
 def render_album_nino_categoria():

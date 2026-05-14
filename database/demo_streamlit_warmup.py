@@ -18,9 +18,9 @@ def warm_demo_streamlit_database(db_path_abs: str, demo_reset_env: str) -> bool:
     Crea esquema (init_db) y asegura datos seed de demo (ensure_demo_database) una vez por clave.
     Devuelve True como marcador serializable.
     """
-    from database.db_config import init_db
+    from database.db_config import streamlit_init_db_once
     from database.demo_bootstrap import ensure_demo_database
 
-    init_db()
+    streamlit_init_db_once()
     ensure_demo_database()
     return True
