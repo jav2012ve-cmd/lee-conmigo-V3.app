@@ -542,6 +542,35 @@ def obtener_album_nino(estudiante_id):
     return ejecutar_query(query, (estudiante_id,), fetch=True)
 
 
+def obtener_album_nino_varios(estudiante_ids):
+    """
+    Misma forma de filas que obtener_album_nino (palabra_clave, categoria, img_path),
+    agrupadas por estudiante en una sola consulta (p. ej. pantalla del Salón).
+    """
+    ids = []
+    for x in estudiante_ids or []:
+        try:
+            ids.append(int(x))
+        except (TypeError, ValueError):
+            continue
+    ids = sorted(set(ids))
+    if not ids:
+        return {}
+    ph = ",".join("?" * len(ids))
+    q = (
+        "SELECT estudiante_id, palabra_clave, categoria, img_path "
+        f"FROM album_personal WHERE estudiante_id IN ({ph}) "
+        "ORDER BY estudiante_id, palabra_clave"
+    )
+    rows = ejecutar_query(q, tuple(ids), fetch=True) or []
+    out = {i: [] for i in ids}
+    for row in rows:
+        eid = row[0]
+        if eid in out:
+            out[eid].append((row[1], row[2], row[3]))
+    return out
+
+
 # --- ABECEDARIO ESTUDIANTE (Mi abecedario: 2 imágenes por letra) ---
 def guardar_abecedario_letra(estudiante_id, letra, opciones_elegidas):
     """

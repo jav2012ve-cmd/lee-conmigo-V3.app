@@ -3,6 +3,8 @@
 import os
 from pathlib import Path
 
+import streamlit as st
+
 _IMG = (".jpg", ".jpeg", ".png", ".webp")
 
 
@@ -18,6 +20,7 @@ def _proyecto_root():
     return Path(__file__).resolve().parents[1]
 
 
+@st.cache_data(show_spinner=False, ttl=180)
 def listar_avatares_familia_galeria():
     """
     Imágenes para el álbum Familia y vistas que listan la misma galería:

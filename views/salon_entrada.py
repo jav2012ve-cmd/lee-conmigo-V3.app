@@ -4,6 +4,7 @@ import unicodedata
 from database.db_queries import (
     obtener_estudiantes_por_padre,
     obtener_album_nino,
+    obtener_album_nino_varios,
     obtener_claves_estudiante,
     obtener_avatar_estudiante,
 )
@@ -18,7 +19,8 @@ EMOJIS_CLAVE = ["🐱", "🐶", "🌟", "❤️", "🌈", "🎈", "🦋", "⚽",
 _PROJ_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 
-def _logo_ancho_pantalla_doble(ruta: str) -> int:
+@st.cache_data(show_spinner=False)
+def _logo_ancho_pantalla_doble_cached(ruta: str, mtime: float) -> int:
     """Ancho en px: 200 % del ancho intrínseco de la imagen (máx. 960, mín. 220)."""
     try:
         from PIL import Image
@@ -30,6 +32,16 @@ def _logo_ancho_pantalla_doble(ruta: str) -> int:
         return int(min(max(w * 2, 220), 960))
     except Exception:
         return 520
+
+
+def _logo_ancho_pantalla_doble(ruta: str) -> int:
+    if not ruta or not os.path.isfile(ruta):
+        return 520
+    try:
+        mt = os.path.getmtime(ruta)
+    except OSError:
+        return 520
+    return _logo_ancho_pantalla_doble_cached(ruta, mt)
 
 
 def _resolver_ruta_archivo(path):
@@ -55,7 +67,7 @@ def _foto_archivo_salon_por_id(id_est):
     return None
 
 
-def _foto_perfil_estudiante(id_est, primer_nombre, nombre_completo, avatar_path):
+def _foto_perfil_estudiante(id_est, primer_nombre, nombre_completo, avatar_path, album_rows=None):
     """
     avatar_path en BD o foto del álbum cuya palabra coincida con el primer nombre o el nombre completo.
     Resuelve rutas relativas (p. ej. assets/avatares/est_1.jpg) para que funcione aunque cambie el cwd.
@@ -66,7 +78,7 @@ def _foto_perfil_estudiante(id_est, primer_nombre, nombre_completo, avatar_path)
     r = _foto_archivo_salon_por_id(id_est)
     if r:
         return r
-    album = obtener_album_nino(id_est) or []
+    album = (obtener_album_nino(id_est) or []) if album_rows is None else album_rows
     claves = {
         (primer_nombre or "").strip().upper(),
         (nombre_completo or "").strip().upper(),
@@ -314,6 +326,7 @@ def render_salon_entrada():
         if key not in vistos or id_est > vistos[key][0]:
             vistos[key] = datos
     estudiantes_salon = list(vistos.values())
+    _albumes_salon = obtener_album_nino_varios([d[0] for d in estudiantes_salon])
 
     # Entrada tocando la foto (enlace ?salon_entrar=id): más fiable que superponer un st.button con CSS
     _qp_entrar = st.query_params.get("salon_entrar")
@@ -374,7 +387,9 @@ def render_salon_entrada():
         if not avatar_db and len(datos) > 4 and datos[4]:
             avatar_db = (datos[4] or "").strip() or None
         nombre_completo = _nombre_completo(datos)
-        img_path = _foto_perfil_estudiante(id_est, primer_nombre, nombre_completo, avatar_db)
+        img_path = _foto_perfil_estudiante(
+            id_est, primer_nombre, nombre_completo, avatar_db, album_rows=_albumes_salon.get(id_est, [])
+        )
         with cols[i % 4]:
             render_selector_avatar(img_path, nombre_completo, salon_entrar_id=id_est)
 

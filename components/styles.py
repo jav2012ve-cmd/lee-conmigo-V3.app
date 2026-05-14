@@ -3,6 +3,47 @@ import os
 
 import streamlit as st
 
+
+@st.cache_data(show_spinner=False)
+def _fondo_hub_background_markdown(path: str, mtime: float) -> str | None:
+    """CSS de fondo; mtime en la clave invalida la caché si cambia el archivo."""
+    if not path or not os.path.isfile(path):
+        return None
+    try:
+        with open(path, "rb") as f:
+            b64 = base64.b64encode(f.read()).decode()
+    except OSError:
+        return None
+    ext = path.lower().rsplit(".", 1)[-1] if "." in path else "png"
+    if ext == "png":
+        mime = "image/png"
+    elif ext in ("jpg", "jpeg"):
+        mime = "image/jpeg"
+    elif ext == "webp":
+        mime = "image/webp"
+    else:
+        mime = "image/png"
+    return f"""
+        <style>
+        [data-testid="stAppViewContainer"] {{
+            background-image: url("data:{mime};base64,{b64}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }}
+        [data-testid="stAppViewContainer"]::before {{
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.78);
+            pointer-events: none;
+            z-index: 0;
+        }}
+        [data-testid="stAppViewContainer"] > section {{ position: relative; z-index: 1; }}
+        </style>
+        """
+
 # Fondo visual LeeConmigo: salón de entrada, hub del niño, etc.
 # Archivo: `assets/genericos/fondos/Fondo_Logo.png`
 _FONDO_LOGO_HUB = os.path.join(
@@ -23,42 +64,12 @@ def apply_fondo_pagina_principal_hub():
     if not os.path.isfile(path):
         return
     try:
-        with open(path, "rb") as f:
-            b64 = base64.b64encode(f.read()).decode()
+        mtime = os.path.getmtime(path)
     except OSError:
         return
-    ext = path.lower().rsplit(".", 1)[-1] if "." in path else "png"
-    if ext == "png":
-        mime = "image/png"
-    elif ext in ("jpg", "jpeg"):
-        mime = "image/jpeg"
-    elif ext == "webp":
-        mime = "image/webp"
-    else:
-        mime = "image/png"
-    st.markdown(
-        f"""
-        <style>
-        [data-testid="stAppViewContainer"] {{
-            background-image: url("data:{mime};base64,{b64}");
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }}
-        [data-testid="stAppViewContainer"]::before {{
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.78);
-            pointer-events: none;
-            z-index: 0;
-        }}
-        [data-testid="stAppViewContainer"] > section {{ position: relative; z-index: 1; }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    block = _fondo_hub_background_markdown(path, mtime)
+    if block:
+        st.markdown(block, unsafe_allow_html=True)
 
 
 def apply_styles():
@@ -72,11 +83,9 @@ def apply_styles():
     
     st.markdown(f"""
         <style>
-        /* 1. Fuente Escolar y General */
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-        
+        /* 1. Fuente: sistema (evita @import a Google en cada rerun de Streamlit). */
         html, body, [class*="css"] {{
-            font-family: 'Open Sans', sans-serif;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             color: #2C3E50;
             font-size: 18px;
         }}

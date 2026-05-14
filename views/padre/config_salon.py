@@ -66,7 +66,8 @@ def _infer_genero_desde_ruta(path_abs):
     return None
 
 
-def _listar_avatares_nino():
+@st.cache_data(show_spinner=False, ttl=180)
+def _listar_avatares_nino_cached():
     """Recorre assets/avatars_nino (incluye subcarpetas nino / nina). Cada ítem: label, path, genero."""
     avatares = []
     try:
@@ -89,6 +90,10 @@ def _listar_avatares_nino():
     except OSError:
         return []
     return avatares
+
+
+def _listar_avatares_nino():
+    return _listar_avatares_nino_cached()
 
 
 def _filtrar_avatares_nino_por_vista(lista, filtro):
