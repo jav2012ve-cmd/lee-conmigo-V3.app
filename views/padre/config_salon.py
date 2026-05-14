@@ -18,13 +18,8 @@ from database.db_queries import (
     agregar_familiar,
     eliminar_familiar,
     reiniciar_avance_estudiante,
-    obtener_email_padre,
-    actualizar_email_padre,
     existe_estudiante_con_nombre,
-    credencial_docente_tutor_existe,
-    upsert_credencial_cedula_docente_tutor,
 )
-from core.password_utils import normalizar_cedula_o_clave_numerica
 
 
 def _repo_root():
@@ -411,9 +406,8 @@ def render_config_salon():
         st.write("---")
         st.subheader("👩‍🏫 Docente o grupo escolar")
         st.caption(
-            "Opcional pero recomendado: la docente podrá ver en **Zona docentes** el listado y el avance "
-            "de todos los niños que compartan exactamente este nombre (sin distinguir mayúsculas). "
-            "La cédula también puede registrarse desde **Zona administradores** antes de crear perfiles."
+            "Opcional: nombre de la docente o del grupo (p. ej. Profe Ana · 1º A). "
+            "En **Zona docentes** se asocia la **cédula** y el acceso; aquí solo se guarda el nombre para enlazar alumnos con ese grupo."
         )
         _doc_def = obtener_nombre_docente(estudiante_id_actual) if estudiante_id_actual else ""
         nombre_docente = st.text_input(
@@ -422,20 +416,11 @@ def render_config_salon():
             key="input_nombre_docente",
             placeholder="Ej: Sra. Martínez",
         )
-        cedula_docente = st.text_input(
-            "Cédula de la docente (contraseña inicial en Zona docentes)",
-            value="",
-            type="password",
-            key="input_cedula_docente",
-            placeholder="Solo números; obligatoria la primera vez si hay nombre arriba",
-            help="Quien configura el perfil debe conocer la cédula. La docente usará ese número para entrar la primera vez y luego podrá cambiar la contraseña.",
-        )
         st.write("---")
         st.subheader("🎓 Tutor LeeConmigo (acompañamiento en la app)")
         st.caption(
-            "Persona que seguirá el avance del niño **dentro de LeeConmigo** (Zona Tutores). "
-            "Puede ser **la misma** que la docente de aula o **otra** (ej. maestra de apoyo, coordinación). "
-            "La cédula puede darse de alta también en **Zona administradores**."
+            "Opcional: nombre de quien acompaña el avance en **Zona Tutores**. "
+            "La **cédula**, la contraseña y el **correo** del tutor se configuran en esa zona, no en el registro del niño."
         )
         _tut_def = obtener_nombre_tutor(estudiante_id_actual) if estudiante_id_actual else ""
         nombre_tutor = st.text_input(
@@ -444,19 +429,6 @@ def render_config_salon():
             key="input_nombre_tutor",
             placeholder="Ej: Profe Luis (puede coincidir con docente de aula)",
         )
-        cedula_tutor = st.text_input(
-            "Cédula del tutor LeeConmigo (contraseña inicial en Zona Tutores)",
-            value="",
-            type="password",
-            key="input_cedula_tutor",
-            placeholder="Solo números; obligatoria la primera vez si hay nombre arriba",
-            help="El tutor LeeConmigo usará ese número para entrar la primera vez y luego podrá cambiar la contraseña.",
-        )
-        st.write("---")
-        st.subheader("📧 Correo del tutor")
-        st.caption("Para recibir por correo el informe de avance al finalizar cada sesión del niño.")
-        email_actual = obtener_email_padre(padre_id) or ""
-        email_tutor = st.text_input("Correo electrónico del tutor", value=email_actual, key="input_email_tutor", placeholder="ejemplo@correo.com")
         st.write("---")
         st.subheader("🔐 Clave para edición del álbum")
         clave_album_val = _v(perfil, 19, "")
@@ -499,106 +471,71 @@ def render_config_salon():
         if not nombre or not mama or not papa:
             st.error("❌ Los campos 'Nombre', 'Mamá' y 'Papá' son obligatorios.")
         else:
-            nd = (nombre_docente or "").strip()
-            nt = (nombre_tutor or "").strip()
-            ced_doc_digits = normalizar_cedula_o_clave_numerica(cedula_docente or "")
-            ced_tut_digits = normalizar_cedula_o_clave_numerica(cedula_tutor or "")
-            err_ced = None
-            if nd:
-                if not ced_doc_digits and not credencial_docente_tutor_existe("docente", nd):
-                    err_ced = (
-                        "Si indicaste **nombre de docente o grupo**, debes registrar la **cédula** "
-                        "(contraseña inicial en Zona docentes)."
-                    )
-                elif ced_doc_digits and len(ced_doc_digits) < 5:
-                    err_ced = "La cédula de la docente debe tener al menos 5 dígitos."
-            if nt and not err_ced:
-                if not ced_tut_digits and not credencial_docente_tutor_existe("tutor", nt):
-                    err_ced = (
-                        "Si indicaste **nombre del tutor LeeConmigo**, debes registrar la **cédula** "
-                        "(contraseña inicial en Zona Tutores)."
-                    )
-                elif ced_tut_digits and len(ced_tut_digits) < 5:
-                    err_ced = "La cédula del tutor debe tener al menos 5 dígitos."
-            if err_ced:
-                st.error(f"❌ {err_ced}")
-            else:
-                datos_estudiante = (
-                    padre_id,
-                    nombre,
-                    segundo_nombre or "",
-                    (apellidos or "").strip(),
-                    edad,
-                    genero,
-                    ciudad or "",
-                    mama,
-                    papa,
-                    hermanos or "",
-                    mascota or "",
-                    color_fav,
-                    animal or "",
-                    deporte or "",
-                    transporte or "",
-                    (clave_album or "").strip() or (clave_album_val if estudiante_id_actual and perfil else None),
-                    clave_estudiante,
-                    (nombre_docente or "").strip(),
-                    (nombre_tutor or "").strip(),
+            datos_estudiante = (
+                padre_id,
+                nombre,
+                segundo_nombre or "",
+                (apellidos or "").strip(),
+                edad,
+                genero,
+                ciudad or "",
+                mama,
+                papa,
+                hermanos or "",
+                mascota or "",
+                color_fav,
+                animal or "",
+                deporte or "",
+                transporte or "",
+                (clave_album or "").strip() or (clave_album_val if estudiante_id_actual and perfil else None),
+                clave_estudiante,
+                (nombre_docente or "").strip(),
+                (nombre_tutor or "").strip(),
+            )
+            gal_nino = _listar_avatares_nino()
+
+            def _aplicar_avatar_salon(id_est, pk):
+                if not id_est or not gal_nino:
+                    return
+                p = st.session_state.get(pk)
+                if not p or not isinstance(p, str):
+                    return
+                permitidas = {_normalizar_ruta_abs(a["path"]) for a in gal_nino}
+                pn = _normalizar_ruta_abs(p.strip())
+                if pn and pn in permitidas:
+                    actualizar_avatar_estudiante(id_est, p.strip())
+
+            if estudiante_id_actual:
+                actualizar_estudiante(estudiante_id_actual, datos_estudiante)
+                msg_ok = f"✅ Perfil de {nombre} actualizado."
+                st.session_state.nombre_nino = nombre
+                st.session_state.color_favorito = color_fav
+                _aplicar_avatar_salon(
+                    estudiante_id_actual,
+                    f"config_avatar_nino_path_{estudiante_id_actual}",
                 )
-                gal_nino = _listar_avatares_nino()
-
-                def _aplicar_avatar_salon(id_est, pk):
-                    if not id_est or not gal_nino:
-                        return
-                    p = st.session_state.get(pk)
-                    if not p or not isinstance(p, str):
-                        return
-                    permitidas = {_normalizar_ruta_abs(a["path"]) for a in gal_nino}
-                    pn = _normalizar_ruta_abs(p.strip())
-                    if pn and pn in permitidas:
-                        actualizar_avatar_estudiante(id_est, p.strip())
-
-                def _guardar_credenciales_doc_tut():
-                    if ced_doc_digits and nd:
-                        upsert_credencial_cedula_docente_tutor("docente", nd, ced_doc_digits)
-                    if ced_tut_digits and nt:
-                        upsert_credencial_cedula_docente_tutor("tutor", nt, ced_tut_digits)
-
-                if estudiante_id_actual:
-                    actualizar_estudiante(estudiante_id_actual, datos_estudiante)
-                    _guardar_credenciales_doc_tut()
-                    msg_ok = f"✅ Perfil de {nombre} actualizado."
-                    st.session_state.nombre_nino = nombre
-                    st.session_state.color_favorito = color_fav
-                    _aplicar_avatar_salon(
-                        estudiante_id_actual,
-                        f"config_avatar_nino_path_{estudiante_id_actual}",
-                    )
-                    if gal_nino:
-                        msg_ok += " 📷 Avatar del Salón actualizado."
-                    st.success(msg_ok)
+                if gal_nino:
+                    msg_ok += " 📷 Avatar del Salón actualizado."
+                st.success(msg_ok)
+            else:
+                if existe_estudiante_con_nombre(padre_id, nombre):
+                    st.error("❌ Ya existe un perfil con ese nombre en este salón. Edita el perfil existente o usa otro nombre.")
                 else:
-                    if existe_estudiante_con_nombre(padre_id, nombre):
-                        st.error("❌ Ya existe un perfil con ese nombre en este salón. Edita el perfil existente o usa otro nombre.")
+                    nuevo_id = crear_estudiante(datos_estudiante)
+                    if nuevo_id:
+                        _aplicar_avatar_salon(nuevo_id, "config_avatar_nino_path_new")
+                        st.session_state.estudiante_id = nuevo_id
+                        st.session_state.nombre_nino = nombre
+                        st.session_state.color_favorito = color_fav
+                        st.session_state.config_estudiante_id = nuevo_id  # para mostrar Datos de familiares
+                        msg_creado = f"✅ ¡Perfil de {nombre} creado y activado!"
+                        if gal_nino:
+                            msg_creado += " 📷 Avatar del Salón guardado."
+                        st.success(msg_creado)
+                        st.balloons()
+                        st.rerun()  # recargar para mostrar la sección de familiares
                     else:
-                        nuevo_id = crear_estudiante(datos_estudiante)
-                        if nuevo_id:
-                            _guardar_credenciales_doc_tut()
-                            _aplicar_avatar_salon(nuevo_id, "config_avatar_nino_path_new")
-                            st.session_state.estudiante_id = nuevo_id
-                            st.session_state.nombre_nino = nombre
-                            st.session_state.color_favorito = color_fav
-                            st.session_state.config_estudiante_id = nuevo_id  # para mostrar Datos de familiares
-                            msg_creado = f"✅ ¡Perfil de {nombre} creado y activado!"
-                            if gal_nino:
-                                msg_creado += " 📷 Avatar del Salón guardado."
-                            st.success(msg_creado)
-                            st.balloons()
-                            st.rerun()  # recargar para mostrar la sección de familiares
-                        else:
-                            st.error("❌ Error al guardar en la base de datos.")
-                # Registrar o actualizar correo del tutor (al crear o editar el perfil)
-                if email_tutor and "@" in email_tutor:
-                    actualizar_email_padre(padre_id, email_tutor.strip())
+                        st.error("❌ Error al guardar en la base de datos.")
 
     # Reiniciar avance de lecciones (solo al editar un niño existente)
     if estudiante_id_actual:
