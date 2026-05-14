@@ -305,7 +305,7 @@ def render_config_salon():
         st.write("")
 
     st.write("---")
-    with st.expander("📷 Foto del niño en el Salón (opcional)", expanded=False):
+    with st.expander("Selecciona tu avatar en la plataforma", expanded=False):
         _gal_top = _listar_avatares_nino()
         _kid_top = estudiante_id_actual or "new"
         _pk_top = f"config_avatar_nino_path_{_kid_top}"
