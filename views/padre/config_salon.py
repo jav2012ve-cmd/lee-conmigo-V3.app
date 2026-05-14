@@ -172,6 +172,10 @@ def _clave_guardada_a_lista_emoji(clave_guardada):
 
 
 def render_config_salon():
+    # Quitar restos de widgets retirados (cédulas/correo); evita caché confusa al actualizar la app.
+    for _k in ("input_cedula_docente", "input_cedula_tutor", "input_email_tutor"):
+        st.session_state.pop(_k, None)
+
     render_titulo_pagina("Configuración del perfil del niño")
     st.caption("Inscribe un nuevo estudiante. Para ver o editar datos con PIN, usa **Zona de padres** desde el Salón.")
     padre_id = st.session_state.get("padre_id") or 1
@@ -368,7 +372,7 @@ def render_config_salon():
 
     st.write("---")
 
-    with st.form("form_registro_nino", clear_on_submit=False):
+    with st.form("form_registro_alumno", clear_on_submit=False):
         col1, col2 = st.columns(2)
         with col1:
             nombre = st.text_input("Primer Nombre (Ej: Ignacio)", value=_v(perfil, 2, ""), key="input_nombre")
