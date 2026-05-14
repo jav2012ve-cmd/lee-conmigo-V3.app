@@ -1,5 +1,3 @@
-import base64
-import os
 import re
 
 import streamlit as st
@@ -151,75 +149,9 @@ def _leeconmigo_static_css_template() -> str:
         """
 
 
-@st.cache_data(show_spinner=False)
-def _fondo_hub_background_markdown(path: str, mtime: float) -> str | None:
-    """
-    CSS de fondo con imagen en data-URI. Clave (path, mtime): no se vuelve a leer ni
-    codificar en base64 mientras el archivo no cambie en disco.
-    """
-    if not path or not os.path.isfile(path):
-        return None
-    try:
-        with open(path, "rb") as f:
-            b64 = base64.b64encode(f.read()).decode()
-    except OSError:
-        return None
-    ext = path.lower().rsplit(".", 1)[-1] if "." in path else "png"
-    if ext == "png":
-        mime = "image/png"
-    elif ext in ("jpg", "jpeg"):
-        mime = "image/jpeg"
-    elif ext == "webp":
-        mime = "image/webp"
-    else:
-        mime = "image/png"
-    return f"""
-        <style>
-        [data-testid="stAppViewContainer"] {{
-            background-image: url("data:{mime};base64,{b64}");
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }}
-        [data-testid="stAppViewContainer"]::before {{
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.78);
-            pointer-events: none;
-            z-index: 0;
-        }}
-        [data-testid="stAppViewContainer"] > section {{ position: relative; z-index: 1; }}
-        </style>
-        """
-
-# Fondo visual LeeConmigo: salón de entrada, hub del niño, etc.
-# Archivo: `assets/genericos/fondos/Fondo_Logo.png`
-_FONDO_LOGO_HUB = os.path.join(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..")),
-    "assets",
-    "genericos",
-    "fondos",
-    "Fondo_Logo.png",
-)
-
-
 def apply_fondo_pagina_principal_hub():
-    """
-    Aplica `Fondo_Logo.png` como fondo de la app (entrada al salón, hub del niño).
-    Ruta: assets/genericos/fondos/Fondo_Logo.png bajo la raíz del proyecto.
-    """
-    path = _FONDO_LOGO_HUB
-    if not os.path.isfile(path):
-        return
-    try:
-        mtime = os.path.getmtime(path)
-    except OSError:
-        return
-    block = _fondo_hub_background_markdown(path, mtime)
-    if block:
-        st.markdown(block, unsafe_allow_html=True)
+    """Fondo con imagen retirado (antes Fondo_Logo.png en data-URI): aligera la página."""
+    return
 
 
 def apply_styles():
