@@ -1,18 +1,17 @@
 """
 Estado de sesión para main_DEMO.
 
-Este módulo no ejecuta consultas SQL: solo inicializa claves de `st.session_state`.
-Las lecturas pesadas a SQLite deben ir en las vistas o en `database/demo_read_cache.py`
-con TTL, y cargarse de forma diferida según la pantalla (ver `init_session_demo`).
+Reglas de rendimiento y arquitectura:
+- Este módulo NO importa `database.*` y NO ejecuta SELECT ni ninguna otra consulta SQL.
+  Cualquier lectura a BD debe vivir en vistas o en `database/demo_read_cache.py` con
+  `@st.cache_data` / TTL según corresponda.
+- `init_session_demo(lazy=True)` solo materializa claves de navegación y flags; no precarga
+  perfiles ni álbumes. Las vistas cargan datos bajo demanda al renderizarse.
 
 Estrategia de carga diferida (lazy) recomendada:
 - Mantener aquí solo flags de navegación, roles y overrides (p. ej. `v3_letras_override`).
-- No volcar perfil completo del estudiante al arrancar: las vistas `hub_nino`, `lecciones_nino`,
-  etc. ya llaman a `db_queries` cuando se renderizan.
-- Si en el futuro se necesita prefetch (p. ej. prellenar sidebar), añadir una función
-  `prefetch_demo_data_for_page(pagina: str)` invocada al final de `main_DEMO` según
-  `st.session_state.pagina_activa`, y guardar resultados en claves acotadas
-  (`demo_prefetch_hub`, …) con TTL en session_state o en `demo_read_cache`.
+- Si en el futuro se necesita prefetch por pantalla, añadir `prefetch_demo_data_for_page(pagina)`
+  invocada desde `main_DEMO` (no desde aquí con SQL directo) y delegar en funciones cacheadas.
 """
 
 import streamlit as st
@@ -23,11 +22,10 @@ DEMO_LETRAS_LECCIONES = ["M", "P"]
 
 def init_session_demo(*, lazy: bool = True) -> None:
     """
-    Inicializa variables de sesión para la app DEMO.
+    Inicializa variables de sesión para la app DEMO (sin acceso a base de datos).
 
-    lazy: reservado para no precargar datos de estudiante en bloque. Hoy no hay prefetch
-    pesado; las vistas cargan bajo demanda. Si `lazy=False`, se puede llamar a hooks de
-    prefetch sin bloquear el arranque (implementar cuando haga falta).
+    lazy: si es False, se puede activar prefetch explícito vía `_prefetch_demo_heavy_optional`
+    (reservado; no ejecuta SQL desde este archivo).
     """
     if "padre_id" not in st.session_state:
         st.session_state.padre_id = 1
@@ -66,9 +64,11 @@ def init_session_demo(*, lazy: bool = True) -> None:
 
 
 def _prefetch_demo_heavy_optional() -> None:
-    """Hook para futuros precargas (perfil/álbum) cuando lazy=False."""
-    # Intencionalmente vacío: evita SELECT al arranque de la app DEMO.
-    pass
+    """
+    Reservado para precarga explícita cuando lazy=False.
+    No implementar consultas SQL aquí: usar vistas o `database/demo_read_cache.py`.
+    """
+    return
 
 
 def logout_demo():

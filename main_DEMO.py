@@ -35,18 +35,20 @@ from views.admin.zona_administradores import render_zona_administradores
 
 def main():
     set_page_config()
-    # Una vez por proceso/clave: esquema + seed demo (no repetir en cada rerun).
-    warm_demo_streamlit_database(
-        DB_PATH,
-        os.environ.get("LEE_CONMIGO_DEMO_RESET", ""),
-    )
-    init_session_demo(lazy=True)
+
+    # Arranque pesado (SQLite init + seed demo) solo la primera vez por sesión de navegador.
+    if not st.session_state.get("app_ready"):
+        warm_demo_streamlit_database(
+            DB_PATH,
+            os.environ.get("LEE_CONMIGO_DEMO_RESET", ""),
+        )
+        init_session_demo(lazy=True)
+        st.session_state.app_ready = True
+
     apply_styles()
 
-    # Navegación global: st.fragment (Streamlit >=1.33) solo rerun-ea el fragmento.
-    # Si el sidebar fuera un @st.fragment, al pulsar un botón NO se ejecutaría de nuevo el
-    # router de `pagina_activa` más abajo hasta un rerun completo → la pantalla principal no
-    # cambiaría. Por eso aquí seguimos usando st.rerun() al cambiar de vista.
+    # Navegación: al pulsar un botón Streamlit ya rerun-ea el script completo; basta con
+    # mutar `pagina_activa` — no hace falta st.rerun() extra en el sidebar.
     with st.sidebar:
         render_titulo_sidebar("Panel de Control DEMO")
         st.caption("Versión de demostración comercial")
@@ -63,16 +65,12 @@ def main():
         )
         if st.button("👩‍🏫 Zona docentes", use_container_width=True, key="demo_sidebar_docente"):
             st.session_state.pagina_activa = "zona_docente"
-            st.rerun()
         if st.button("🎓 Zona Tutores", use_container_width=True, key="demo_sidebar_tutor"):
             st.session_state.pagina_activa = "zona_tutores"
-            st.rerun()
         if st.button("🛠️ Zona administradores", use_container_width=True, key="demo_sidebar_admin"):
             st.session_state.pagina_activa = "zona_admin"
-            st.rerun()
         if st.button("👨‍👩‍👧 Zona de padres", use_container_width=True, key="demo_sidebar_zona"):
             st.session_state.pagina_activa = "zona_padres"
-            st.rerun()
         if st.button(
             "➕ Registro de nuevos estudiantes",
             use_container_width=True,
@@ -81,7 +79,6 @@ def main():
             st.session_state.pagina_activa = "config_salon"
             st.session_state.config_selector_nino = "➕ Crear nuevo perfil"
             st.session_state.pop("config_estudiante_id", None)
-            st.rerun()
 
     pagina = st.session_state.pagina_activa
     if pagina == "salon_entrada":

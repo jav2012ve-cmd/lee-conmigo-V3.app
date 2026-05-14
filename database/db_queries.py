@@ -2,7 +2,7 @@ import sqlite3
 import os
 import unicodedata
 
-from database.db_config import DB_PATH
+from database.db_config import DB_PATH, get_streamlit_sqlite_connection
 from core.password_utils import (
     hash_password,
     nombre_docente_tutor_norm,
@@ -33,18 +33,37 @@ def normalizar_clave_emoji_nino(s):
     return "|".join(partes)
 
 def ejecutar_query(query, params=(), fetch=False):
-    """Ejecutor universal que gestiona la conexión de forma segura (Tu versión robusta)."""
+    """Ejecutor universal: bajo Streamlit reutiliza una conexión por sesión; fuera de Streamlit abre y cierra."""
     try:
-        # Aseguramos que la carpeta exista
         os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-        
-        with sqlite3.connect(DB_PATH, check_same_thread=False) as conn:
-            conn.execute("PRAGMA foreign_keys = ON;")
+    except OSError:
+        pass
+
+    conn = get_streamlit_sqlite_connection()
+    if conn is not None:
+        try:
             cursor = conn.cursor()
             cursor.execute(query, params)
             if fetch:
                 return cursor.fetchall()
             conn.commit()
+            return cursor.lastrowid
+        except sqlite3.Error as e:
+            print(f"❌ Error en DB: {e}")
+            try:
+                conn.rollback()
+            except sqlite3.Error:
+                pass
+            return None
+
+    try:
+        with sqlite3.connect(DB_PATH, check_same_thread=False) as conn2:
+            conn2.execute("PRAGMA foreign_keys = ON;")
+            cursor = conn2.cursor()
+            cursor.execute(query, params)
+            if fetch:
+                return cursor.fetchall()
+            conn2.commit()
             return cursor.lastrowid
     except sqlite3.Error as e:
         print(f"❌ Error en DB: {e}")

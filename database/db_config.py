@@ -1,6 +1,8 @@
 import sqlite3
 import os
 
+import streamlit as st
+
 # Definimos la ruta de forma absoluta respecto a este archivo para evitar errores de ejecución
 # Esto asegura que la DB siempre se cree en /database/ sin importar desde dónde corras Streamlit
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,6 +14,37 @@ DB_PATH = os.path.abspath(os.environ.get("LEE_CONMIGO_DB_PATH") or _default_db)
 def using_demo_database() -> bool:
     """True si la app usa `lee_conmigo_demo.db` (p. ej. main_DEMO.py). Para lecturas cacheadas solo en demo."""
     return os.path.basename(DB_PATH).lower() == "lee_conmigo_demo.db"
+
+
+@st.cache_resource(show_spinner=False)
+def _streamlit_sqlite_connection(session_db_key: tuple[int, str]) -> sqlite3.Connection:
+    """
+    Una conexión SQLite abierta por sesión de Streamlit (id de session_state + ruta de BD).
+    Evita abrir/cerrar el archivo .db en cada consulta durante los reruns.
+    """
+    _ss_id, db_path = session_db_key
+    conn = sqlite3.connect(db_path, check_same_thread=False, isolation_level=None)
+    conn.execute("PRAGMA foreign_keys = ON;")
+    return conn
+
+
+def get_streamlit_sqlite_connection() -> sqlite3.Connection | None:
+    """
+    Conexión reutilizable bajo Streamlit; fuera de Streamlit (scripts/CLI) devuelve None.
+    """
+    try:
+        sid = id(st.session_state)
+    except (RuntimeError, AttributeError, TypeError):
+        return None
+    return _streamlit_sqlite_connection((sid, str(DB_PATH)))
+
+
+def clear_streamlit_sqlite_connection_cache() -> None:
+    """Invalida el pool (p. ej. tras sustituir el archivo .db en caliente)."""
+    try:
+        _streamlit_sqlite_connection.clear()
+    except Exception:
+        pass
 
 
 def init_db():
