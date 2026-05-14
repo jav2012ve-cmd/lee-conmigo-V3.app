@@ -7,6 +7,7 @@ from components.page_title import render_titulo_sidebar
 # Importación de Vistas
 from views.salon_entrada import render_salon_entrada
 from views.padre.config_salon import render_config_salon
+from views.padre.config_salon_avatares import render_config_salon_avatares
 from views.padre.zona_padres import render_zona_padres
 from views.padre.album_mgmt import render_album_mgmt
 from views.estudiante.hub_nino import render_hub_nino
@@ -72,6 +73,9 @@ def main():
     
     elif pagina == 'config_salon':
         render_config_salon()
+
+    elif pagina == "config_salon_avatares":
+        render_config_salon_avatares()
 
     elif pagina == 'zona_padres':
         render_zona_padres()

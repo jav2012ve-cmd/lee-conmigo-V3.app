@@ -79,6 +79,10 @@ def main():
         render_salon_entrada_demo()
     elif pagina == "config_salon":
         render_config_salon_demo()
+    elif pagina == "config_salon_avatares":
+        from views.padre.config_salon_avatares import render_config_salon_avatares
+
+        render_config_salon_avatares()
     elif pagina == "zona_padres":
         render_zona_padres_demo()
     elif pagina == "zona_docente":
