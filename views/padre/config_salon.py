@@ -434,9 +434,15 @@ def render_config_salon():
             placeholder="Ej: Profe Luis (puede coincidir con docente de aula)",
         )
         st.write("---")
-        st.subheader("🔐 Clave para edición del álbum")
+        st.subheader("🔐 Clave del representante")
         clave_album_val = _v(perfil, 19, "")
-        clave_album = st.text_input("Clave para edición del álbum (PIN o contraseña)", value="", type="password", key="input_clave_album", placeholder="Dejar en blanco para no cambiar" if estudiante_id_actual else "Opcional")
+        clave_album = st.text_input(
+            "Clave del representante (PIN o contraseña)",
+            value="",
+            type="password",
+            key="input_clave_album",
+            placeholder="Dejar en blanco para no cambiar" if estudiante_id_actual else "Opcional",
+        )
         # Clave del niño: se elige con matriz de emojis (fuera del form, ver abajo)
         submit_button = st.form_submit_button("💾 GUARDAR PERFIL" if estudiante_id_actual else "💾 CREAR PERFIL")
 
