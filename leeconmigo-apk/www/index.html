@@ -1,0 +1,4165 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Lee Conmigo 4.3</title>
+    <style>
+:root {
+  --bg: #fff6ea;
+  --ink: #3e2723;
+  --orange: #f57c00;
+  --deep: #e65100;
+  --card: #ffffff;
+  --muted: #8d6e63;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, #ffb74d, #f57c00);
+  color: #3e1d00;
+}
+
+.bar h1 { margin: 0; font-size: 22px; line-height: 1.1; }
+.bar p { margin: 2px 0 0; font-size: 14px; }
+
+.icon-btn, .tile, .letter, .chip, .swatch, .tool {
+  min-height: 56px;
+  border: 0;
+  border-radius: 16px;
+  font: inherit;
+  font-weight: 800;
+}
+
+.icon-btn {
+  width: 56px;
+  background: #fff;
+  color: var(--deep);
+  font-size: 28px;
+}
+
+#screen {
+  height: calc(100% - 68px);
+  overflow: auto;
+  padding: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.welcome-on .bar { display: none; }
+body.welcome-on #screen {
+  height: 100%;
+  padding: 0;
+  overflow: auto;
+}
+
+.welcome {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px 20px;
+  background-color: #2a1608;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.welcome-card {
+  width: min(560px, 100%);
+  background: rgba(255, 246, 234, 0.94);
+  border-radius: 22px;
+  padding: 18px 16px 16px;
+  text-align: center;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.welcome-card h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  line-height: 1.25;
+  color: #3e1d00;
+}
+
+.welcome-syl {
+  justify-content: center;
+  margin: 4px 0 12px;
+}
+
+.welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.welcome-btn {
+  min-height: 56px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--deep);
+  color: #fff;
+  font: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  box-shadow: 0 4px 0 #bf360c;
+}
+
+.welcome-btn:active { transform: scale(0.97); }
+
+.welcome-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.welcome-photo .camera-btn {
+  width: min(280px, 92%);
+}
+
+.welcome-photo img,
+.welcome-photo-empty {
+  width: min(240px, 52vw);
+  height: min(240px, 52vw);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 0 #e0c3a0;
+  background: #ffe0b2;
+}
+
+.welcome-photo-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 84px;
+  border: 4px dashed #f57c00;
+}
+
+.camera-btn {
+  min-height: 64px;
+  padding: 0 22px;
+  font-size: 20px;
+  background: #1565c0;
+  box-shadow: 0 4px 0 #0d47a1;
+}
+
+.camera-btn-lg {
+  min-height: 68px;
+  padding: 0 24px;
+  font-size: 22px;
+}
+
+.camera-fab {
+  width: 64px;
+  height: 64px;
+  min-height: 64px;
+  font-size: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.tile-wrap {
+  position: relative;
+}
+
+.tile {
+  width: 100%;
+  background: var(--card);
+  box-shadow: 0 4px 0 #e0c3a0;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  color: inherit;
+}
+
+.sfx-fab {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  font-size: 22px;
+  z-index: 2;
+}
+
+.sfx-fab:active { transform: scale(0.96); }
+
+.tile img { width: 100%; height: 110px; object-fit: cover; display: block; }
+.tile .meta { padding: 8px 10px 12px; }
+.tile h2 { margin: 0; font-size: 18px; }
+.tile small { color: var(--muted); }
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.letters-page h3 {
+  margin: 8px 4px 10px;
+  font-size: 20px;
+  color: var(--deep);
+}
+
+.letter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.letter-tile {
+  min-height: 78px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--deep);
+  box-shadow: 0 4px 0 #e0c3a0;
+  font: inherit;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.letter-tile span { font-size: 32px; line-height: 1; }
+.letter-tile small { font-size: 11px; color: var(--muted); font-weight: 700; }
+.letter-tile.vowel { background: #fff3e0; }
+.letter-tile.lesson { background: #fff8e1; outline: 3px solid #ffb74d; }
+.letter-tile:active { transform: scale(0.97); }
+
+.letter-lesson h3 {
+  margin: 16px 4px 10px;
+  font-size: 20px;
+  color: var(--deep);
+}
+
+.lesson-syls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 8px 0 6px;
+}
+
+.lesson-syls .lesson-syl {
+  min-width: 64px;
+  min-height: 56px;
+  cursor: pointer;
+}
+
+.phrase-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.phrase-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 16px;
+  background: #fffde7;
+  color: var(--deep);
+  box-shadow: 0 4px 0 #ffd54f;
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+}
+
+.phrase-btn span { font-size: 20px; line-height: 1.25; }
+.phrase-btn small { font-size: 13px; color: var(--muted); font-weight: 700; }
+.phrase-btn:active { transform: scale(0.99); }
+
+.phrase-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 8px 28px;
+  text-align: center;
+}
+
+.phrase-kicker {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #e65100;
+}
+
+.phrase-page h2 {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 40px);
+  line-height: 1.2;
+}
+
+.phrase-page .welcome-btn { min-width: 180px; }
+
+.empty-letter {
+  margin: 24px 8px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.letter {
+  width: 72px;
+  height: 72px;
+  font-size: 32px;
+  background: #fff;
+  color: var(--deep);
+  box-shadow: 0 4px 0 #e0c3a0;
+}
+
+.letter:active, .tile:active, .chip:active { transform: scale(0.97); }
+
+.paint {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 8px;
+}
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 240px;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 3px #ffcc80;
+  touch-action: none;
+}
+
+.stage img, .stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stage img { object-fit: contain; filter: grayscale(0.15) contrast(1.05); }
+.stage canvas { touch-action: none; }
+
+.word-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.word-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.word-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.word-block h2, .word-row h2, .word-line h2 { margin: 0; font-size: 28px; }
+
+.repeat-btn {
+  min-height: 56px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--deep);
+  color: #fff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 4px 0 #bf360c;
+}
+
+.repeat-btn:active { transform: scale(0.97); }
+
+.sfx-btn {
+  background: #2e7d32;
+  box-shadow: 0 4px 0 #1b5e20;
+}
+
+.syl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-height: 52px;
+}
+
+.syl-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 10px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  color: #757575;
+  font-size: 22px;
+  font-weight: 800;
+  transform: scale(1);
+  transition: transform 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.syl-chip.on {
+  background: #fff9c4;
+  border-color: #fbc02d;
+  color: #e65100;
+  transform: scale(1.12);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+  z-index: 2;
+}
+
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.swatch {
+  width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+}
+
+.swatch.on { outline: 4px solid #3e2723; }
+
+.tool {
+  padding: 0 14px;
+  background: #fff3e0;
+  color: var(--deep);
+}
+
+.hint { margin: 0; color: var(--muted); font-size: 13px; }
+
+    </style>
+  </head>
+  <body>
+    <header class="bar">
+      <button id="btnBack" class="icon-btn" hidden>←</button>
+      <div>
+        <h1 id="title">Lee Conmigo 4.3</h1>
+        <p id="subtitle">Elige un álbum. Luego una imagen. Luego colorea.</p>
+      </div>
+    </header>
+    <main id="screen"></main>
+    <script>window.ALBUMS = {
+  "app": "Lee Conmigo 4.3",
+  "tagline": "Colorea cada objeto. Oye el nombre. Sin login.",
+  "albums": [
+    {
+      "id": "abecedario",
+      "title": "Abecedario",
+      "icon": "🔤",
+      "blurb": "Letras, vocales y consonantes. En M, P, L y S: frases para leer.",
+      "cover": "albums/abecedario_magico.jpg",
+      "cards": [
+        {
+          "id": "abecedario-magico",
+          "word": "Abecedario mágico",
+          "syllables": [
+            "A",
+            "be",
+            "ce",
+            "da",
+            "rio",
+            "má",
+            "gi",
+            "co"
+          ],
+          "image": "albums/abecedario_magico.jpg",
+          "letter": "A"
+        }
+      ]
+    },
+    {
+      "id": "familia",
+      "title": "Familia",
+      "icon": "👨‍👩‍👧‍👦",
+      "blurb": "Solo tu familia: fotos de casa y huecos para tomar foto.",
+      "cover": "albums/familia_1_abuela_margarita.jpg",
+      "cards": [
+        {
+          "id": "familia-1_abuela_margarita",
+          "word": "Abuela Margarita",
+          "syllables": [
+            "A",
+            "bue",
+            "la",
+            "Mar",
+            "ga",
+            "ri",
+            "ta"
+          ],
+          "image": "albums/familia_1_abuela_margarita.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "familia-1_abuelo_alberto",
+          "word": "Abuelo Alberto",
+          "syllables": [
+            "A",
+            "bue",
+            "lo",
+            "Al",
+            "ber",
+            "to"
+          ],
+          "image": "albums/familia_1_abuelo_alberto.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "familia-1_abuelo_wyssen",
+          "word": "Abuelo Wyssen",
+          "syllables": [
+            "A",
+            "bue",
+            "lo",
+            "Wy",
+            "ssen"
+          ],
+          "image": "albums/familia_1_abuelo_wyssen.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "familia-1_mama_norkis",
+          "word": "Mamá Norkis",
+          "syllables": [
+            "Ma",
+            "má",
+            "Nor",
+            "kis"
+          ],
+          "image": "albums/familia_1_mama_norkis.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "familia-1_papa_jose",
+          "word": "Papá José",
+          "syllables": [
+            "Pa",
+            "pá",
+            "Jo",
+            "sé"
+          ],
+          "image": "albums/familia_1_papa_jose.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "familia-1_prima_abril",
+          "word": "Prima Abril",
+          "syllables": [
+            "Pri",
+            "ma",
+            "A",
+            "bril"
+          ],
+          "image": "albums/familia_1_prima_abril.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "familia-1_tia_johana",
+          "word": "Tía Johana",
+          "syllables": [
+            "Tí",
+            "a",
+            "Jo",
+            "ha",
+            "na"
+          ],
+          "image": "albums/familia_1_tia_johana.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "familia-abuela-norkis",
+          "word": "Abuela Norkis",
+          "syllables": [
+            "A",
+            "bue",
+            "la",
+            "Nor",
+            "kis"
+          ],
+          "image": "",
+          "letter": "A",
+          "camera": "familia-abuela-norkis"
+        },
+        {
+          "id": "familia-tio-wilson",
+          "word": "Tío Wilsón",
+          "syllables": [
+            "Tí",
+            "o",
+            "Wil",
+            "són"
+          ],
+          "image": "",
+          "letter": "T",
+          "camera": "familia-tio-wilson"
+        },
+        {
+          "id": "familia-tia-nili",
+          "word": "Tía Nili",
+          "syllables": [
+            "Tí",
+            "a",
+            "Ni",
+            "li"
+          ],
+          "image": "",
+          "letter": "T",
+          "camera": "familia-tia-nili"
+        },
+        {
+          "id": "familia-abuelo-olegario",
+          "word": "Abuelo Olegario",
+          "syllables": [
+            "A",
+            "bue",
+            "lo",
+            "O",
+            "le",
+            "ga",
+            "rio"
+          ],
+          "image": "",
+          "letter": "A",
+          "camera": "familia-abuelo-olegario"
+        },
+        {
+          "id": "familia-tio-leonardo",
+          "word": "Tío Leonardo",
+          "syllables": [
+            "Tí",
+            "o",
+            "Le",
+            "o",
+            "nar",
+            "do"
+          ],
+          "image": "",
+          "letter": "T",
+          "camera": "familia-tio-leonardo"
+        }
+      ]
+    },
+    {
+      "id": "juguetes",
+      "title": "Juguetes",
+      "icon": "🧸",
+      "blurb": "Pelota, robot, bloques y más.",
+      "cover": "albums/juguetes_bate.jpg",
+      "cards": [
+        {
+          "id": "juguetes-bate",
+          "word": "Bate",
+          "syllables": [
+            "Ba",
+            "te"
+          ],
+          "image": "albums/juguetes_bate.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "juguetes-bloques",
+          "word": "Bloques",
+          "syllables": [
+            "Blo",
+            "ques"
+          ],
+          "image": "albums/juguetes_bloques.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "juguetes-carrito",
+          "word": "Carrito",
+          "syllables": [
+            "Ca",
+            "rri",
+            "to"
+          ],
+          "image": "albums/juguetes_carrito.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "juguetes-carritos",
+          "word": "Carritos",
+          "syllables": [
+            "Ca",
+            "rri",
+            "tos"
+          ],
+          "image": "albums/juguetes_carritos.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "juguetes-casa_munecas",
+          "word": "Casa de muñecas",
+          "syllables": [
+            "Ca",
+            "sa",
+            "de",
+            "mu",
+            "ñe",
+            "cas"
+          ],
+          "image": "albums/juguetes_casa_munecas.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "juguetes-castillo",
+          "word": "Castillo",
+          "syllables": [
+            "Cas",
+            "ti",
+            "llo"
+          ],
+          "image": "albums/juguetes_castillo.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "juguetes-cometa",
+          "word": "Cometa",
+          "syllables": [
+            "Co",
+            "me",
+            "ta"
+          ],
+          "image": "albums/juguetes_cometa.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "juguetes-futbol",
+          "word": "Fútbol",
+          "syllables": [
+            "Fút",
+            "bol"
+          ],
+          "image": "albums/juguetes_futbol.jpg",
+          "letter": "F"
+        },
+        {
+          "id": "juguetes-globo",
+          "word": "Globo",
+          "syllables": [
+            "Glo",
+            "bo"
+          ],
+          "image": "albums/juguetes_globo.jpg",
+          "letter": "G"
+        },
+        {
+          "id": "juguetes-muneca",
+          "word": "Muñeca",
+          "syllables": [
+            "Mu",
+            "ñe",
+            "ca"
+          ],
+          "image": "albums/juguetes_muneca.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "juguetes-osito",
+          "word": "Osito",
+          "syllables": [
+            "O",
+            "si",
+            "to"
+          ],
+          "image": "albums/juguetes_osito.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "juguetes-pala",
+          "word": "Pala",
+          "syllables": [
+            "Pa",
+            "la"
+          ],
+          "image": "albums/juguetes_pala.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "juguetes-patineta",
+          "word": "Patineta",
+          "syllables": [
+            "Pa",
+            "ti",
+            "ne",
+            "ta"
+          ],
+          "image": "albums/juguetes_patineta.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "juguetes-pelota",
+          "word": "Pelota",
+          "syllables": [
+            "Pe",
+            "lo",
+            "ta"
+          ],
+          "image": "albums/juguetes_pelota.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "juguetes-robot",
+          "word": "Robot",
+          "syllables": [
+            "Ro",
+            "bot"
+          ],
+          "image": "albums/juguetes_robot.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "juguetes-trompo",
+          "word": "Trompo",
+          "syllables": [
+            "Trom",
+            "po"
+          ],
+          "image": "albums/juguetes_trompo.jpg",
+          "letter": "T"
+        }
+      ]
+    },
+    {
+      "id": "cocina",
+      "title": "En la cocina",
+      "icon": "🍎",
+      "blurb": "Frutas, verduras y la olla.",
+      "cover": "albums/cocina_aguacate.jpg",
+      "cards": [
+        {
+          "id": "cocina-aguacate",
+          "word": "Aguacate",
+          "syllables": [
+            "A",
+            "gua",
+            "ca",
+            "te"
+          ],
+          "image": "albums/cocina_aguacate.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "cocina-aji_rojo",
+          "word": "Ají rojo",
+          "syllables": [
+            "A",
+            "jí",
+            "ro",
+            "jo"
+          ],
+          "image": "albums/cocina_aji_rojo.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "cocina-aji_verde",
+          "word": "Ají verde",
+          "syllables": [
+            "A",
+            "jí",
+            "ver",
+            "de"
+          ],
+          "image": "albums/cocina_aji_verde.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "cocina-ajo",
+          "word": "Ajo",
+          "syllables": [
+            "A",
+            "jo"
+          ],
+          "image": "albums/cocina_ajo.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "cocina-auyama",
+          "word": "Auyama",
+          "syllables": [
+            "Au",
+            "ya",
+            "ma"
+          ],
+          "image": "albums/cocina_auyama.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "cocina-berenjena",
+          "word": "Berenjena",
+          "syllables": [
+            "Be",
+            "ren",
+            "je",
+            "na"
+          ],
+          "image": "albums/cocina_berenjena.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "cocina-brocoli",
+          "word": "Brócoli",
+          "syllables": [
+            "Bró",
+            "co",
+            "li"
+          ],
+          "image": "albums/cocina_brocoli.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "cocina-calabaza",
+          "word": "Calabaza",
+          "syllables": [
+            "Ca",
+            "la",
+            "ba",
+            "za"
+          ],
+          "image": "albums/cocina_calabaza.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-cambur",
+          "word": "Cambur",
+          "syllables": [
+            "Cam",
+            "bur"
+          ],
+          "image": "albums/cocina_cambur.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-cebolla",
+          "word": "Cebolla",
+          "syllables": [
+            "Ce",
+            "bo",
+            "lla"
+          ],
+          "image": "albums/cocina_cebolla.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-cerezas",
+          "word": "Cerezas",
+          "syllables": [
+            "Ce",
+            "re",
+            "zas"
+          ],
+          "image": "albums/cocina_cerezas.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-cocina",
+          "word": "Cocina",
+          "syllables": [
+            "Co",
+            "ci",
+            "na"
+          ],
+          "image": "albums/cocina_cocina.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-coco",
+          "word": "Coco",
+          "syllables": [
+            "Co",
+            "co"
+          ],
+          "image": "albums/cocina_coco.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-coliflor",
+          "word": "Coliflor",
+          "syllables": [
+            "Co",
+            "li",
+            "flor"
+          ],
+          "image": "albums/cocina_coliflor.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-cuchara",
+          "word": "Cuchara",
+          "syllables": [
+            "Cu",
+            "cha",
+            "ra"
+          ],
+          "image": "albums/cocina_cuchara.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "cocina-durazno",
+          "word": "Durazno",
+          "syllables": [
+            "Du",
+            "raz",
+            "no"
+          ],
+          "image": "albums/cocina_durazno.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "cocina-espinaca",
+          "word": "Espinaca",
+          "syllables": [
+            "Es",
+            "pi",
+            "na",
+            "ca"
+          ],
+          "image": "albums/cocina_espinaca.jpg",
+          "letter": "E"
+        },
+        {
+          "id": "cocina-fresas",
+          "word": "Fresas",
+          "syllables": [
+            "Fre",
+            "sas"
+          ],
+          "image": "albums/cocina_fresas.jpg",
+          "letter": "F"
+        },
+        {
+          "id": "cocina-kiwi",
+          "word": "Kiwi",
+          "syllables": [
+            "Ki",
+            "wi"
+          ],
+          "image": "albums/cocina_kiwi.jpg",
+          "letter": "K"
+        },
+        {
+          "id": "cocina-lechuga",
+          "word": "Lechuga",
+          "syllables": [
+            "Le",
+            "chu",
+            "ga"
+          ],
+          "image": "albums/cocina_lechuga.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "cocina-limon",
+          "word": "Limón",
+          "syllables": [
+            "Li",
+            "món"
+          ],
+          "image": "albums/cocina_limon.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "cocina-maiz",
+          "word": "Maíz",
+          "syllables": [
+            "Ma",
+            "íz"
+          ],
+          "image": "albums/cocina_maiz.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cocina-mango",
+          "word": "Mango",
+          "syllables": [
+            "Man",
+            "go"
+          ],
+          "image": "albums/cocina_mango.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cocina-manzana",
+          "word": "Manzana",
+          "syllables": [
+            "Man",
+            "za",
+            "na"
+          ],
+          "image": "albums/cocina_manzana.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cocina-masa",
+          "word": "Masa",
+          "syllables": [
+            "Ma",
+            "sa"
+          ],
+          "image": "albums/cocina_masa.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cocina-melocoton",
+          "word": "Melocotón",
+          "syllables": [
+            "Me",
+            "lo",
+            "co",
+            "tón"
+          ],
+          "image": "albums/cocina_melocoton.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cocina-melon",
+          "word": "Melón",
+          "syllables": [
+            "Me",
+            "lón"
+          ],
+          "image": "albums/cocina_melon.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cocina-naranja",
+          "word": "Naranja",
+          "syllables": [
+            "Na",
+            "ran",
+            "ja"
+          ],
+          "image": "albums/cocina_naranja.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "cocina-olla",
+          "word": "Olla",
+          "syllables": [
+            "O",
+            "lla"
+          ],
+          "image": "albums/cocina_olla.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "cocina-patilla",
+          "word": "Patilla",
+          "syllables": [
+            "Pa",
+            "ti",
+            "lla"
+          ],
+          "image": "albums/cocina_patilla.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "cocina-pera",
+          "word": "Pera",
+          "syllables": [
+            "Pe",
+            "ra"
+          ],
+          "image": "albums/cocina_pera.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "cocina-pimenton",
+          "word": "Pimentón",
+          "syllables": [
+            "Pi",
+            "men",
+            "tón"
+          ],
+          "image": "albums/cocina_pimenton.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "cocina-pimiento",
+          "word": "Pimiento",
+          "syllables": [
+            "Pi",
+            "mien",
+            "to"
+          ],
+          "image": "albums/cocina_pimiento.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "cocina-pina",
+          "word": "Piña",
+          "syllables": [
+            "Pi",
+            "ña"
+          ],
+          "image": "albums/cocina_pina.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "cocina-platamo",
+          "word": "Plátano",
+          "syllables": [
+            "Plá",
+            "ta",
+            "no"
+          ],
+          "image": "albums/cocina_platamo.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "cocina-sal",
+          "word": "Sal",
+          "syllables": [
+            "Sal"
+          ],
+          "image": "albums/cocina_sal.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "cocina-zanahoria",
+          "word": "Zanahoria",
+          "syllables": [
+            "Za",
+            "na",
+            "ho",
+            "ria"
+          ],
+          "image": "albums/cocina_zanahoria.jpg",
+          "letter": "Z"
+        }
+      ]
+    },
+    {
+      "id": "transporte",
+      "title": "Medios de transporte",
+      "icon": "🚗",
+      "blurb": "Carro, avión, barco y tren.",
+      "cover": "albums/transporte_autobus.jpg",
+      "cards": [
+        {
+          "id": "transporte-autobus",
+          "word": "Autobús",
+          "syllables": [
+            "Au",
+            "to",
+            "bús"
+          ],
+          "image": "albums/transporte_autobus.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "transporte-avion",
+          "word": "Avión",
+          "syllables": [
+            "A",
+            "vión"
+          ],
+          "image": "albums/transporte_avion.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "transporte-barco",
+          "word": "Barco",
+          "syllables": [
+            "Bar",
+            "co"
+          ],
+          "image": "albums/transporte_barco.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "transporte-bicicleta",
+          "word": "Bicicleta",
+          "syllables": [
+            "Bi",
+            "ci",
+            "cle",
+            "ta"
+          ],
+          "image": "albums/transporte_bicicleta.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "transporte-camion",
+          "word": "Camión",
+          "syllables": [
+            "Ca",
+            "mión"
+          ],
+          "image": "albums/transporte_camion.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "transporte-carro",
+          "word": "Carro",
+          "syllables": [
+            "Ca",
+            "rro"
+          ],
+          "image": "albums/transporte_carro.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "transporte-cohete",
+          "word": "Cohete",
+          "syllables": [
+            "Co",
+            "he",
+            "te"
+          ],
+          "image": "albums/transporte_cohete.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "transporte-helicoptero",
+          "word": "Helicóptero",
+          "syllables": [
+            "He",
+            "li",
+            "cóp",
+            "te",
+            "ro"
+          ],
+          "image": "albums/transporte_helicoptero.jpg",
+          "letter": "H"
+        },
+        {
+          "id": "transporte-monopatin",
+          "word": "Monopatín",
+          "syllables": [
+            "Mo",
+            "no",
+            "pa",
+            "tín"
+          ],
+          "image": "albums/transporte_monopatin.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "transporte-moto",
+          "word": "Moto",
+          "syllables": [
+            "Mo",
+            "to"
+          ],
+          "image": "albums/transporte_moto.jpg",
+          "letter": "M"
+        }
+      ]
+    },
+    {
+      "id": "colores",
+      "title": "Colores",
+      "icon": "🎨",
+      "blurb": "Rojo, azul, verde y amigos.",
+      "cover": "albums/colores_amarillo.jpg",
+      "cards": [
+        {
+          "id": "colores-amarillo",
+          "word": "Amarillo",
+          "syllables": [
+            "A",
+            "ma",
+            "ri",
+            "llo"
+          ],
+          "image": "albums/colores_amarillo.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "colores-azul",
+          "word": "Azul",
+          "syllables": [
+            "A",
+            "zul"
+          ],
+          "image": "albums/colores_azul.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "colores-blanco",
+          "word": "Blanco",
+          "syllables": [
+            "Blan",
+            "co"
+          ],
+          "image": "albums/colores_blanco.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "colores-colornaranja",
+          "word": "Naranja",
+          "syllables": [
+            "Na",
+            "ran",
+            "ja"
+          ],
+          "image": "albums/colores_colornaranja.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "colores-dorado",
+          "word": "Dorado",
+          "syllables": [
+            "Do",
+            "ra",
+            "do"
+          ],
+          "image": "albums/colores_dorado.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "colores-gris",
+          "word": "Gris",
+          "syllables": [
+            "Gris"
+          ],
+          "image": "albums/colores_gris.jpg",
+          "letter": "G"
+        },
+        {
+          "id": "colores-marron",
+          "word": "Marrón",
+          "syllables": [
+            "Ma",
+            "rrón"
+          ],
+          "image": "albums/colores_marron.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "colores-negro",
+          "word": "Negro",
+          "syllables": [
+            "Ne",
+            "gro"
+          ],
+          "image": "albums/colores_negro.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "colores-rojo",
+          "word": "Rojo",
+          "syllables": [
+            "Ro",
+            "jo"
+          ],
+          "image": "albums/colores_rojo.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "colores-rosado",
+          "word": "Rosado",
+          "syllables": [
+            "Ro",
+            "sa",
+            "do"
+          ],
+          "image": "albums/colores_rosado.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "colores-verde",
+          "word": "Verde",
+          "syllables": [
+            "Ver",
+            "de"
+          ],
+          "image": "albums/colores_verde.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "colores-violeta",
+          "word": "Violeta",
+          "syllables": [
+            "Vio",
+            "le",
+            "ta"
+          ],
+          "image": "albums/colores_violeta.jpg",
+          "letter": "V"
+        }
+      ]
+    },
+    {
+      "id": "figuras",
+      "title": "Figuras geométricas",
+      "icon": "📐",
+      "blurb": "Círculo, cuadrado, triángulo y más. Colorea y oye el nombre.",
+      "cover": "albums/figuras_portada.jpg",
+      "cards": [
+        {
+          "id": "figuras-circulo",
+          "word": "Círculo",
+          "syllables": [
+            "Cír",
+            "cu",
+            "lo"
+          ],
+          "image": "albums/figuras_circulo.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "figuras-cuadrado",
+          "word": "Cuadrado",
+          "syllables": [
+            "Cua",
+            "dra",
+            "do"
+          ],
+          "image": "albums/figuras_cuadrado.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "figuras-triangulo",
+          "word": "Triángulo",
+          "syllables": [
+            "Trián",
+            "gu",
+            "lo"
+          ],
+          "image": "albums/figuras_triangulo.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "figuras-rectangulo",
+          "word": "Rectángulo",
+          "syllables": [
+            "Rec",
+            "tán",
+            "gu",
+            "lo"
+          ],
+          "image": "albums/figuras_rectangulo.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "figuras-ovalo",
+          "word": "Óvalo",
+          "syllables": [
+            "Ó",
+            "va",
+            "lo"
+          ],
+          "image": "albums/figuras_ovalo.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "figuras-rombo",
+          "word": "Rombo",
+          "syllables": [
+            "Rom",
+            "bo"
+          ],
+          "image": "albums/figuras_rombo.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "figuras-hexagono",
+          "word": "Hexágono",
+          "syllables": [
+            "He",
+            "xá",
+            "go",
+            "no"
+          ],
+          "image": "albums/figuras_hexagono.jpg",
+          "letter": "H"
+        },
+        {
+          "id": "figuras-pentagono",
+          "word": "Pentágono",
+          "syllables": [
+            "Pen",
+            "tá",
+            "go",
+            "no"
+          ],
+          "image": "albums/figuras_pentagono.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "figuras-octogono",
+          "word": "Octógono",
+          "syllables": [
+            "Oc",
+            "tó",
+            "go",
+            "no"
+          ],
+          "image": "albums/figuras_octogono.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "figuras-esfera",
+          "word": "Esfera",
+          "syllables": [
+            "Es",
+            "fe",
+            "ra"
+          ],
+          "image": "albums/figuras_esfera.jpg",
+          "letter": "E"
+        },
+        {
+          "id": "figuras-cilindro",
+          "word": "Cilindro",
+          "syllables": [
+            "Ci",
+            "lin",
+            "dro"
+          ],
+          "image": "albums/figuras_cilindro.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "figuras-cubo",
+          "word": "Cubo",
+          "syllables": [
+            "Cu",
+            "bo"
+          ],
+          "image": "albums/figuras_cubo.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "figuras-semicirculo",
+          "word": "Semicírculo",
+          "syllables": [
+            "Se",
+            "mi",
+            "cír",
+            "cu",
+            "lo"
+          ],
+          "image": "albums/figuras_semicirculo.jpg",
+          "letter": "S"
+        }
+      ]
+    },
+    {
+      "id": "numeros",
+      "title": "Números",
+      "icon": "🔢",
+      "blurb": "Del cero al cien.",
+      "cover": "albums/numeros_catorce.jpg",
+      "cards": [
+        {
+          "id": "numeros-catorce",
+          "word": "Catorce",
+          "syllables": [
+            "Ca",
+            "tor",
+            "ce"
+          ],
+          "image": "albums/numeros_catorce.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-cero",
+          "word": "Cero",
+          "syllables": [
+            "Ce",
+            "ro"
+          ],
+          "image": "albums/numeros_cero.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-cien",
+          "word": "Cien",
+          "syllables": [
+            "Cien"
+          ],
+          "image": "albums/numeros_cien.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-cinco",
+          "word": "Cinco",
+          "syllables": [
+            "Cin",
+            "co"
+          ],
+          "image": "albums/numeros_cinco.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-cincuenta",
+          "word": "Cincuenta",
+          "syllables": [
+            "Cin",
+            "cuen",
+            "ta"
+          ],
+          "image": "albums/numeros_cincuenta.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-cuarenta",
+          "word": "Cuarenta",
+          "syllables": [
+            "Cua",
+            "ren",
+            "ta"
+          ],
+          "image": "albums/numeros_cuarenta.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-cuatro",
+          "word": "Cuatro",
+          "syllables": [
+            "Cua",
+            "tro"
+          ],
+          "image": "albums/numeros_cuatro.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "numeros-diecinueve",
+          "word": "Diecinueve",
+          "syllables": [
+            "Die",
+            "ci",
+            "nue",
+            "ve"
+          ],
+          "image": "albums/numeros_diecinueve.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-dieciocho",
+          "word": "Dieciocho",
+          "syllables": [
+            "Die",
+            "cio",
+            "cho"
+          ],
+          "image": "albums/numeros_dieciocho.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-dieciseis",
+          "word": "Dieciseis",
+          "syllables": [
+            "Die",
+            "ci",
+            "seis"
+          ],
+          "image": "albums/numeros_dieciseis.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-diecisiete",
+          "word": "Diecisiete",
+          "syllables": [
+            "Die",
+            "ci",
+            "sie",
+            "te"
+          ],
+          "image": "albums/numeros_diecisiete.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-diez",
+          "word": "Diez",
+          "syllables": [
+            "Diez"
+          ],
+          "image": "albums/numeros_diez.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-doce",
+          "word": "Doce",
+          "syllables": [
+            "Do",
+            "ce"
+          ],
+          "image": "albums/numeros_doce.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-dos",
+          "word": "Dos",
+          "syllables": [
+            "Dos"
+          ],
+          "image": "albums/numeros_dos.jpg",
+          "letter": "D"
+        },
+        {
+          "id": "numeros-noventa",
+          "word": "Noventa",
+          "syllables": [
+            "No",
+            "ven",
+            "ta"
+          ],
+          "image": "albums/numeros_noventa.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "numeros-nueve",
+          "word": "Nueve",
+          "syllables": [
+            "Nue",
+            "ve"
+          ],
+          "image": "albums/numeros_nueve.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "numeros-ochenta",
+          "word": "Ochenta",
+          "syllables": [
+            "O",
+            "chen",
+            "ta"
+          ],
+          "image": "albums/numeros_ochenta.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "numeros-ocho",
+          "word": "Ocho",
+          "syllables": [
+            "O",
+            "cho"
+          ],
+          "image": "albums/numeros_ocho.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "numeros-once",
+          "word": "Once",
+          "syllables": [
+            "On",
+            "ce"
+          ],
+          "image": "albums/numeros_once.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "numeros-quince",
+          "word": "Quince",
+          "syllables": [
+            "Quin",
+            "ce"
+          ],
+          "image": "albums/numeros_quince.jpg",
+          "letter": "Q"
+        },
+        {
+          "id": "numeros-seis",
+          "word": "Seis",
+          "syllables": [
+            "Seis"
+          ],
+          "image": "albums/numeros_seis.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "numeros-siete",
+          "word": "Siete",
+          "syllables": [
+            "Sie",
+            "te"
+          ],
+          "image": "albums/numeros_siete.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "numeros-tres",
+          "word": "Tres",
+          "syllables": [
+            "Tres"
+          ],
+          "image": "albums/numeros_tres.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "numeros-uno",
+          "word": "Uno",
+          "syllables": [
+            "U",
+            "no"
+          ],
+          "image": "albums/numeros_uno.jpg",
+          "letter": "U"
+        },
+        {
+          "id": "numeros-veinte",
+          "word": "Veinte",
+          "syllables": [
+            "Vein",
+            "te"
+          ],
+          "image": "albums/numeros_veinte.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "numeros-veinticinco",
+          "word": "Veinticinco",
+          "syllables": [
+            "Vein",
+            "ti",
+            "cin",
+            "co"
+          ],
+          "image": "albums/numeros_veinticinco.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "numeros-veintisiete",
+          "word": "Veintisiete",
+          "syllables": [
+            "Vein",
+            "ti",
+            "sie",
+            "te"
+          ],
+          "image": "albums/numeros_veintisiete.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "numeros-veintitres",
+          "word": "Veintitres",
+          "syllables": [
+            "Vein",
+            "ti",
+            "tres"
+          ],
+          "image": "albums/numeros_veintitres.jpg",
+          "letter": "V"
+        }
+      ]
+    },
+    {
+      "id": "animales",
+      "title": "Animales",
+      "icon": "🐾",
+      "blurb": "León, lobo, loro y más.",
+      "cover": "albums/animales_gato.jpg",
+      "cards": [
+        {
+          "id": "animales-gato",
+          "word": "Gato",
+          "syllables": [
+            "Ga",
+            "to"
+          ],
+          "image": "albums/animales_gato.jpg",
+          "letter": "G"
+        },
+        {
+          "id": "animales-guacamaya",
+          "word": "Guacamaya",
+          "syllables": [
+            "Gua",
+            "ca",
+            "ma",
+            "ya"
+          ],
+          "image": "albums/animales_guacamaya.jpg",
+          "letter": "G"
+        },
+        {
+          "id": "animales-leon",
+          "word": "León",
+          "syllables": [
+            "Le",
+            "ón"
+          ],
+          "image": "albums/animales_leon.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "animales-lobo",
+          "word": "Lobo",
+          "syllables": [
+            "Lo",
+            "bo"
+          ],
+          "image": "albums/animales_lobo.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "animales-loro",
+          "word": "Loro",
+          "syllables": [
+            "Lo",
+            "ro"
+          ],
+          "image": "albums/animales_loro.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "animales-mono",
+          "word": "Mono",
+          "syllables": [
+            "Mo",
+            "no"
+          ],
+          "image": "albums/animales_mono.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "animales-perro",
+          "word": "Perro",
+          "syllables": [
+            "Pe",
+            "rro"
+          ],
+          "image": "albums/animales_perro.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "animales-pescado",
+          "word": "Pescado",
+          "syllables": [
+            "Pes",
+            "ca",
+            "do"
+          ],
+          "image": "albums/animales_pescado.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "animales-puma",
+          "word": "Puma",
+          "syllables": [
+            "Pu",
+            "ma"
+          ],
+          "image": "albums/animales_puma.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "animales-sapo",
+          "word": "Sapo",
+          "syllables": [
+            "Sa",
+            "po"
+          ],
+          "image": "albums/animales_sapo.jpg",
+          "letter": "S"
+        }
+      ]
+    },
+    {
+      "id": "cuerpo",
+      "title": "Mi cuerpo",
+      "icon": "🖐️",
+      "blurb": "Mano, pie y más.",
+      "cover": "albums/cuerpo_mano.jpg",
+      "cards": [
+        {
+          "id": "cuerpo-mano",
+          "word": "Mano",
+          "syllables": [
+            "Ma",
+            "no"
+          ],
+          "image": "albums/cuerpo_mano.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "cuerpo-pie",
+          "word": "Pie",
+          "syllables": [
+            "Pie"
+          ],
+          "image": "albums/cuerpo_pie.jpg",
+          "letter": "P"
+        }
+      ]
+    },
+    {
+      "id": "instrumentos",
+      "title": "Instrumentos musicales",
+      "icon": "🎵",
+      "blurb": "Colorea y oye el nombre, con silabeo.",
+      "cover": "albums/instrumentos_portada.jpg",
+      "cards": [
+        {
+          "id": "instrumentos-guitarra",
+          "word": "Guitarra",
+          "syllables": [
+            "Gui",
+            "ta",
+            "rra"
+          ],
+          "image": "albums/instrumentos_guitarra.jpg",
+          "letter": "G"
+        },
+        {
+          "id": "instrumentos-cuatro",
+          "word": "Cuatro",
+          "syllables": [
+            "Cua",
+            "tro"
+          ],
+          "image": "albums/instrumentos_cuatro.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "instrumentos-cuatro-venezolano",
+          "word": "Cuatro venezolano",
+          "syllables": [
+            "Cua",
+            "tro",
+            "ve",
+            "ne",
+            "zo",
+            "la",
+            "no"
+          ],
+          "image": "albums/instrumentos_cuatro_venezolano.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "instrumentos-ukelele",
+          "word": "Ukelele",
+          "syllables": [
+            "U",
+            "ke",
+            "le",
+            "le"
+          ],
+          "image": "albums/instrumentos_ukelele.jpg",
+          "letter": "U"
+        },
+        {
+          "id": "instrumentos-bandola",
+          "word": "Bandola",
+          "syllables": [
+            "Ban",
+            "do",
+            "la"
+          ],
+          "image": "albums/instrumentos_bandola.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "instrumentos-violin",
+          "word": "Violín",
+          "syllables": [
+            "Vio",
+            "lín"
+          ],
+          "image": "albums/instrumentos_violin.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "instrumentos-viola",
+          "word": "Viola",
+          "syllables": [
+            "Vio",
+            "la"
+          ],
+          "image": "albums/instrumentos_viola.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "instrumentos-chelo",
+          "word": "Chelo",
+          "syllables": [
+            "Che",
+            "lo"
+          ],
+          "image": "albums/instrumentos_chelo.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "instrumentos-violonchelo",
+          "word": "Violonchelo",
+          "syllables": [
+            "Vio",
+            "lon",
+            "che",
+            "lo"
+          ],
+          "image": "albums/instrumentos_violonchelo.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "instrumentos-contrabajo",
+          "word": "Contrabajo",
+          "syllables": [
+            "Con",
+            "tra",
+            "ba",
+            "jo"
+          ],
+          "image": "albums/instrumentos_contrabajo.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "instrumentos-bajo",
+          "word": "Bajo",
+          "syllables": [
+            "Ba",
+            "jo"
+          ],
+          "image": "albums/instrumentos_bajo.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "instrumentos-arpa",
+          "word": "Arpa",
+          "syllables": [
+            "Ar",
+            "pa"
+          ],
+          "image": "albums/instrumentos_arpa.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "instrumentos-piano",
+          "word": "Piano",
+          "syllables": [
+            "Pia",
+            "no"
+          ],
+          "image": "albums/instrumentos_piano.jpg",
+          "letter": "P"
+        },
+        {
+          "id": "instrumentos-flauta",
+          "word": "Flauta",
+          "syllables": [
+            "Flau",
+            "ta"
+          ],
+          "image": "albums/instrumentos_flauta.jpg",
+          "letter": "F"
+        },
+        {
+          "id": "instrumentos-trompeta",
+          "word": "Trompeta",
+          "syllables": [
+            "Trom",
+            "pe",
+            "ta"
+          ],
+          "image": "albums/instrumentos_trompeta.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "instrumentos-trombon",
+          "word": "Trombón",
+          "syllables": [
+            "Trom",
+            "bón"
+          ],
+          "image": "albums/instrumentos_trombon.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "instrumentos-saxofon",
+          "word": "Saxofón",
+          "syllables": [
+            "Sa",
+            "xo",
+            "fón"
+          ],
+          "image": "albums/instrumentos_saxofon.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "instrumentos-clarinete",
+          "word": "Clarinete",
+          "syllables": [
+            "Cla",
+            "ri",
+            "ne",
+            "te"
+          ],
+          "image": "albums/instrumentos_clarinete.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "instrumentos-tambor",
+          "word": "Tambor",
+          "syllables": [
+            "Tam",
+            "bor"
+          ],
+          "image": "albums/instrumentos_tambor.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "instrumentos-tambor-2",
+          "word": "Otro tambor",
+          "syllables": [
+            "O",
+            "tro",
+            "tam",
+            "bor"
+          ],
+          "image": "albums/instrumentos_tambor_2.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "instrumentos-maracas",
+          "word": "Maracas",
+          "syllables": [
+            "Ma",
+            "ra",
+            "cas"
+          ],
+          "image": "albums/instrumentos_maracas.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "instrumentos-xilofono",
+          "word": "Xilófono",
+          "syllables": [
+            "Xi",
+            "ló",
+            "fo",
+            "no"
+          ],
+          "image": "albums/instrumentos_xilofono.jpg",
+          "letter": "X"
+        },
+        {
+          "id": "instrumentos-bateria",
+          "word": "Batería",
+          "syllables": [
+            "Ba",
+            "te",
+            "rí",
+            "a"
+          ],
+          "image": "albums/instrumentos_bateria.jpg",
+          "letter": "B"
+        },
+        {
+          "id": "instrumentos-furruco",
+          "word": "Furruco",
+          "syllables": [
+            "Fu",
+            "rru",
+            "co"
+          ],
+          "image": "albums/instrumentos_furruco.jpg",
+          "letter": "F"
+        },
+        {
+          "id": "instrumentos-coral",
+          "word": "Coral",
+          "syllables": [
+            "Co",
+            "ral"
+          ],
+          "image": "albums/instrumentos_coral.jpg",
+          "letter": "C"
+        }
+      ]
+    },
+    {
+      "id": "instrumentos-2",
+      "title": "Instrumentos musicales 2",
+      "icon": "🎶",
+      "blurb": "Nombre, silabeo y el sonido del instrumento.",
+      "cover": "albums/instrumentos_guitarra.jpg",
+      "cards": [
+        {
+          "id": "instrumentos2-guitarra",
+          "word": "Guitarra",
+          "syllables": [
+            "Gui",
+            "ta",
+            "rra"
+          ],
+          "image": "albums/instrumentos_guitarra.jpg",
+          "letter": "G",
+          "audio": "audio/instrumentos-guitarra.mp3",
+          "sfx": "audio/sfx-instrumentos-guitarra.mp3"
+        },
+        {
+          "id": "instrumentos2-cuatro",
+          "word": "Cuatro",
+          "syllables": [
+            "Cua",
+            "tro"
+          ],
+          "image": "albums/instrumentos_cuatro.jpg",
+          "letter": "C",
+          "audio": "audio/instrumentos-cuatro.mp3",
+          "sfx": "audio/sfx-instrumentos-cuatro.mp3"
+        },
+        {
+          "id": "instrumentos2-cuatro-venezolano",
+          "word": "Cuatro venezolano",
+          "syllables": [
+            "Cua",
+            "tro",
+            "ve",
+            "ne",
+            "zo",
+            "la",
+            "no"
+          ],
+          "image": "albums/instrumentos_cuatro_venezolano.jpg",
+          "letter": "C",
+          "audio": "audio/instrumentos-cuatro-venezolano.mp3",
+          "sfx": "audio/sfx-instrumentos-cuatro-venezolano.mp3"
+        },
+        {
+          "id": "instrumentos2-bandola",
+          "word": "Bandola",
+          "syllables": [
+            "Ban",
+            "do",
+            "la"
+          ],
+          "image": "albums/instrumentos_bandola.jpg",
+          "letter": "B",
+          "audio": "audio/instrumentos-bandola.mp3",
+          "sfx": "audio/sfx-instrumentos-bandola.mp3"
+        },
+        {
+          "id": "instrumentos2-violin",
+          "word": "Violín",
+          "syllables": [
+            "Vio",
+            "lín"
+          ],
+          "image": "albums/instrumentos_violin.jpg",
+          "letter": "V",
+          "audio": "audio/instrumentos-violin.mp3",
+          "sfx": "audio/sfx-instrumentos-violin.mp3"
+        },
+        {
+          "id": "instrumentos2-viola",
+          "word": "Viola",
+          "syllables": [
+            "Vio",
+            "la"
+          ],
+          "image": "albums/instrumentos_viola.jpg",
+          "letter": "V",
+          "audio": "audio/instrumentos-viola.mp3",
+          "sfx": "audio/sfx-instrumentos-viola.mp3"
+        },
+        {
+          "id": "instrumentos2-bajo",
+          "word": "Bajo",
+          "syllables": [
+            "Ba",
+            "jo"
+          ],
+          "image": "albums/instrumentos_bajo.jpg",
+          "letter": "B",
+          "audio": "audio/instrumentos-bajo.mp3",
+          "sfx": "audio/sfx-instrumentos-bajo.mp3"
+        },
+        {
+          "id": "instrumentos2-arpa",
+          "word": "Arpa",
+          "syllables": [
+            "Ar",
+            "pa"
+          ],
+          "image": "albums/instrumentos_arpa.jpg",
+          "letter": "A",
+          "audio": "audio/instrumentos-arpa.mp3",
+          "sfx": "audio/sfx-instrumentos-arpa.mp3"
+        },
+        {
+          "id": "instrumentos2-piano",
+          "word": "Piano",
+          "syllables": [
+            "Pia",
+            "no"
+          ],
+          "image": "albums/instrumentos_piano.jpg",
+          "letter": "P",
+          "audio": "audio/instrumentos-piano.mp3",
+          "sfx": "audio/sfx-instrumentos-piano.mp3"
+        },
+        {
+          "id": "instrumentos2-flauta",
+          "word": "Flauta",
+          "syllables": [
+            "Flau",
+            "ta"
+          ],
+          "image": "albums/instrumentos_flauta.jpg",
+          "letter": "F",
+          "audio": "audio/instrumentos-flauta.mp3",
+          "sfx": "audio/sfx-instrumentos-flauta.mp3"
+        },
+        {
+          "id": "instrumentos2-trompeta",
+          "word": "Trompeta",
+          "syllables": [
+            "Trom",
+            "pe",
+            "ta"
+          ],
+          "image": "albums/instrumentos_trompeta.jpg",
+          "letter": "T",
+          "audio": "audio/instrumentos-trompeta.mp3",
+          "sfx": "audio/sfx-instrumentos-trompeta.mp3"
+        },
+        {
+          "id": "instrumentos2-trombon",
+          "word": "Trombón",
+          "syllables": [
+            "Trom",
+            "bón"
+          ],
+          "image": "albums/instrumentos_trombon.jpg",
+          "letter": "T",
+          "audio": "audio/instrumentos-trombon.mp3",
+          "sfx": "audio/sfx-instrumentos-trombon.mp3"
+        },
+        {
+          "id": "instrumentos2-saxofon",
+          "word": "Saxofón",
+          "syllables": [
+            "Sa",
+            "xo",
+            "fón"
+          ],
+          "image": "albums/instrumentos_saxofon.jpg",
+          "letter": "S",
+          "audio": "audio/instrumentos-saxofon.mp3",
+          "sfx": "audio/sfx-instrumentos-saxofon.mp3"
+        },
+        {
+          "id": "instrumentos2-tambor-2",
+          "word": "Tambor",
+          "syllables": [
+            "Tam",
+            "bor"
+          ],
+          "image": "albums/instrumentos_tambor_2.jpg",
+          "letter": "T",
+          "audio": "audio/instrumentos-tambor.mp3",
+          "sfx": "audio/sfx-instrumentos-tambor-2.mp3"
+        },
+        {
+          "id": "instrumentos2-maracas",
+          "word": "Maracas",
+          "syllables": [
+            "Ma",
+            "ra",
+            "cas"
+          ],
+          "image": "albums/instrumentos_maracas.jpg",
+          "letter": "M",
+          "audio": "audio/instrumentos-maracas.mp3",
+          "sfx": "audio/sfx-instrumentos-maracas.mp3"
+        },
+        {
+          "id": "instrumentos2-xilofono",
+          "word": "Xilófono",
+          "syllables": [
+            "Xi",
+            "ló",
+            "fo",
+            "no"
+          ],
+          "image": "albums/instrumentos_xilofono.jpg",
+          "letter": "X",
+          "audio": "audio/instrumentos-xilofono.mp3",
+          "sfx": "audio/sfx-instrumentos-xilofono.mp3"
+        },
+        {
+          "id": "instrumentos2-coral",
+          "word": "Coral",
+          "syllables": [
+            "Co",
+            "ral"
+          ],
+          "image": "albums/instrumentos_coral.jpg",
+          "letter": "C",
+          "audio": "audio/instrumentos-coral.mp3",
+          "sfx": "audio/sfx-instrumentos-coral.mp3"
+        }
+      ]
+    }
+  ]
+};</script>
+    <script>window.LESSONS = {
+  "M": {
+    "letter": "M",
+    "title": "Lección M",
+    "syllables": [
+      "Ma",
+      "Me",
+      "Mi",
+      "Mo",
+      "Mu"
+    ],
+    "sentences": [
+      {
+        "id": "frase-m-0",
+        "word": "Mamá Norkis me ama",
+        "syllables": [
+          "Ma",
+          "má",
+          "Nor",
+          "kis",
+          "me",
+          "a",
+          "ma"
+        ],
+        "audio": "audio/frase-m-0.mp3"
+      },
+      {
+        "id": "frase-m-1",
+        "word": "Ignacio ama a mamá",
+        "syllables": [
+          "Ig",
+          "na",
+          "cio",
+          "a",
+          "ma",
+          "a",
+          "ma",
+          "má"
+        ],
+        "audio": "audio/frase-m-1.mp3"
+      },
+      {
+        "id": "frase-m-2",
+        "word": "Samanta mima a mamá",
+        "syllables": [
+          "Sa",
+          "man",
+          "ta",
+          "mi",
+          "ma",
+          "a",
+          "ma",
+          "má"
+        ],
+        "audio": "audio/frase-m-2.mp3"
+      },
+      {
+        "id": "frase-m-3",
+        "word": "Mi mamá me ama mucho",
+        "syllables": [
+          "Mi",
+          "ma",
+          "má",
+          "me",
+          "a",
+          "ma",
+          "mu",
+          "cho"
+        ],
+        "audio": "audio/frase-m-3.mp3"
+      },
+      {
+        "id": "frase-m-4",
+        "word": "Amo a mi Mamá Norkis",
+        "syllables": [
+          "A",
+          "mo",
+          "a",
+          "mi",
+          "Ma",
+          "má",
+          "Nor",
+          "kis"
+        ],
+        "audio": "audio/frase-m-4.mp3"
+      },
+      {
+        "id": "frase-m-5",
+        "word": "Mimi mima a Miau",
+        "syllables": [
+          "Mi",
+          "mi",
+          "mi",
+          "ma",
+          "a",
+          "Miau"
+        ],
+        "audio": "audio/frase-m-5.mp3"
+      },
+      {
+        "id": "frase-m-6",
+        "word": "Mi mamá me mima a mí",
+        "syllables": [
+          "Mi",
+          "ma",
+          "má",
+          "me",
+          "mi",
+          "ma",
+          "a",
+          "mí"
+        ],
+        "audio": "audio/frase-m-6.mp3"
+      },
+      {
+        "id": "frase-m-7",
+        "word": "Ema ama a mamá",
+        "syllables": [
+          "E",
+          "ma",
+          "a",
+          "ma",
+          "a",
+          "ma",
+          "má"
+        ],
+        "audio": "audio/frase-m-7.mp3"
+      }
+    ]
+  },
+  "P": {
+    "letter": "P",
+    "title": "Lección P",
+    "syllables": [
+      "Pa",
+      "Pe",
+      "Pi",
+      "Po",
+      "Pu"
+    ],
+    "sentences": [
+      {
+        "id": "frase-p-0",
+        "word": "Papá José ama a Ignacio",
+        "syllables": [
+          "Pa",
+          "pá",
+          "Jo",
+          "sé",
+          "a",
+          "ma",
+          "a",
+          "Ig",
+          "na",
+          "cio"
+        ],
+        "audio": "audio/frase-p-0.mp3"
+      },
+      {
+        "id": "frase-p-1",
+        "word": "Ignacio ama a papá",
+        "syllables": [
+          "Ig",
+          "na",
+          "cio",
+          "a",
+          "ma",
+          "a",
+          "pa",
+          "pá"
+        ],
+        "audio": "audio/frase-p-1.mp3"
+      },
+      {
+        "id": "frase-p-2",
+        "word": "Camila ama a Abuelo Alberto",
+        "syllables": [
+          "Ca",
+          "mi",
+          "la",
+          "a",
+          "ma",
+          "a",
+          "A",
+          "bue",
+          "lo",
+          "Al",
+          "ber",
+          "to"
+        ],
+        "audio": "audio/frase-p-2.mp3"
+      },
+      {
+        "id": "frase-p-3",
+        "word": "Papá ama a Camila",
+        "syllables": [
+          "Pa",
+          "pá",
+          "a",
+          "ma",
+          "a",
+          "Ca",
+          "mi",
+          "la"
+        ],
+        "audio": "audio/frase-p-3.mp3"
+      },
+      {
+        "id": "frase-p-4",
+        "word": "Mi papá me aúpa",
+        "syllables": [
+          "Mi",
+          "pa",
+          "pá",
+          "me",
+          "a",
+          "ú",
+          "pa"
+        ],
+        "audio": "audio/frase-p-4.mp3"
+      },
+      {
+        "id": "frase-p-5",
+        "word": "Ese puma pisa el mapa",
+        "syllables": [
+          "E",
+          "se",
+          "pu",
+          "ma",
+          "pi",
+          "sa",
+          "el",
+          "ma",
+          "pa"
+        ],
+        "audio": "audio/frase-p-5.mp3"
+      },
+      {
+        "id": "frase-p-6",
+        "word": "Papá José y el mapa",
+        "syllables": [
+          "Pa",
+          "pá",
+          "Jo",
+          "sé",
+          "y",
+          "el",
+          "ma",
+          "pa"
+        ],
+        "audio": "audio/frase-p-6.mp3"
+      },
+      {
+        "id": "frase-p-7",
+        "word": "Amo a mi papá y a mi mamá",
+        "syllables": [
+          "A",
+          "mo",
+          "a",
+          "mi",
+          "pa",
+          "pá",
+          "y",
+          "a",
+          "mi",
+          "ma",
+          "má"
+        ],
+        "audio": "audio/frase-p-7.mp3"
+      }
+    ]
+  },
+  "L": {
+    "letter": "L",
+    "title": "Lección L",
+    "syllables": [
+      "La",
+      "Le",
+      "Li",
+      "Lo",
+      "Lu"
+    ],
+    "sentences": [
+      {
+        "id": "frase-l-0",
+        "word": "Samanta lee sola el libro",
+        "syllables": [
+          "Sa",
+          "man",
+          "ta",
+          "le",
+          "e",
+          "so",
+          "la",
+          "el",
+          "li",
+          "bro"
+        ],
+        "audio": "audio/frase-l-0.mp3"
+      },
+      {
+        "id": "frase-l-1",
+        "word": "La luna sale de noche",
+        "syllables": [
+          "La",
+          "lu",
+          "na",
+          "sa",
+          "le",
+          "de",
+          "no",
+          "che"
+        ],
+        "audio": "audio/frase-l-1.mp3"
+      },
+      {
+        "id": "frase-l-2",
+        "word": "Ignacio lee la lista",
+        "syllables": [
+          "Ig",
+          "na",
+          "cio",
+          "le",
+          "e",
+          "la",
+          "lis",
+          "ta"
+        ],
+        "audio": "audio/frase-l-2.mp3"
+      },
+      {
+        "id": "frase-l-3",
+        "word": "Papá José pule el carro",
+        "syllables": [
+          "Pa",
+          "pá",
+          "Jo",
+          "sé",
+          "pu",
+          "le",
+          "el",
+          "ca",
+          "rro"
+        ],
+        "audio": "audio/frase-l-3.mp3"
+      },
+      {
+        "id": "frase-l-4",
+        "word": "El león lame la loma",
+        "syllables": [
+          "El",
+          "le",
+          "ón",
+          "la",
+          "me",
+          "la",
+          "lo",
+          "ma"
+        ],
+        "audio": "audio/frase-l-4.mp3"
+      },
+      {
+        "id": "frase-l-5",
+        "word": "La lupa de papá",
+        "syllables": [
+          "La",
+          "lu",
+          "pa",
+          "de",
+          "pa",
+          "pá"
+        ],
+        "audio": "audio/frase-l-5.mp3"
+      },
+      {
+        "id": "frase-l-6",
+        "word": "Lola lee a Samanta",
+        "syllables": [
+          "Lo",
+          "la",
+          "le",
+          "e",
+          "a",
+          "Sa",
+          "man",
+          "ta"
+        ],
+        "audio": "audio/frase-l-6.mp3"
+      },
+      {
+        "id": "frase-l-7",
+        "word": "El lobo y la luna",
+        "syllables": [
+          "El",
+          "lo",
+          "bo",
+          "y",
+          "la",
+          "lu",
+          "na"
+        ],
+        "audio": "audio/frase-l-7.mp3"
+      }
+    ]
+  },
+  "S": {
+    "letter": "S",
+    "title": "Lección S",
+    "syllables": [
+      "Sa",
+      "Se",
+      "Si",
+      "So",
+      "Su"
+    ],
+    "sentences": [
+      {
+        "id": "frase-s-0",
+        "word": "Samanta pone su mesa",
+        "syllables": [
+          "Sa",
+          "man",
+          "ta",
+          "po",
+          "ne",
+          "su",
+          "me",
+          "sa"
+        ],
+        "audio": "audio/frase-s-0.mp3"
+      },
+      {
+        "id": "frase-s-1",
+        "word": "El sapo se asoma al sol",
+        "syllables": [
+          "El",
+          "sa",
+          "po",
+          "se",
+          "a",
+          "so",
+          "ma",
+          "al",
+          "sol"
+        ],
+        "audio": "audio/frase-s-1.mp3"
+      },
+      {
+        "id": "frase-s-2",
+        "word": "Ese oso pasea solo",
+        "syllables": [
+          "E",
+          "se",
+          "o",
+          "so",
+          "pa",
+          "se",
+          "a",
+          "so",
+          "lo"
+        ],
+        "audio": "audio/frase-s-2.mp3"
+      },
+      {
+        "id": "frase-s-3",
+        "word": "El Sol salió hoy",
+        "syllables": [
+          "El",
+          "Sol",
+          "sa",
+          "lió",
+          "hoy"
+        ],
+        "audio": "audio/frase-s-3.mp3"
+      },
+      {
+        "id": "frase-s-4",
+        "word": "Susi toma su sopa",
+        "syllables": [
+          "Su",
+          "si",
+          "to",
+          "ma",
+          "su",
+          "so",
+          "pa"
+        ],
+        "audio": "audio/frase-s-4.mp3"
+      },
+      {
+        "id": "frase-s-5",
+        "word": "Ignacio suma en la mesa",
+        "syllables": [
+          "Ig",
+          "na",
+          "cio",
+          "su",
+          "ma",
+          "en",
+          "la",
+          "me",
+          "sa"
+        ],
+        "audio": "audio/frase-s-5.mp3"
+      },
+      {
+        "id": "frase-s-6",
+        "word": "Esa es la mesa de mamá",
+        "syllables": [
+          "E",
+          "sa",
+          "es",
+          "la",
+          "me",
+          "sa",
+          "de",
+          "ma",
+          "má"
+        ],
+        "audio": "audio/frase-s-6.mp3"
+      },
+      {
+        "id": "frase-s-7",
+        "word": "El sapo salta y salta",
+        "syllables": [
+          "El",
+          "sa",
+          "po",
+          "sal",
+          "ta",
+          "y",
+          "sal",
+          "ta"
+        ],
+        "audio": "audio/frase-s-7.mp3"
+      }
+    ]
+  }
+};</script>
+    <script>
+const COLORS = [
+  "#f44336", "#e91e63", "#9c27b0", "#3f51b5", "#2196f3",
+  "#00bcd4", "#4caf50", "#8bc34a", "#ffeb3b", "#ff9800",
+  "#ff5722", "#795548", "#ffffff", "#212121",
+];
+
+const APP_NAME = "Lee Conmigo 4.3";
+const APP_VERSION = "4.3";
+const WELCOME_BG = "albums/abecedario_magico.jpg";
+const IGNACIO_SLOT = "ignacio-welcome";
+const WELCOME_CARD = {
+  id: "bienvenida-ignacio",
+  word: "Bienvenido Ignacio a tu Abecedario Mágico",
+  syllables: [
+    "Bien", "ve", "ni", "do",
+    "Ig", "na", "cio",
+    "a", "tu",
+    "A", "be", "ce", "da", "rio",
+    "Má", "gi", "co",
+  ],
+  audio: "audio/bienvenida-ignacio.mp3",
+};
+const VOWELS = ["A", "E", "I", "O", "U"];
+const CONSONANTS = [
+  "B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "Ñ",
+  "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z",
+];
+const SOURCE_ALBUMS = [
+  "juguetes", "cocina", "animales", "transporte", "colores",
+  "familia", "cuerpo", "instrumentos", "numeros",
+];
+const PLACEHOLDER =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220'>" +
+      "<rect width='320' height='220' fill='#ffe0b2'/>" +
+      "<text x='160' y='96' text-anchor='middle' font-size='52'>📷</text>" +
+      "<text x='160' y='150' text-anchor='middle' font-size='20' fill='#e65100' font-family='sans-serif'>Tomar foto</text>" +
+    "</svg>"
+  );
+const $ = (id) => document.getElementById(id);
+const screen = $("screen");
+const title = $("title");
+const subtitle = $("subtitle");
+const btnBack = $("btnBack");
+const SFX_MAX_MS = 25000;
+
+let catalog = { albums: [] };
+let route = { album: null, letter: null, card: null };
+let atWelcome = true;
+let color = COLORS[0];
+let brush = 22;
+let eraser = false;
+let player = null;
+let sylTimers = [];
+let silabeoToken = 0;
+let playToken = 0;
+let sfxCapTimer = null;
+
+function audioSrcForCard(card) {
+  if (card && card.audio) return card.audio;
+  return card && card.id ? "audio/" + card.id + ".mp3" : "";
+}
+
+function stopPlayback() {
+  playToken += 1;
+  if (sfxCapTimer) {
+    clearTimeout(sfxCapTimer);
+    sfxCapTimer = null;
+  }
+  if (window.LeeConmigo && typeof window.LeeConmigo.stopAudio === "function") {
+    try {
+      window.LeeConmigo.stopAudio();
+    } catch (err) {
+      /* ignore */
+    }
+  }
+  if (player) {
+    try {
+      player.pause();
+      player.removeAttribute("src");
+    } catch (err) {
+      /* ignore */
+    }
+    player = null;
+  }
+}
+
+function playSrc(src, hooks) {
+  const onDuration = hooks && hooks.onDuration;
+  const onEnded = hooks && hooks.onEnded;
+  const capMs = (hooks && hooks.capMs) || 0;
+  const token = playToken;
+  if (!src) {
+    if (onDuration) onDuration(0);
+    if (onEnded) onEnded();
+    return;
+  }
+  if (capMs > 0) {
+    sfxCapTimer = setTimeout(() => {
+      if (token !== playToken) return;
+      stopPlayback();
+    }, capMs);
+  }
+  if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
+    let duration = 0;
+    try {
+      duration = window.LeeConmigo.playAudio(src) || 0;
+    } catch (err) {
+      duration = 0;
+    }
+    if (onDuration) onDuration(duration);
+    if (onEnded) {
+      setTimeout(() => {
+        if (token !== playToken) return;
+        onEnded();
+      }, Math.max(duration, 280));
+    }
+    return;
+  }
+  try {
+    if (player) {
+      player.pause();
+      player.removeAttribute("src");
+    }
+    player = new Audio(src);
+    player.onloadedmetadata = () => {
+      if (token !== playToken) return;
+      if (onDuration) onDuration((player.duration || 0) * 1000);
+    };
+    player.onended = () => {
+      if (token !== playToken) return;
+      if (onEnded) onEnded();
+    };
+    player.play().catch(() => {
+      if (token !== playToken) return;
+      if (onDuration) onDuration(0);
+      if (onEnded) onEnded();
+    });
+  } catch (err) {
+    if (onDuration) onDuration(0);
+    if (onEnded) onEnded();
+  }
+}
+
+function playSfxOnly(card) {
+  if (!card || !card.sfx) return;
+  clearSylTimers();
+  stopPlayback();
+  playSrc(card.sfx, { capMs: SFX_MAX_MS });
+}
+
+function setBar(h, s, back) {
+  title.textContent = h;
+  subtitle.textContent = s;
+  btnBack.hidden = !back;
+}
+
+function albumById(id) {
+  return catalog.albums.find((a) => a.id === id);
+}
+
+function foldLetter(ch) {
+  const map = { Á: "A", É: "E", Í: "I", Ó: "O", Ú: "U", Ü: "U" };
+  const u = String(ch || "").toUpperCase();
+  return map[u] || u;
+}
+
+function cardLetter(card) {
+  if (card && card.letter) return foldLetter(card.letter);
+  const w = card && card.word ? String(card.word).trim() : "";
+  return w ? foldLetter(w[0]) : "";
+}
+
+function wordKey(word) {
+  return String(word || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function letterAudio(letter) {
+  if (letter === "Ñ") return "audio/letra_enie.mp3";
+  return "audio/letra_" + letter + ".mp3";
+}
+
+function lessonFor(letter) {
+  const all = window.LESSONS || {};
+  return all[letter] || null;
+}
+
+function silabaAudio(syl) {
+  const key = String(syl || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  return key ? "audio/sil_" + key + ".mp3" : "";
+}
+
+function findPhrase(letter, phraseId) {
+  const lesson = lessonFor(letter);
+  if (!lesson || !phraseId) return null;
+  return (lesson.sentences || []).find((s) => s.id === phraseId) || null;
+}
+
+function letterMeta(letter) {
+  const n = wordsForLetter(letter).length;
+  const lesson = lessonFor(letter);
+  const f = lesson ? (lesson.sentences || []).length : 0;
+  if (f && n) return n + " pal. · " + f + " frases";
+  if (f) return f === 1 ? "1 frase" : f + " frases";
+  if (n) return n === 1 ? "1 palabra" : n + " palabras";
+  return "Sin palabras";
+}
+
+function wordsForLetter(letter) {
+  const buckets = [];
+  const seen = new Set();
+  SOURCE_ALBUMS.forEach((id) => {
+    const album = albumById(id);
+    if (!album) return;
+    const items = [];
+    album.cards.forEach((c) => {
+      if (cardLetter(c) !== letter) return;
+      const key = wordKey(c.word);
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      items.push(c);
+    });
+    if (items.length) buckets.push(items);
+  });
+  const out = [];
+  let i = 0;
+  while (out.length < 5) {
+    let added = false;
+    buckets.forEach((b) => {
+      if (out.length >= 5 || i >= b.length) return;
+      out.push(b[i]);
+      added = true;
+    });
+    if (!added) break;
+    i += 1;
+  }
+  return out;
+}
+
+function findCardAnywhere(cardId) {
+  for (let i = 0; i < catalog.albums.length; i += 1) {
+    const album = catalog.albums[i];
+    const card = album.cards.find((c) => c.id === cardId);
+    if (card) return { album, card };
+  }
+  return null;
+}
+
+function letterTile(letter, kind) {
+  const b = document.createElement("button");
+  const hasLesson = !!lessonFor(letter);
+  b.className =
+    "letter-tile" +
+    (kind === "vowel" ? " vowel" : "") +
+    (hasLesson ? " lesson" : "");
+  b.innerHTML = `<span>${letter}</span><small>${letterMeta(letter)}</small>`;
+  b.onclick = () => renderLetter(letter);
+  return b;
+}
+
+function nativeCamera() {
+  return !!(window.LeeConmigo && typeof window.LeeConmigo.capturePhoto === "function");
+}
+
+function photoSrc(slot) {
+  if (!slot) return "";
+  if (nativeCamera() && typeof window.LeeConmigo.getPhoto === "function") {
+    try {
+      return window.LeeConmigo.getPhoto(slot) || "";
+    } catch (err) {
+      return "";
+    }
+  }
+  try {
+    return localStorage.getItem("foto:" + slot) || "";
+  } catch (err) {
+    return "";
+  }
+}
+
+function hasPhoto(slot) {
+  if (!slot) return false;
+  if (nativeCamera() && typeof window.LeeConmigo.hasPhoto === "function") {
+    try {
+      return !!window.LeeConmigo.hasPhoto(slot);
+    } catch (err) {
+      return false;
+    }
+  }
+  return !!photoSrc(slot);
+}
+
+function cardThumb(card) {
+  if (card && card.camera) return photoSrc(card.camera) || PLACEHOLDER;
+  return card && card.image ? card.image : PLACEHOLDER;
+}
+
+function requestPhoto(slot) {
+  if (!slot) return;
+  if (nativeCamera()) {
+    try {
+      window.LeeConmigo.capturePhoto(slot);
+      return;
+    } catch (err) {
+      /* fallback */
+    }
+  }
+  let input = $("photoInput");
+  if (!input) {
+    input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.setAttribute("capture", "environment");
+    input.id = "photoInput";
+    input.hidden = true;
+    document.body.appendChild(input);
+  }
+  input.onchange = () => {
+    const file = input.files && input.files[0];
+    input.value = "";
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        localStorage.setItem("foto:" + slot, reader.result);
+      } catch (err) {
+        /* ignore quota */
+      }
+      if (window.onLeePhoto) window.onLeePhoto(slot);
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+function refreshAfterPhoto(slot) {
+  if (slot === IGNACIO_SLOT) {
+    renderWelcome();
+    return;
+  }
+  if (route.card && route.letter && findPhrase(route.letter, route.card)) {
+    renderPhrase(route.letter, route.card);
+    return;
+  }
+  if (route.card) {
+    renderPaint(route.album, route.card);
+    return;
+  }
+  if (route.letter) {
+    renderLetter(route.letter);
+    return;
+  }
+  if (route.album) {
+    renderItems(route.album);
+  }
+}
+
+window.onLeePhoto = refreshAfterPhoto;
+
+function clearSylTimers() {
+  sylTimers.forEach(clearTimeout);
+  sylTimers = [];
+  silabeoToken += 1;
+}
+
+function renderSylRow(card, active) {
+  const row = $("sylRow");
+  if (!row) return;
+  const syls = card.syllables || [];
+  row.innerHTML = syls
+    .map(
+      (s, i) =>
+        `<span class="syl-chip${i === active ? " on" : ""}">${s}</span>`
+    )
+    .join("");
+}
+
+function startSilabeo(card, durationMs) {
+  const syls = card.syllables || [];
+  clearSylTimers();
+  const token = silabeoToken;
+  renderSylRow(card, -1);
+  if (!syls.length) return;
+  const weights = syls.map((s) => 0.6 + String(s).length * 0.15);
+  const totalW = weights.reduce((a, b) => a + b, 0);
+  const total = durationMs > 250 ? durationMs : Math.round(totalW * 1000);
+  let acc = 120;
+  syls.forEach((_, i) => {
+    const ms = Math.max(280, Math.round((weights[i] / totalW) * total));
+    sylTimers.push(
+      setTimeout(() => {
+        if (token !== silabeoToken) return;
+        renderSylRow(card, i);
+      }, acc)
+    );
+    acc += ms;
+  });
+  sylTimers.push(
+    setTimeout(() => {
+      if (token !== silabeoToken) return;
+      renderSylRow(card, -1);
+    }, acc)
+  );
+}
+
+function speakName(card) {
+  if (!card) return;
+  const src = audioSrcForCard(card);
+  stopPlayback();
+  playSrc(src, {
+    onDuration: (duration) => startSilabeo(card, duration),
+    onEnded: () => {
+      if (card.sfx) playSrc(card.sfx, { capMs: SFX_MAX_MS });
+    },
+  });
+}
+
+function renderWelcome() {
+  clearSylTimers();
+  stopPlayback();
+  atWelcome = true;
+  route = { album: null, letter: null, card: null };
+  document.body.classList.add("welcome-on");
+  setBar("", "", false);
+  btnBack.hidden = true;
+  const ignacio = photoSrc(IGNACIO_SLOT);
+  screen.innerHTML = `
+    <section class="welcome" id="welcomePane" style="background-image:url('${WELCOME_BG}')">
+      <div class="welcome-card" id="welcomeCard">
+        <div class="welcome-photo" id="ignacioBox">
+          ${
+            ignacio
+              ? `<img src="${ignacio}" alt="Ignacio">`
+              : `<div class="welcome-photo-empty">📷</div>`
+          }
+          <button type="button" class="welcome-btn camera-btn" id="ignacioCam">${
+            ignacio ? "Cambiar foto de Ignacio" : "Tomar foto de Ignacio"
+          }</button>
+        </div>
+        <h2>Bienvenido Ignacio a tu Abecedario Mágico</h2>
+        <div class="syl welcome-syl" id="sylRow"></div>
+        <div class="welcome-actions">
+          <button type="button" class="welcome-btn" id="welcomeReplay">Oír de nuevo</button>
+          <button type="button" class="welcome-btn" id="welcomeEnter">Entrar</button>
+        </div>
+      </div>
+    </section>`;
+  const enter = () => renderHome();
+  const pane = $("welcomePane");
+  const card = $("welcomeCard");
+  const btn = $("welcomeEnter");
+  const replay = $("welcomeReplay");
+  const cam = $("ignacioCam");
+  const box = $("ignacioBox");
+  const sylRow = $("sylRow");
+  if (pane) pane.onclick = enter;
+  if (card) card.onclick = (ev) => ev.stopPropagation();
+  if (btn) {
+    btn.onclick = (ev) => {
+      ev.stopPropagation();
+      enter();
+    };
+  }
+  if (replay) {
+    replay.onclick = (ev) => {
+      ev.stopPropagation();
+      speakName(WELCOME_CARD);
+    };
+  }
+  if (sylRow) {
+    sylRow.onclick = (ev) => {
+      ev.stopPropagation();
+      speakName(WELCOME_CARD);
+    };
+  }
+  if (box) {
+    box.onclick = (ev) => ev.stopPropagation();
+  }
+  if (cam) {
+    cam.onclick = (ev) => {
+      ev.stopPropagation();
+      requestPhoto(IGNACIO_SLOT);
+    };
+  }
+  renderSylRow(WELCOME_CARD, -1);
+  speakName(WELCOME_CARD);
+}
+
+function renderHome() {
+  clearSylTimers();
+  stopPlayback();
+  atWelcome = false;
+  document.body.classList.remove("welcome-on");
+  route = { album: null, letter: null, card: null };
+  setBar(APP_NAME, "Elige un álbum. Sin login.", false);
+  screen.innerHTML = `<div class="grid"></div>`;
+  const grid = screen.firstElementChild;
+  catalog.albums.forEach((a) => {
+    const b = document.createElement("button");
+    b.className = "tile";
+    let countLabel = a.cards.length + " objetos";
+    if (a.id === "familia") countLabel = a.cards.length + " familiares";
+    if (a.id === "abecedario") {
+      countLabel = VOWELS.length + CONSONANTS.length + " letras";
+    }
+    b.innerHTML = `<img src="${a.cover}" alt=""><div class="meta"><h2>${a.icon} ${a.title}</h2><small>${countLabel}</small></div>`;
+    b.onclick = () => renderItems(a.id);
+    grid.appendChild(b);
+  });
+}
+
+function renderLetters() {
+  clearSylTimers();
+  stopPlayback();
+  route = { album: "abecedario", letter: null, card: null };
+  setBar("Abecedario", "Elige una vocal o una consonante.", true);
+  screen.innerHTML = `
+    <section class="letters-page">
+      <h3>Vocales</h3>
+      <div class="letter-grid" id="vowelGrid"></div>
+      <h3>Consonantes</h3>
+      <div class="letter-grid" id="consGrid"></div>
+    </section>`;
+  const vowels = $("vowelGrid");
+  const cons = $("consGrid");
+  VOWELS.forEach((L) => vowels.appendChild(letterTile(L, "vowel")));
+  CONSONANTS.forEach((L) => cons.appendChild(letterTile(L, "cons")));
+}
+
+function speakSyllable(syl) {
+  speakName({
+    word: syl,
+    syllables: [syl],
+    audio: silabaAudio(syl),
+  });
+}
+
+function renderLetter(letter) {
+  clearSylTimers();
+  stopPlayback();
+  route = { album: "abecedario", letter, card: null };
+  const words = wordsForLetter(letter);
+  const lesson = lessonFor(letter);
+  const phrases = lesson ? lesson.sentences || [] : [];
+  const kind = VOWELS.indexOf(letter) >= 0 ? "Vocal" : "Consonante";
+  setBar(
+    "Letra " + letter,
+    lesson
+      ? "Sílabas, palabras y frases mágicas para leer."
+      : kind + ". Hasta 5 palabras de tus otros álbumes.",
+    true
+  );
+  if (!words.length && !phrases.length) {
+    screen.innerHTML = `<p class="empty-letter">Aún no hay palabras con la letra ${letter} en los álbumes.</p>`;
+    playSrc(letterAudio(letter));
+    return;
+  }
+  const sylHtml = lesson
+    ? `<div class="lesson-syls" id="lessonSyls">${(lesson.syllables || [])
+        .map((s) => `<button type="button" class="syl-chip lesson-syl" data-syl="${s}">${s}</button>`)
+        .join("")}</div>`
+    : "";
+  const wordsHtml = words.length
+    ? `<h3>Palabras</h3><div class="grid" id="letterWords"></div>`
+    : "";
+  const phrasesHtml = phrases.length
+    ? `<h3>Frases mágicas</h3><div class="phrase-list" id="phraseList"></div>`
+    : "";
+  screen.innerHTML = `
+    <section class="letter-lesson">
+      ${sylHtml}
+      ${wordsHtml}
+      ${phrasesHtml}
+    </section>`;
+  const sylBox = $("lessonSyls");
+  if (sylBox) {
+    sylBox.querySelectorAll("[data-syl]").forEach((btn) => {
+      btn.onclick = () => speakSyllable(btn.getAttribute("data-syl"));
+    });
+  }
+  const grid = $("letterWords");
+  if (grid) {
+    words.forEach((c) => {
+      const wrap = document.createElement("div");
+      wrap.className = "tile-wrap";
+      const b = document.createElement("button");
+      b.className = "tile";
+      const ready = !c.camera || hasPhoto(c.camera);
+      b.innerHTML = `<img src="${cardThumb(c)}" alt=""><div class="meta"><h2>${c.word}</h2><small>${
+        c.camera && !ready ? "Toca para tomar la foto" : (c.syllables || []).join(" · ")
+      }</small></div>`;
+      b.onclick = () => {
+        if (c.camera && !hasPhoto(c.camera)) {
+          requestPhoto(c.camera);
+          return;
+        }
+        renderPaint("abecedario", c.id);
+      };
+      wrap.appendChild(b);
+      if (c.camera) {
+        const camBtn = document.createElement("button");
+        camBtn.type = "button";
+        camBtn.className = "sfx-fab camera-fab";
+        camBtn.title = "Tomar foto";
+        camBtn.textContent = "📷";
+        camBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          requestPhoto(c.camera);
+        };
+        wrap.appendChild(camBtn);
+      }
+      grid.appendChild(wrap);
+    });
+  }
+  const list = $("phraseList");
+  if (list) {
+    phrases.forEach((p) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "phrase-btn";
+      b.innerHTML = `<span>“${p.word}”</span><small>${(p.syllables || []).join(" · ")}</small>`;
+      b.onclick = () => renderPhrase(letter, p.id);
+      list.appendChild(b);
+    });
+  }
+  playSrc(letterAudio(letter));
+}
+
+function renderPhrase(letter, phraseId) {
+  const phrase = findPhrase(letter, phraseId);
+  if (!phrase) return renderLetter(letter);
+  clearSylTimers();
+  stopPlayback();
+  route = { album: "abecedario", letter, card: phraseId };
+  setBar(letter, "Lee la frase. Las sílabas se iluminan al oírla.", true);
+  screen.innerHTML = `
+    <section class="phrase-page">
+      <p class="phrase-kicker">Frase mágica · Letra ${letter}</p>
+      <h2 id="wordBtn">${phrase.word}</h2>
+      <div class="syl welcome-syl" id="sylRow"></div>
+      <button type="button" class="welcome-btn" id="repeatBtn">Oír de nuevo</button>
+      <p class="hint">Toca la frase o las sílabas para oírla otra vez. Así lee Ignacio en LeeConmigo.</p>
+    </section>`;
+  renderSylRow(phrase, -1);
+  const wordBtn = $("wordBtn");
+  const repeatBtn = $("repeatBtn");
+  const sylRow = $("sylRow");
+  if (wordBtn) wordBtn.onclick = () => speakName(phrase);
+  if (repeatBtn) repeatBtn.onclick = () => speakName(phrase);
+  if (sylRow) sylRow.onclick = () => speakName(phrase);
+  speakName(phrase);
+}
+
+function renderItems(albumId) {
+  const album = albumById(albumId);
+  if (!album) return renderHome();
+  if (albumId === "abecedario") {
+    renderLetters();
+    return;
+  }
+  clearSylTimers();
+  stopPlayback();
+  route = { album: albumId, letter: null, card: null };
+  setBar(
+    album.title,
+    album.id === "instrumentos-2"
+      ? "Nombre y silabeo. El altavoz reproduce el sonido del instrumento."
+      : album.id === "familia"
+        ? "Toca una foto para colorearla. Si falta, toma la foto con la cámara."
+        : "Toca una imagen para colorearla y oír su nombre.",
+    true
+  );
+  screen.innerHTML = `<div class="grid"></div>`;
+  const grid = screen.firstElementChild;
+  album.cards.forEach((c) => {
+    const wrap = document.createElement("div");
+    wrap.className = "tile-wrap";
+    const b = document.createElement("button");
+    b.className = "tile";
+    const ready = !c.camera || hasPhoto(c.camera);
+    b.innerHTML = `<img src="${cardThumb(c)}" alt=""><div class="meta"><h2>${c.word}</h2><small>${
+      c.camera && !ready ? "Toca para tomar la foto" : (c.syllables || []).join(" · ")
+    }</small></div>`;
+    b.onclick = () => {
+      if (c.camera && !hasPhoto(c.camera)) {
+        requestPhoto(c.camera);
+        return;
+      }
+      renderPaint(albumId, c.id);
+    };
+    wrap.appendChild(b);
+    if (c.camera) {
+      const camBtn = document.createElement("button");
+      camBtn.type = "button";
+      camBtn.className = "sfx-fab camera-fab";
+      camBtn.title = "Tomar foto";
+      camBtn.setAttribute("aria-label", "Tomar foto de " + c.word);
+      camBtn.textContent = "📷";
+      camBtn.onclick = (ev) => {
+        ev.stopPropagation();
+        requestPhoto(c.camera);
+      };
+      wrap.appendChild(camBtn);
+    }
+    if (c.sfx) {
+      const sfxBtn = document.createElement("button");
+      sfxBtn.type = "button";
+      sfxBtn.className = "sfx-fab";
+      sfxBtn.title = "Oír el sonido";
+      sfxBtn.setAttribute("aria-label", "Oír el sonido de " + c.word);
+      sfxBtn.textContent = "🔊";
+      sfxBtn.onclick = (ev) => {
+        ev.stopPropagation();
+        playSfxOnly(c);
+      };
+      wrap.appendChild(sfxBtn);
+    }
+    grid.appendChild(wrap);
+  });
+}
+
+function renderPaint(albumId, cardId) {
+  let album = albumById(albumId);
+  let card = album && album.cards.find((c) => c.id === cardId);
+  if (!card) {
+    const found = findCardAnywhere(cardId);
+    if (found) {
+      album = found.album;
+      card = found.card;
+    }
+  }
+  if (!card) return renderItems(albumId);
+  route = { album: albumId, letter: route.letter, card: cardId };
+  const ready = !card.camera || hasPhoto(card.camera);
+  const picture = cardThumb(card);
+  setBar(
+    card.word,
+    !ready
+      ? "Toma la foto con la cámara de la tablet."
+      : card.sfx
+        ? "Pinta con el dedo. Primero el nombre, luego el sonido del instrumento."
+        : "Pinta con el dedo. Las sílabas se iluminan al oír el nombre.",
+    true
+  );
+  const sfxBtnHtml = card.sfx
+    ? `<button type="button" class="repeat-btn sfx-btn" id="sfxBtn">Oír el sonido</button>`
+    : "";
+  const camBtnHtml = card.camera
+    ? `<button type="button" class="repeat-btn camera-btn camera-btn-lg" id="paintCam">${ready ? "Cambiar foto" : "Tomar foto"}</button>`
+    : "";
+  screen.innerHTML = `
+    <section class="paint">
+      <div class="word-block">
+        <div class="word-line">
+          <h2 id="wordBtn">${card.word}</h2>
+          <button type="button" class="repeat-btn" id="repeatBtn">Oír de nuevo</button>
+          ${sfxBtnHtml}
+          ${camBtnHtml}
+        </div>
+        <div class="syl" id="sylRow"></div>
+      </div>
+      <div class="stage">
+        <img src="${picture}" alt="${card.word}" />
+        ${ready ? `<canvas id="paint"></canvas>` : ""}
+      </div>
+      <div class="palette" id="palette"></div>
+      <p class="hint">${
+        !ready
+          ? "Usa la cámara de la tablet para guardar la foto de " + card.word + "."
+          : card.sfx
+            ? "Oír de nuevo dice el nombre y después suena el instrumento. Oír el sonido reproduce solo el audio real de Lee Conmigo V3."
+            : "Oír de nuevo repite el nombre y el silabeo. En la Fire pinta con el dedo."
+      }</p>
+    </section>`;
+  renderSylRow(card, -1);
+  const pal = $("palette");
+  if (!ready) {
+    const paintCamEarly = $("paintCam");
+    if (paintCamEarly) paintCamEarly.onclick = () => requestPhoto(card.camera);
+    const wordEarly = $("wordBtn");
+    if (wordEarly) wordEarly.onclick = () => speakName(card);
+    const repeatEarly = $("repeatBtn");
+    if (repeatEarly) repeatEarly.onclick = () => speakName(card);
+    speakName(card);
+    return;
+  }
+  COLORS.forEach((hex) => {
+    const b = document.createElement("button");
+    b.className = "swatch" + (hex === color && !eraser ? " on" : "");
+    b.style.background = hex;
+    b.onclick = () => {
+      color = hex;
+      eraser = false;
+      pal.querySelectorAll(".swatch").forEach((el) => el.classList.remove("on"));
+      b.classList.add("on");
+    };
+    pal.appendChild(b);
+  });
+  [
+    ["Fino", () => (brush = 10)],
+    ["Gordo", () => (brush = 28)],
+    ["Goma", () => (eraser = true)],
+    ["Borrar", () => clearCanvas()],
+  ].forEach(([label, fn]) => {
+    const b = document.createElement("button");
+    b.className = "tool";
+    b.textContent = label;
+    b.onclick = fn;
+    pal.appendChild(b);
+  });
+  const wordBtn = $("wordBtn");
+  if (wordBtn) {
+    wordBtn.onclick = () => speakName(card);
+  }
+  const repeatBtn = $("repeatBtn");
+  if (repeatBtn) {
+    repeatBtn.onclick = () => speakName(card);
+  }
+  const sfxBtn = $("sfxBtn");
+  if (sfxBtn) {
+    sfxBtn.onclick = () => playSfxOnly(card);
+  }
+  const sylRow = $("sylRow");
+  if (sylRow) {
+    sylRow.onclick = () => speakName(card);
+  }
+  const paintCam = $("paintCam");
+  if (paintCam) {
+    paintCam.onclick = () => requestPhoto(card.camera);
+  }
+  if (ready) {
+    setupCanvas();
+    speakName(card);
+  }
+}
+
+function setupCanvas() {
+  const canvas = $("paint");
+  if (!canvas) return;
+  const stage = canvas.parentElement;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = stage.clientWidth;
+  const h = stage.clientHeight;
+  canvas.width = Math.floor(w * dpr);
+  canvas.height = Math.floor(h * dpr);
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  let drawing = false;
+  let last = null;
+
+  function pos(ev) {
+    const t = ev.touches ? ev.touches[0] : ev;
+    const r = canvas.getBoundingClientRect();
+    return { x: t.clientX - r.left, y: t.clientY - r.top };
+  }
+
+  function start(ev) {
+    ev.preventDefault();
+    drawing = true;
+    last = pos(ev);
+    draw(ev);
+  }
+  function move(ev) {
+    if (!drawing) return;
+    ev.preventDefault();
+    draw(ev);
+  }
+  function end(ev) {
+    ev.preventDefault();
+    drawing = false;
+    last = null;
+  }
+  function draw(ev) {
+    const p = pos(ev);
+    ctx.globalCompositeOperation = eraser ? "destination-out" : "source-over";
+    ctx.strokeStyle = color;
+    ctx.lineWidth = brush;
+    ctx.globalAlpha = eraser ? 1 : 0.85;
+    ctx.beginPath();
+    if (last) ctx.moveTo(last.x, last.y);
+    else ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    last = p;
+  }
+
+  canvas.addEventListener("touchstart", start, { passive: false });
+  canvas.addEventListener("touchmove", move, { passive: false });
+  canvas.addEventListener("touchend", end, { passive: false });
+  canvas.addEventListener("mousedown", start);
+  canvas.addEventListener("mousemove", move);
+  canvas.addEventListener("mouseup", end);
+  canvas.addEventListener("mouseleave", end);
+  window._clearCanvas = () => ctx.clearRect(0, 0, w, h);
+}
+
+function clearCanvas() {
+  if (window._clearCanvas) window._clearCanvas();
+}
+
+function goBack() {
+  stopPlayback();
+  if (route.card && route.letter) {
+    renderLetter(route.letter);
+    return true;
+  }
+  if (route.card) {
+    renderItems(route.album);
+    return true;
+  }
+  if (route.letter) {
+    renderLetters();
+    return true;
+  }
+  if (route.album) {
+    renderHome();
+    return true;
+  }
+  if (!atWelcome) {
+    renderWelcome();
+    return true;
+  }
+  return false;
+}
+
+window.appBack = goBack;
+btnBack.onclick = goBack;
+
+function showCatalogError(err) {
+  screen.innerHTML =
+    `<p>No pude cargar los álbumes (app ${APP_VERSION}). ${err}</p>` +
+    `<p>Instala el APK Lee Conmigo 4.3 sobre la 4.2. LeeConmigo 5.0 puede quedarse.</p>`;
+}
+
+function bootCatalog(data) {
+  if (!data || !Array.isArray(data.albums) || data.albums.length === 0) {
+    throw new Error("El catálogo está vacío.");
+  }
+  catalog = data;
+  renderWelcome();
+}
+
+function catalogFromAndroid() {
+  try {
+    if (!window.LeeConmigo || typeof window.LeeConmigo.getCatalog !== "function") {
+      return null;
+    }
+    const raw = window.LeeConmigo.getCatalog();
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (err) {
+    return null;
+  }
+}
+
+function loadCatalog() {
+  try {
+    if (window.ALBUMS) {
+      bootCatalog(window.ALBUMS);
+      return;
+    }
+    const fromAndroid = catalogFromAndroid();
+    if (fromAndroid) {
+      bootCatalog(fromAndroid);
+      return;
+    }
+    showCatalogError("Falta el catálogo embebido.");
+  } catch (err) {
+    showCatalogError(err);
+  }
+}
+
+loadCatalog();
+
+    </script>
+  </body>
+</html>
