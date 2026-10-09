@@ -1638,6 +1638,502 @@
       ]
     },
     {
+      "id": "espacio",
+      "title": "En el espacio",
+      "icon": "🚀",
+      "blurb": "Astronauta, cohete, estrella y más. Colorea y oye el nombre.",
+      "cover": "albums/espacio_portada.jpg",
+      "cards": [
+        {
+          "id": "espacio-ovni",
+          "word": "Ovni",
+          "syllables": [
+            "Ov",
+            "ni"
+          ],
+          "image": "albums/espacio_ovni.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "espacio-astronauta",
+          "word": "Astronauta",
+          "syllables": [
+            "As",
+            "tro",
+            "nau",
+            "ta"
+          ],
+          "image": "albums/espacio_astronauta.jpg",
+          "letter": "A"
+        },
+        {
+          "id": "espacio-cohete",
+          "word": "Cohete",
+          "syllables": [
+            "Co",
+            "he",
+            "te"
+          ],
+          "image": "albums/espacio_cohete.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "espacio-cometa",
+          "word": "Cometa",
+          "syllables": [
+            "Co",
+            "me",
+            "ta"
+          ],
+          "image": "albums/espacio_cometa.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "espacio-constelacion",
+          "word": "Constelación",
+          "syllables": [
+            "Cons",
+            "te",
+            "la",
+            "ción"
+          ],
+          "image": "albums/espacio_constelacion.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "espacio-estrella",
+          "word": "Estrella",
+          "syllables": [
+            "Es",
+            "tre",
+            "lla"
+          ],
+          "image": "albums/espacio_estrella.jpg",
+          "letter": "E"
+        },
+        {
+          "id": "espacio-nube",
+          "word": "Nube",
+          "syllables": [
+            "Nu",
+            "be"
+          ],
+          "image": "albums/espacio_nube.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "espacio-nube-2",
+          "word": "Otra nube",
+          "syllables": [
+            "O",
+            "tra",
+            "nu",
+            "be"
+          ],
+          "image": "albums/espacio_nube-2.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "espacio-nubes",
+          "word": "Nubes",
+          "syllables": [
+            "Nu",
+            "bes"
+          ],
+          "image": "albums/espacio_nubes.jpg",
+          "letter": "N"
+        },
+        {
+          "id": "espacio-rayo",
+          "word": "Rayo",
+          "syllables": [
+            "Ra",
+            "yo"
+          ],
+          "image": "albums/espacio_rayo.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "espacio-relampago",
+          "word": "Relámpago",
+          "syllables": [
+            "Re",
+            "lám",
+            "pa",
+            "go"
+          ],
+          "image": "albums/espacio_relampago.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "espacio-satelite",
+          "word": "Satélite",
+          "syllables": [
+            "Sa",
+            "té",
+            "li",
+            "te"
+          ],
+          "image": "albums/espacio_satelite.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "espacio-transbordador",
+          "word": "Transbordador",
+          "syllables": [
+            "Trans",
+            "bor",
+            "da",
+            "dor"
+          ],
+          "image": "albums/espacio_transbordador.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "espacio-universo",
+          "word": "Universo",
+          "syllables": [
+            "U",
+            "ni",
+            "ver",
+            "so"
+          ],
+          "image": "albums/espacio_universo.jpg",
+          "letter": "U"
+        },
+        {
+          "id": "espacio-via-lactea",
+          "word": "Vía láctea",
+          "syllables": [
+            "Ví",
+            "a",
+            "lác",
+            "te",
+            "a"
+          ],
+          "image": "albums/espacio_via-lactea.jpg",
+          "letter": "V"
+        }
+      ]
+    },
+    {
+      "id": "sistema-solar",
+      "title": "Sistema Solar",
+      "icon": "🪐",
+      "blurb": "Sol, Luna y los planetas. Colorea y oye el nombre.",
+      "cover": "albums/solar_portada.jpg",
+      "cards": [
+        {
+          "id": "solar-sol",
+          "word": "Sol",
+          "syllables": [
+            "Sol"
+          ],
+          "image": "albums/solar_sol.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "solar-luna",
+          "word": "Luna",
+          "syllables": [
+            "Lu",
+            "na"
+          ],
+          "image": "albums/solar_luna.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "solar-mercurio",
+          "word": "Mercurio",
+          "syllables": [
+            "Mer",
+            "cu",
+            "rio"
+          ],
+          "image": "albums/solar_mercurio.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "solar-venus",
+          "word": "Venus",
+          "syllables": [
+            "Ve",
+            "nus"
+          ],
+          "image": "albums/solar_venus.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "solar-tierra",
+          "word": "Tierra",
+          "syllables": [
+            "Tie",
+            "rra"
+          ],
+          "image": "albums/solar_tierra.jpg",
+          "letter": "T"
+        },
+        {
+          "id": "solar-marte",
+          "word": "Marte",
+          "syllables": [
+            "Mar",
+            "te"
+          ],
+          "image": "albums/solar_marte.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "solar-saturno",
+          "word": "Saturno",
+          "syllables": [
+            "Sa",
+            "tur",
+            "no"
+          ],
+          "image": "albums/solar_saturno.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "solar-urano",
+          "word": "Urano",
+          "syllables": [
+            "U",
+            "ra",
+            "no"
+          ],
+          "image": "albums/solar_urano.jpg",
+          "letter": "U"
+        },
+        {
+          "id": "solar-neptuno",
+          "word": "Neptuno",
+          "syllables": [
+            "Nep",
+            "tu",
+            "no"
+          ],
+          "image": "albums/solar_neptuno.jpg",
+          "letter": "N"
+        }
+      ]
+    },
+    {
+      "id": "zoologico",
+      "title": "En el zoológico",
+      "icon": "🦁",
+      "blurb": "Koala, cebra, rinoceronte y más. Colorea y oye el nombre.",
+      "cover": "albums/zoo_portada.jpg",
+      "cards": [
+        {
+          "id": "zoo-foca",
+          "word": "Foca",
+          "syllables": [
+            "Fo",
+            "ca"
+          ],
+          "image": "albums/zoo_foca.jpg",
+          "letter": "F"
+        },
+        {
+          "id": "zoo-iguana",
+          "word": "Iguana",
+          "syllables": [
+            "I",
+            "gua",
+            "na"
+          ],
+          "image": "albums/zoo_iguana.jpg",
+          "letter": "I"
+        },
+        {
+          "id": "zoo-iguana-2",
+          "word": "Otra iguana",
+          "syllables": [
+            "O",
+            "tra",
+            "i",
+            "gua",
+            "na"
+          ],
+          "image": "albums/zoo_iguana-2.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "zoo-koala",
+          "word": "Koala",
+          "syllables": [
+            "Ko",
+            "a",
+            "la"
+          ],
+          "image": "albums/zoo_koala.jpg",
+          "letter": "K"
+        },
+        {
+          "id": "zoo-lagarto",
+          "word": "Lagarto",
+          "syllables": [
+            "La",
+            "gar",
+            "to"
+          ],
+          "image": "albums/zoo_lagarto.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "zoo-leopardo",
+          "word": "Leopardo",
+          "syllables": [
+            "Le",
+            "o",
+            "par",
+            "do"
+          ],
+          "image": "albums/zoo_leopardo.jpg",
+          "letter": "L"
+        },
+        {
+          "id": "zoo-mono",
+          "word": "Mono",
+          "syllables": [
+            "Mo",
+            "no"
+          ],
+          "image": "albums/zoo_mono.jpg",
+          "letter": "M"
+        },
+        {
+          "id": "zoo-oveja",
+          "word": "Oveja",
+          "syllables": [
+            "O",
+            "ve",
+            "ja"
+          ],
+          "image": "albums/zoo_oveja.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "zoo-rinoceronte",
+          "word": "Rinoceronte",
+          "syllables": [
+            "Ri",
+            "no",
+            "ce",
+            "ron",
+            "te"
+          ],
+          "image": "albums/zoo_rinoceronte.jpg",
+          "letter": "R"
+        },
+        {
+          "id": "zoo-safari",
+          "word": "Safari",
+          "syllables": [
+            "Sa",
+            "fa",
+            "ri"
+          ],
+          "image": "albums/zoo_safari.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "zoo-selva",
+          "word": "Selva",
+          "syllables": [
+            "Sel",
+            "va"
+          ],
+          "image": "albums/zoo_selva.jpg",
+          "letter": "S"
+        },
+        {
+          "id": "zoo-vaca",
+          "word": "Vaca",
+          "syllables": [
+            "Va",
+            "ca"
+          ],
+          "image": "albums/zoo_vaca.jpg",
+          "letter": "V"
+        },
+        {
+          "id": "zoo-yegua",
+          "word": "Yegua",
+          "syllables": [
+            "Ye",
+            "gua"
+          ],
+          "image": "albums/zoo_yegua.jpg",
+          "letter": "Y"
+        },
+        {
+          "id": "zoo-cebra",
+          "word": "Cebra",
+          "syllables": [
+            "Ce",
+            "bra"
+          ],
+          "image": "albums/zoo_cebra.jpg",
+          "letter": "C"
+        },
+        {
+          "id": "zoo-zoo",
+          "word": "Zoo",
+          "syllables": [
+            "Zoo"
+          ],
+          "image": "albums/zoo_zoo.jpg",
+          "letter": "Z"
+        },
+        {
+          "id": "zoo-zoologico",
+          "word": "Zoológico",
+          "syllables": [
+            "Zo",
+            "o",
+            "ló",
+            "gi",
+            "co"
+          ],
+          "image": "albums/zoo_zoologico.jpg",
+          "letter": "Z"
+        },
+        {
+          "id": "zoo-nandu",
+          "word": "Ñandú",
+          "syllables": [
+            "Ñan",
+            "dú"
+          ],
+          "image": "albums/zoo_nandu.jpg",
+          "letter": "Ñ"
+        },
+        {
+          "id": "zoo-nandu-2",
+          "word": "Otro ñandú",
+          "syllables": [
+            "O",
+            "tro",
+            "ñan",
+            "dú"
+          ],
+          "image": "albums/zoo_nandu-2.jpg",
+          "letter": "O"
+        },
+        {
+          "id": "zoo-nu",
+          "word": "Ñu",
+          "syllables": [
+            "Ñu"
+          ],
+          "image": "albums/zoo_nu.jpg",
+          "letter": "Ñ"
+        }
+      ]
+    },
+    {
       "id": "instrumentos",
       "title": "Instrumentos musicales",
       "icon": "🎵",
