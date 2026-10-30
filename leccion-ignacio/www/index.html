@@ -51,6 +51,8 @@
     }
     .stage { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; min-height: calc(100dvh - 110px); }
     .bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; flex: 1; }
+    .bins.many { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .bins.many h2 { font-size: 18px; }
     .bin {
       background: #fff; border-radius: 20px; min-height: 180px; padding: 10px;
       border: 4px dashed #bcaaa4; display: flex; flex-direction: column;
@@ -62,6 +64,10 @@
     .bin.solido { background: #e1f5fe; border-color: #0277bd; }
     .bin.liquido { background: #e0f7fa; border-color: #00838f; }
     .bin.gaseoso { background: #f3e5f5; border-color: #6a1b9a; }
+    .bin.colon { background: #fff3e0; border-color: #ef6c00; }
+    .bin.rodrigo { background: #e3f2fd; border-color: #1565c0; }
+    .bin.indigena { background: #e8f5e9; border-color: #2e7d32; }
+    .bin.soldado { background: #fce4ec; border-color: #ad1457; }
     .bin.over { transform: scale(1.02); box-shadow: inset 0 0 0 4px #f9a825; }
     .placed { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
     .placed img { width: 54px; height: 54px; object-fit: contain; }
@@ -106,6 +112,7 @@
     }
     @media (max-width: 800px) {
       .home-grid, .bins { grid-template-columns: 1fr; }
+      .bins.many { grid-template-columns: 1fr 1fr; }
       header h1 { font-size: 22px; }
       .piece { width: 100px; }
     }
@@ -157,11 +164,14 @@ const WATER = [
   { id: "jarra", name: "Jarra", group: "liquido", img: "img/jarra.png" },
   { id: "vapor", name: "Vapor", group: "gaseoso", img: "img/vapor.png" }
 ];
-const OCTUBRE = [
-  { id: "llegada", name: "12 de octubre", img: "img/llegada.png", lamina: "laminas/octubre.png" },
-  { id: "carabelas", name: "Las carabelas", img: "img/carabelas.png", lamina: "laminas/carabelas.png" },
-  { id: "colon", name: "Cristóbal Colón", img: "img/colon.png", lamina: "laminas/personas.png" },
-  { id: "rodrigo", name: "Rodrigo de Triana", img: "img/rodrigo.png", lamina: "laminas/personas.png" }
+const PEOPLE = [
+  { id: "colon", name: "Cristóbal Colón", group: "colon", img: "img/colon.png", line: "Él es Cristóbal Colón." },
+  { id: "colon-escena", name: "Cristóbal Colón", group: "colon", img: "img/colon-escena.png", line: "También es Cristóbal Colón." },
+  { id: "rodrigo", name: "Rodrigo de Triana", group: "rodrigo", img: "img/rodrigo.png", line: "Él es Rodrigo de Triana." },
+  { id: "nino", name: "Niño indígena", group: "indigena", img: "img/nino.png", line: "Él es un niño indígena." },
+  { id: "nina", name: "Niña indígena", group: "indigena", img: "img/nina.png", line: "Ella es una niña indígena." },
+  { id: "casco", name: "Soldado", group: "soldado", img: "img/casco.png", line: "Él es un soldado conquistador." },
+  { id: "panuelo", name: "Soldado", group: "soldado", img: "img/panuelo.png", line: "Él es un soldado conquistador." }
 ];
 const BINS = {
   alimentos: [
@@ -173,7 +183,33 @@ const BINS = {
     { id: "solido", title: "Estado sólido" },
     { id: "liquido", title: "Estado líquido" },
     { id: "gaseoso", title: "Estado gaseoso" }
+  ],
+  resistencia: [
+    { id: "colon", title: "Cristóbal Colón" },
+    { id: "rodrigo", title: "Rodrigo de Triana" },
+    { id: "indigena", title: "Indígenas" },
+    { id: "soldado", title: "Soldados conquistadores" }
   ]
+};
+const COPY = {
+  alimentos: {
+    title: "Alimentos",
+    sub: "Arrastra cada alimento a su grupo.",
+    fin: "fin-alimentos",
+    finText: "Ya sabes el origen de los alimentos."
+  },
+  agua: {
+    title: "Estados del agua",
+    sub: "Arrastra cada imagen a su estado.",
+    fin: "fin-agua",
+    finText: "Ya conoces los estados del agua."
+  },
+  resistencia: {
+    title: "Día de la Resistencia indígena",
+    sub: "Arrastra cada persona a su lugar.",
+    fin: "fin-resistencia",
+    finText: "Ya reconoces a Colón, a Triana, a los indígenas y a los soldados."
+  }
 };
 const LAMINAS = {
   alimentos: [
@@ -182,8 +218,8 @@ const LAMINAS = {
     ["Origen mineral", "laminas/mineral.png"]
   ],
   agua: [["Estados del agua", "laminas/agua.png"]],
-  octubre: [
-    ["12 de octubre", "laminas/octubre.png"],
+  resistencia: [
+    ["Día de la Resistencia indígena", "laminas/octubre.png"],
     ["Las carabelas", "laminas/carabelas.png"],
     ["Colón y Triana", "laminas/personas.png"]
   ]
@@ -245,7 +281,7 @@ function showCheer(heading, text, audio, hold) {
 function itemsFor(kind) {
   if (kind === "alimentos") return FOODS;
   if (kind === "agua") return WATER;
-  return OCTUBRE;
+  return PEOPLE;
 }
 
 function renderHome() {
@@ -266,10 +302,10 @@ function renderHome() {
         <h2>Estados del agua</h2>
         <span>Sólido, líquido y gaseoso.</span>
       </button>
-      <button class="home-card" data-go="octubre" type="button">
+      <button class="home-card" data-go="resistencia" type="button">
         <img src="laminas/octubre.png" alt="" />
-        <h2>12 de octubre</h2>
-        <span>Toca cada imagen de la lección.</span>
+        <h2>Resistencia indígena</h2>
+        <span>Identifica a Colón, a Triana, a los indígenas y a los soldados.</span>
       </button>
     </div>`;
   screen.querySelectorAll("[data-go]").forEach(function (btn) {
@@ -280,17 +316,15 @@ function renderHome() {
 function openActivity(kind) {
   route = kind;
   back.hidden = false;
-  if (kind === "octubre") renderOctubre();
-  else renderSort(kind);
+  renderSort(kind);
 }
 
 function renderSort(kind) {
   const bins = BINS[kind];
+  const copy = COPY[kind];
   const items = shuffle(itemsFor(kind));
-  title.textContent = kind === "agua" ? "Estados del agua" : "Alimentos";
-  subtitle.textContent = kind === "agua"
-    ? "Arrastra cada imagen a su estado."
-    : "Arrastra cada alimento a su grupo.";
+  title.textContent = copy.title;
+  subtitle.textContent = copy.sub;
   const binHtml = bins.map(function (bin) {
     return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0">
       <h2>${bin.title}</h2>
@@ -303,11 +337,11 @@ function renderSort(kind) {
       <b>${item.name}</b>
     </button>`;
   }).join("");
-  screen.innerHTML = `<div class="stage">${binHtmlWrap(binHtml)}${trayWrap(tray)}${tools(kind)}</div>`;
+  screen.innerHTML = `<div class="stage">${binHtmlWrap(binHtml, bins.length > 3)}${trayWrap(tray)}${tools(kind)}</div>`;
   bindSort(kind);
 }
 
-function binHtmlWrap(html) { return `<div class="bins">${html}</div>`; }
+function binHtmlWrap(html, many) { return `<div class="bins${many ? " many" : ""}">${html}</div>`; }
 function trayWrap(html) { return `<div class="tray" id="tray">${html}</div>`; }
 function tools(kind) {
   return `<div class="tools">
@@ -439,50 +473,13 @@ function settle(piece, bin, kind) {
   icon.alt = item.name;
   placed.appendChild(icon);
   const pending = screen.querySelectorAll(".piece:not([data-done])");
-  showCheer("¡Muy bien, Ignacio!", item.name + " está en su grupo.", "ok-" + item.id, 1600);
+  const copy = COPY[kind];
+  const line = item.line || item.name + " está en su grupo.";
+  showCheer("¡Muy bien, Ignacio!", line, "ok-" + item.id, 1600);
   if (pending.length === 0) {
-    const audio = kind === "agua" ? "fin-agua" : "fin-alimentos";
-    const text = kind === "agua"
-      ? "Ya conoces los estados del agua."
-      : "Ya sabes el origen de los alimentos.";
     setTimeout(function () {
-      showCheer("¡Lo lograste, Ignacio!", text, audio, 3200);
+      showCheer("¡Lo lograste, Ignacio!", copy.finText, copy.fin, 3400);
     }, 1700);
-  }
-}
-
-function renderOctubre() {
-  title.textContent = "12 de octubre";
-  subtitle.textContent = "Toca cada imagen y escucha su nombre.";
-  const cards = OCTUBRE.map(function (item) {
-    return `<button class="piece" type="button" data-id="${item.id}" style="width:220px" tabindex="0">
-      <img src="${item.img}" alt="" style="height:140px" />
-      <b>${item.name}</b>
-    </button>`;
-  }).join("");
-  screen.innerHTML = `<div class="stage"><div class="tray" id="tray">${cards}</div>${tools("octubre")}</div>`;
-  screen.querySelectorAll(".piece").forEach(function (piece) {
-    const go = function () { tapHistory(piece); };
-    piece.onclick = go;
-    piece.addEventListener("keydown", function (ev) {
-      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); }
-    });
-  });
-  document.getElementById("seeLamina").onclick = function () { openLamina("octubre", 0); };
-  document.getElementById("reset").onclick = function () { openActivity("octubre"); };
-}
-
-function tapHistory(piece) {
-  if (piece.dataset.done) return;
-  piece.dataset.done = "1";
-  piece.classList.add("picked");
-  const item = OCTUBRE.find(function (it) { return it.id === piece.dataset.id; });
-  const left = screen.querySelectorAll(".piece:not([data-done])").length;
-  cheerTitle.style.color = "";
-  if (left === 0) {
-    showCheer("¡Lo lograste, Ignacio!", "Ya conoces el 12 de octubre.", "fin-octubre", 3200);
-  } else {
-    showCheer("¡Muy bien, Ignacio!", item.name, "ok-" + item.id, 2200);
   }
 }
 
