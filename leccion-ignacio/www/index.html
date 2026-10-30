@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Lección de Ignacio</title>
+  <style>
+    :root {
+      --bg: #fff6ea;
+      --ink: #3e2723;
+      --orange: #ef6c00;
+      --deep: #e65100;
+      --card: #fff;
+      --good: #2e7d32;
+      --bad: #c62828;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    button, .piece { font: inherit; color: inherit; }
+    #app { min-height: 100%; display: flex; flex-direction: column; }
+    header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: var(--orange); color: white;
+    }
+    header h1 { margin: 0; font-size: 26px; }
+    header p { margin: 2px 0 0; font-size: 16px; }
+    #back {
+      width: 54px; height: 54px; border: 0; border-radius: 16px;
+      background: white; color: var(--deep); font-size: 28px; font-weight: 700;
+    }
+    #back[hidden] { display: none; }
+    main { flex: 1; padding: 14px; }
+    .home-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px; max-width: 1100px; margin: 0 auto;
+    }
+    .home-card {
+      background: var(--card); border: 0; border-radius: 22px; padding: 12px;
+      text-align: left; box-shadow: 0 8px 0 #f3d7b0; cursor: pointer;
+    }
+    .home-card img { width: 100%; height: 150px; object-fit: contain; background: #fff; border-radius: 14px; }
+    .home-card h2 { margin: 10px 0 4px; font-size: 24px; }
+    .home-card span { color: #6d4c41; font-size: 16px; }
+    .home-card:focus, .piece:focus, .bin:focus, .tool:focus {
+      outline: 4px solid #1565c0; outline-offset: 3px;
+    }
+    .stage { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; min-height: calc(100dvh - 110px); }
+    .bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; flex: 1; }
+    .bin {
+      background: #fff; border-radius: 20px; min-height: 180px; padding: 10px;
+      border: 4px dashed #bcaaa4; display: flex; flex-direction: column;
+    }
+    .bin h2 { margin: 0 0 8px; text-align: center; font-size: 22px; }
+    .bin.animal { background: #fff3e0; border-color: #ef6c00; }
+    .bin.vegetal { background: #e8f5e9; border-color: #2e7d32; }
+    .bin.mineral { background: #e3f2fd; border-color: #1565c0; }
+    .bin.solido { background: #e1f5fe; border-color: #0277bd; }
+    .bin.liquido { background: #e0f7fa; border-color: #00838f; }
+    .bin.gaseoso { background: #f3e5f5; border-color: #6a1b9a; }
+    .bin.over { transform: scale(1.02); box-shadow: inset 0 0 0 4px #f9a825; }
+    .placed { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .placed img { width: 54px; height: 54px; object-fit: contain; }
+    .tray {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      background: #fff8ef; border-radius: 18px; padding: 10px; min-height: 130px;
+    }
+    .piece {
+      width: 118px; border: 0; background: white; border-radius: 16px;
+      box-shadow: 0 5px 0 #ead7c2; padding: 6px; cursor: grab; touch-action: none;
+    }
+    .piece img { width: 100%; height: 78px; object-fit: contain; pointer-events: none; }
+    .piece b { display: block; text-align: center; font-size: 16px; }
+    .piece.picked { box-shadow: 0 0 0 4px var(--orange); }
+    .piece.dragging { position: fixed; z-index: 30; margin: 0; opacity: 0.95; cursor: grabbing; }
+    .piece.shake { animation: shake 0.35s linear; }
+    .tools { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .tool {
+      border: 0; background: white; color: var(--deep); border-radius: 14px;
+      padding: 12px 16px; font-size: 18px; font-weight: 700; box-shadow: 0 4px 0 #f3d7b0;
+    }
+    #cheer, #lamina {
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(62, 39, 35, 0.28); z-index: 40; padding: 18px;
+    }
+    #cheer { pointer-events: none; background: transparent; align-items: flex-start; padding-top: 76px; }
+    #cheer[hidden], #lamina[hidden] { display: none; }
+    .cheer-card, .lamina-card {
+      background: white; border-radius: 28px; padding: 22px 26px; text-align: center;
+      max-width: 640px; width: min(640px, 100%); box-shadow: 0 16px 0 rgba(0,0,0,0.08);
+    }
+    .cheer-card h2 { margin: 0; font-size: 40px; color: var(--good); }
+    .cheer-card p { margin: 10px 0 0; font-size: 24px; }
+    .stars { font-size: 36px; letter-spacing: 6px; }
+    .lamina-card img { width: 100%; max-height: 62vh; object-fit: contain; }
+    .lamina-nav { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+    @keyframes shake {
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    @media (max-width: 800px) {
+      .home-grid, .bins { grid-template-columns: 1fr; }
+      header h1 { font-size: 22px; }
+      .piece { width: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <button id="back" type="button" hidden>←</button>
+      <div>
+        <h1 id="title">Lección de Ignacio</h1>
+        <p id="subtitle">Hola, Ignacio. Elige una actividad.</p>
+      </div>
+    </header>
+    <main id="screen"></main>
+  </div>
+  <div id="cheer" hidden>
+    <div class="cheer-card">
+      <div class="stars">★★★</div>
+      <h2 id="cheerTitle">¡Muy bien, Ignacio!</h2>
+      <p id="cheerText"></p>
+    </div>
+  </div>
+  <div id="lamina" hidden>
+    <div class="lamina-card">
+      <img id="laminaImg" alt="Lámina de la lección" />
+      <div class="lamina-nav" id="laminaNav"></div>
+      <button class="tool" id="laminaClose" type="button">Cerrar</button>
+    </div>
+  </div>
+  <script>
+const FOODS = [
+  { id: "huevo", name: "Huevo", group: "animal", img: "img/huevo.png" },
+  { id: "pescado", name: "Pescado", group: "animal", img: "img/pescado.png" },
+  { id: "pollo", name: "Pollo", group: "animal", img: "img/pollo.png" },
+  { id: "yogur", name: "Yogur", group: "animal", img: "img/yogur.png" },
+  { id: "leche", name: "Leche", group: "animal", img: "img/leche.png" },
+  { id: "queso", name: "Queso", group: "animal", img: "img/queso.png" },
+  { id: "maiz", name: "Maíz", group: "vegetal", img: "img/maiz.png" },
+  { id: "frijoles", name: "Frijoles", group: "vegetal", img: "img/frijoles.png" },
+  { id: "arroz", name: "Arroz", group: "vegetal", img: "img/arroz.png" },
+  { id: "papa", name: "Papa", group: "vegetal", img: "img/papa.png" },
+  { id: "yuca", name: "Yuca", group: "vegetal", img: "img/yuca.png" },
+  { id: "agua", name: "Agua", group: "mineral", img: "img/agua.png" },
+  { id: "sal", name: "Sal", group: "mineral", img: "img/sal.png" }
+];
+const WATER = [
+  { id: "hielo", name: "Hielo", group: "solido", img: "img/hielo.png" },
+  { id: "jarra", name: "Jarra", group: "liquido", img: "img/jarra.png" },
+  { id: "vapor", name: "Vapor", group: "gaseoso", img: "img/vapor.png" }
+];
+const OCTUBRE = [
+  { id: "llegada", name: "12 de octubre", img: "img/llegada.png", lamina: "laminas/octubre.png" },
+  { id: "carabelas", name: "Las carabelas", img: "img/carabelas.png", lamina: "laminas/carabelas.png" },
+  { id: "colon", name: "Cristóbal Colón", img: "img/colon.png", lamina: "laminas/personas.png" },
+  { id: "rodrigo", name: "Rodrigo de Triana", img: "img/rodrigo.png", lamina: "laminas/personas.png" }
+];
+const BINS = {
+  alimentos: [
+    { id: "animal", title: "Origen animal" },
+    { id: "vegetal", title: "Origen vegetal" },
+    { id: "mineral", title: "Origen mineral" }
+  ],
+  agua: [
+    { id: "solido", title: "Estado sólido" },
+    { id: "liquido", title: "Estado líquido" },
+    { id: "gaseoso", title: "Estado gaseoso" }
+  ]
+};
+const LAMINAS = {
+  alimentos: [
+    ["Origen animal", "laminas/animal.png"],
+    ["Origen vegetal", "laminas/vegetal.png"],
+    ["Origen mineral", "laminas/mineral.png"]
+  ],
+  agua: [["Estados del agua", "laminas/agua.png"]],
+  octubre: [
+    ["12 de octubre", "laminas/octubre.png"],
+    ["Las carabelas", "laminas/carabelas.png"],
+    ["Colón y Triana", "laminas/personas.png"]
+  ]
+};
+
+const screen = document.getElementById("screen");
+const title = document.getElementById("title");
+const subtitle = document.getElementById("subtitle");
+const back = document.getElementById("back");
+const cheer = document.getElementById("cheer");
+const cheerTitle = document.getElementById("cheerTitle");
+const cheerText = document.getElementById("cheerText");
+const lamina = document.getElementById("lamina");
+const laminaImg = document.getElementById("laminaImg");
+const laminaNav = document.getElementById("laminaNav");
+
+let route = "home";
+let player = null;
+let cheerTimer = null;
+let pickedId = null;
+let drag = null;
+
+function shuffle(list) {
+  const copy = list.slice();
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy;
+}
+
+function speak(name) {
+  const src = "audio/" + name + ".mp3";
+  if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
+    try {
+      window.LeeConmigo.stopAudio && window.LeeConmigo.stopAudio();
+      window.LeeConmigo.playAudio(src);
+      return;
+    } catch (err) { /* el navegador de Windows usa el audio de la página */ }
+  }
+  if (player) {
+    player.pause();
+  }
+  player = new Audio(src);
+  player.play().catch(function () {});
+}
+
+function showCheer(heading, text, audio, hold) {
+  cheerTitle.textContent = heading;
+  cheerText.textContent = text;
+  cheer.hidden = false;
+  speak(audio);
+  clearTimeout(cheerTimer);
+  cheerTimer = setTimeout(function () { cheer.hidden = true; }, hold || 1700);
+}
+
+function itemsFor(kind) {
+  if (kind === "alimentos") return FOODS;
+  if (kind === "agua") return WATER;
+  return OCTUBRE;
+}
+
+function renderHome() {
+  route = "home";
+  pickedId = null;
+  title.textContent = "Lección de Ignacio";
+  subtitle.textContent = "Hola, Ignacio. Elige una actividad.";
+  back.hidden = true;
+  screen.innerHTML = `
+    <div class="home-grid">
+      <button class="home-card" data-go="alimentos" type="button">
+        <img src="laminas/animal.png" alt="" />
+        <h2>Alimentos</h2>
+        <span>Lleva cada alimento a su origen.</span>
+      </button>
+      <button class="home-card" data-go="agua" type="button">
+        <img src="laminas/agua.png" alt="" />
+        <h2>Estados del agua</h2>
+        <span>Sólido, líquido y gaseoso.</span>
+      </button>
+      <button class="home-card" data-go="octubre" type="button">
+        <img src="laminas/octubre.png" alt="" />
+        <h2>12 de octubre</h2>
+        <span>Toca cada imagen de la lección.</span>
+      </button>
+    </div>`;
+  screen.querySelectorAll("[data-go]").forEach(function (btn) {
+    btn.onclick = function () { openActivity(btn.getAttribute("data-go")); };
+  });
+}
+
+function openActivity(kind) {
+  route = kind;
+  back.hidden = false;
+  if (kind === "octubre") renderOctubre();
+  else renderSort(kind);
+}
+
+function renderSort(kind) {
+  const bins = BINS[kind];
+  const items = shuffle(itemsFor(kind));
+  title.textContent = kind === "agua" ? "Estados del agua" : "Alimentos";
+  subtitle.textContent = kind === "agua"
+    ? "Arrastra cada imagen a su estado."
+    : "Arrastra cada alimento a su grupo.";
+  const binHtml = bins.map(function (bin) {
+    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0">
+      <h2>${bin.title}</h2>
+      <div class="placed" data-placed="${bin.id}"></div>
+    </section>`;
+  }).join("");
+  const tray = items.map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" data-group="${item.group}" tabindex="0">
+      <img src="${item.img}" alt="" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage">${binHtmlWrap(binHtml)}${trayWrap(tray)}${tools(kind)}</div>`;
+  bindSort(kind);
+}
+
+function binHtmlWrap(html) { return `<div class="bins">${html}</div>`; }
+function trayWrap(html) { return `<div class="tray" id="tray">${html}</div>`; }
+function tools(kind) {
+  return `<div class="tools">
+    <button class="tool" type="button" id="seeLamina">Ver la lámina</button>
+    <button class="tool" type="button" id="reset">Otra vez</button>
+  </div>`;
+}
+
+function bindSort(kind) {
+  const pieces = screen.querySelectorAll(".piece");
+  pieces.forEach(function (piece) {
+    piece.addEventListener("pointerdown", onDown);
+    piece.addEventListener("pointermove", onMove);
+    piece.addEventListener("pointerup", onUp);
+    piece.addEventListener("pointercancel", onUp);
+    piece.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        pick(piece);
+      }
+    });
+  });
+  screen.querySelectorAll(".bin").forEach(function (bin) {
+    bin.addEventListener("click", function () { dropOnBin(bin, kind); });
+    bin.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        dropOnBin(bin, kind);
+      }
+    });
+  });
+  document.getElementById("seeLamina").onclick = function () { openLamina(kind, 0); };
+  document.getElementById("reset").onclick = function () { openActivity(kind); };
+}
+
+function pick(piece) {
+  if (piece.dataset.done) return;
+  screen.querySelectorAll(".piece").forEach(function (el) { el.classList.remove("picked"); });
+  piece.classList.add("picked");
+  pickedId = piece.dataset.id;
+}
+
+function onDown(ev) {
+  const piece = ev.currentTarget;
+  if (piece.dataset.done) return;
+  piece.setPointerCapture(ev.pointerId);
+  const rect = piece.getBoundingClientRect();
+  drag = {
+    piece: piece,
+    id: ev.pointerId,
+    dx: ev.clientX - rect.left,
+    dy: ev.clientY - rect.top,
+    moved: false,
+    width: rect.width
+  };
+  piece.classList.add("dragging");
+  piece.style.width = rect.width + "px";
+  piece.style.left = rect.left + "px";
+  piece.style.top = rect.top + "px";
+}
+
+function onMove(ev) {
+  if (!drag || drag.piece !== ev.currentTarget) return;
+  drag.moved = true;
+  drag.piece.style.left = (ev.clientX - drag.dx) + "px";
+  drag.piece.style.top = (ev.clientY - drag.dy) + "px";
+  const bin = binAt(ev.clientX, ev.clientY, drag.piece);
+  screen.querySelectorAll(".bin").forEach(function (el) { el.classList.toggle("over", el === bin); });
+}
+
+function onUp(ev) {
+  const piece = ev.currentTarget;
+  if (!drag || drag.piece !== piece) return;
+  const moved = drag.moved;
+  const bin = binAt(ev.clientX, ev.clientY, piece);
+  clearDrag(piece);
+  screen.querySelectorAll(".bin").forEach(function (el) { el.classList.remove("over"); });
+  if (!moved) {
+    pick(piece);
+    return;
+  }
+  if (!bin) return;
+  const kind = route;
+  settle(piece, bin, kind);
+}
+
+function clearDrag(piece) {
+  drag = null;
+  piece.classList.remove("dragging");
+  piece.style.left = "";
+  piece.style.top = "";
+  piece.style.width = "";
+}
+
+function binAt(x, y, ignore) {
+  ignore.style.visibility = "hidden";
+  const el = document.elementFromPoint(x, y);
+  ignore.style.visibility = "";
+  return el ? el.closest(".bin") : null;
+}
+
+function dropOnBin(bin, kind) {
+  if (!pickedId) return;
+  const piece = screen.querySelector('.piece[data-id="' + pickedId + '"]');
+  if (!piece || piece.dataset.done) return;
+  settle(piece, bin, kind);
+}
+
+function settle(piece, bin, kind) {
+  const wanted = piece.dataset.group;
+  const got = bin.dataset.bin;
+  const item = itemsFor(kind).find(function (it) { return it.id === piece.dataset.id; });
+  if (wanted !== got) {
+    piece.classList.remove("picked");
+    piece.classList.add("shake");
+    setTimeout(function () { piece.classList.remove("shake"); }, 360);
+    showCheer("Todavía no", "Ese no es su grupo, Ignacio.", "mal", 1400);
+    cheerTitle.style.color = "var(--bad)";
+    return;
+  }
+  cheerTitle.style.color = "";
+  piece.dataset.done = "1";
+  piece.classList.remove("picked");
+  pickedId = null;
+  piece.remove();
+  const placed = bin.querySelector(".placed");
+  const icon = document.createElement("img");
+  icon.src = item.img;
+  icon.alt = item.name;
+  placed.appendChild(icon);
+  const pending = screen.querySelectorAll(".piece:not([data-done])");
+  showCheer("¡Muy bien, Ignacio!", item.name + " está en su grupo.", "ok-" + item.id, 1600);
+  if (pending.length === 0) {
+    const audio = kind === "agua" ? "fin-agua" : "fin-alimentos";
+    const text = kind === "agua"
+      ? "Ya conoces los estados del agua."
+      : "Ya sabes el origen de los alimentos.";
+    setTimeout(function () {
+      showCheer("¡Lo lograste, Ignacio!", text, audio, 3200);
+    }, 1700);
+  }
+}
+
+function renderOctubre() {
+  title.textContent = "12 de octubre";
+  subtitle.textContent = "Toca cada imagen y escucha su nombre.";
+  const cards = OCTUBRE.map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" style="width:220px" tabindex="0">
+      <img src="${item.img}" alt="" style="height:140px" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage"><div class="tray" id="tray">${cards}</div>${tools("octubre")}</div>`;
+  screen.querySelectorAll(".piece").forEach(function (piece) {
+    const go = function () { tapHistory(piece); };
+    piece.onclick = go;
+    piece.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); }
+    });
+  });
+  document.getElementById("seeLamina").onclick = function () { openLamina("octubre", 0); };
+  document.getElementById("reset").onclick = function () { openActivity("octubre"); };
+}
+
+function tapHistory(piece) {
+  if (piece.dataset.done) return;
+  piece.dataset.done = "1";
+  piece.classList.add("picked");
+  const item = OCTUBRE.find(function (it) { return it.id === piece.dataset.id; });
+  const left = screen.querySelectorAll(".piece:not([data-done])").length;
+  cheerTitle.style.color = "";
+  if (left === 0) {
+    showCheer("¡Lo lograste, Ignacio!", "Ya conoces el 12 de octubre.", "fin-octubre", 3200);
+  } else {
+    showCheer("¡Muy bien, Ignacio!", item.name, "ok-" + item.id, 2200);
+  }
+}
+
+function openLamina(kind, index) {
+  const pages = LAMINAS[kind];
+  const page = pages[index];
+  laminaImg.src = page[1];
+  laminaImg.alt = page[0];
+  laminaNav.innerHTML = pages.map(function (p, i) {
+    return `<button class="tool" type="button" data-i="${i}">${p[0]}</button>`;
+  }).join("");
+  laminaNav.querySelectorAll("button").forEach(function (btn) {
+    btn.onclick = function () { openLamina(kind, Number(btn.getAttribute("data-i"))); };
+  });
+  lamina.hidden = false;
+}
+
+document.getElementById("laminaClose").onclick = function () { lamina.hidden = true; };
+cheer.addEventListener("click", function () { cheer.hidden = true; });
+
+function appBack() {
+  if (!lamina.hidden) { lamina.hidden = true; return true; }
+  if (!cheer.hidden) { cheer.hidden = true; return true; }
+  if (route !== "home") { renderHome(); return true; }
+  return false;
+}
+window.appBack = appBack;
+back.onclick = appBack;
+
+document.addEventListener("keydown", function (ev) {
+  if (ev.key !== "ArrowRight" && ev.key !== "ArrowLeft" && ev.key !== "ArrowDown" && ev.key !== "ArrowUp") return;
+  if (route === "home" || !lamina.hidden) return;
+  const nodes = Array.from(screen.querySelectorAll(".piece:not([data-done]), .bin, .tool"));
+  if (!nodes.length) return;
+  ev.preventDefault();
+  const step = (ev.key === "ArrowRight" || ev.key === "ArrowDown") ? 1 : -1;
+  const index = nodes.indexOf(document.activeElement);
+  const next = nodes[(index + step + nodes.length) % nodes.length];
+  next.focus();
+});
+
+renderHome();
+speak("hola");
+  </script>
+</body>
+</html>
