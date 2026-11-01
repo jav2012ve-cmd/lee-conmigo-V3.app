@@ -51,19 +51,21 @@
     }
     .stage { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; min-height: calc(100dvh - 110px); }
     .order { margin: 0; text-align: center; font-size: 26px; font-weight: 700; }
-    .stage.water { min-height: calc(100dvh - 120px); gap: 8px; }
-    .stage.water .bins { flex: none; }
-    .stage.water .bin { min-height: 0; height: 78px; padding: 6px 8px; overflow: hidden; }
-    .stage.water .bin h2 { font-size: 18px; margin: 0; }
-    .stage.water .placed { display: none; }
-    .stage.water .bin.filled { box-shadow: inset 0 0 0 4px #2e7d32; }
+    .stage.water { height: calc(100dvh - 118px); min-height: 0; gap: 8px; }
+    .stage.water .split { flex: 1; min-height: 0; display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
+    .stage.water .bins, .stage.water .tray { height: 100%; min-height: 0; }
+    .stage.water .bin { min-height: 0; height: 100%; padding: 8px; overflow: hidden; }
+    .stage.water .bin h2 { font-size: 18px; margin: 0 0 4px; flex: none; }
+    .stage.water .placed { display: flex; flex: 1; min-height: 0; align-items: center; justify-content: center; }
+    .stage.water .placed img { width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
     .stage.water .tray {
-      flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-      min-height: 0; background: transparent; padding: 0; align-items: stretch;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      background: transparent; padding: 0; align-items: stretch;
     }
     .stage.water .piece { width: auto; height: 100%; display: flex; flex-direction: column; }
-    .stage.water .piece img { flex: 1; height: auto; min-height: 0; }
+    .stage.water .piece img { flex: 1; height: auto; min-height: 0; object-fit: contain; }
     .stage.water .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
+    .piece-slot { visibility: hidden; pointer-events: none; }
     .lesson-sheet { width: 100%; max-height: calc(100dvh - 250px); object-fit: contain; background: white; border-radius: 18px; }
     .stage.food .bin { min-height: 110px; max-height: 150px; flex: none; }
     .stage.food .bins { flex: none; }
@@ -332,10 +334,11 @@ function renderHome() {
 
 const WATER_ORDER = ["liquido", "solido", "gaseoso"];
 const WATER_ASK = {
-  liquido: "Ignacio, mueve la imagen del estado líquido.",
-  solido: "Ignacio, mueve la imagen del estado sólido.",
-  gaseoso: "Ignacio, mueve la imagen del estado gaseoso."
+  liquido: "Ignacio, ubica la imagen del estado líquido en la caja correspondiente.",
+  solido: "Ignacio, ubica la imagen del estado sólido en la caja correspondiente.",
+  gaseoso: "Ignacio, ubica la imagen del estado gaseoso en la caja correspondiente."
 };
+const FOOD_ASK = "Ignacio, ubica los alimentos correctos. Ten cuidado, hay 3 que no van acá.";
 const FOOD_ROUNDS = [
   { group: "animal", title: "Origen animal", lamina: "laminas/animal.png", invite: "Ignacio, ubica en la caja los alimentos de origen animal." },
   { group: "vegetal", title: "Origen vegetal", lamina: "laminas/vegetal.png", invite: "Ignacio, ubica en la caja los alimentos de origen vegetal." },
@@ -367,12 +370,15 @@ function renderWater() {
   }).join("");
   screen.innerHTML = `<div class="stage water">
     <p class="order" id="order"></p>
-    <div class="bins">${bins}</div>
-    <div class="tray" id="tray">${tray}</div>
+    <div class="split">
+      <div class="bins">${bins}</div>
+      <div class="tray" id="tray">${tray}</div>
+    </div>
     ${tools("agua")}
   </div>`;
   markWaterAsk();
   bindSort("agua");
+  speak("ubica-" + WATER_ORDER[0]);
 }
 
 function markWaterAsk() {
@@ -380,10 +386,6 @@ function markWaterAsk() {
   const order = document.getElementById("order");
   const tray = document.getElementById("tray");
   if (order && asked) order.textContent = WATER_ASK[asked];
-  if (tray) {
-    const count = Math.max(tray.querySelectorAll(".piece").length, 1);
-    tray.style.gridTemplateColumns = "repeat(" + count + ", minmax(0, 1fr))";
-  }
   screen.querySelectorAll(".piece").forEach(function (piece) {
     piece.classList.toggle("asked", piece.dataset.group === asked);
   });
@@ -403,23 +405,27 @@ function settleWater(piece, bin) {
       ? "Ese no es su lugar. Inténtalo otra vez."
       : "Mueve la imagen del " + names[asked] + ".";
     showCheer("Inténtalo otra vez", text, "otra-vez", 2200);
-    return;
+    return false;
   }
   cheerTitle.style.color = "";
   piece.dataset.done = "1";
   piece.classList.remove("picked");
   pickedId = null;
+  const icon = document.createElement("img");
+  icon.src = piece.querySelector("img").src;
+  icon.alt = piece.querySelector("b").textContent;
+  bin.querySelector(".placed").appendChild(icon);
   piece.remove();
-  bin.classList.add("filled");
   waterStep += 1;
   if (waterStep >= WATER_ORDER.length) {
-    const tray = document.getElementById("tray");
-    if (tray) tray.style.gridTemplateColumns = "1fr";
-    showCheer("¡Muy bien, Ignacio!", "Ya moviste los tres estados del agua.", "feliz", 2600);
-    return;
+    showCheer("¡Muy bien, Ignacio!", "Ya ubicaste los tres estados del agua.", "feliz", 2600);
+    return true;
   }
   markWaterAsk();
-  showCheer("¡Muy bien, Ignacio!", "El " + names[asked] + " está en su lugar.", "feliz", 1800);
+  showCheer("¡Muy bien, Ignacio!", "El " + names[asked] + " está en su lugar.", "feliz", 1700);
+  const next = WATER_ORDER[waterStep];
+  setTimeout(function () { if (route === "agua") speak("ubica-" + next); }, 1800);
+  return true;
 }
 
 function renderFoodLamina() {
@@ -437,7 +443,7 @@ function renderFoodLamina() {
 function renderFoodPlay() {
   const round = FOOD_ROUNDS[foodRound];
   title.textContent = round.title;
-  subtitle.textContent = round.invite;
+  subtitle.textContent = "Ten cuidado, hay 3 que no van acá.";
   const correct = FOODS.filter(function (item) { return item.group === round.group; });
   const others = shuffle(FOODS.filter(function (item) { return item.group !== round.group; })).slice(0, 3);
   const tray = shuffle(correct.concat(others)).map(function (item) {
@@ -447,12 +453,13 @@ function renderFoodPlay() {
     </button>`;
   }).join("");
   screen.innerHTML = `<div class="stage food">
-    <p class="order" id="order">${round.invite}</p>
+    <p class="order" id="order">${FOOD_ASK}</p>
     <div class="bins"><section class="bin ${round.group}" data-bin="${round.group}" tabindex="0"><h2>${round.title}</h2><div class="placed"></div></section></div>
     <div class="tray" id="tray">${tray}</div>
     ${tools("alimentos")}
   </div>`;
   bindSort("alimentos");
+  speak("ubica-alimentos");
 }
 
 function settleFood(piece, bin) {
@@ -561,16 +568,25 @@ function onDown(ev) {
   if (piece.dataset.done) return;
   piece.setPointerCapture(ev.pointerId);
   const rect = piece.getBoundingClientRect();
+  let slot = null;
+  if (piece.closest(".stage.water")) {
+    slot = document.createElement("div");
+    slot.className = "piece-slot";
+    slot.style.height = rect.height + "px";
+    piece.replaceWith(slot);
+    document.body.appendChild(piece);
+  }
   drag = {
     piece: piece,
+    slot: slot,
     id: ev.pointerId,
     dx: ev.clientX - rect.left,
     dy: ev.clientY - rect.top,
-    moved: false,
-    width: rect.width
+    moved: false
   };
   piece.classList.add("dragging");
   piece.style.width = rect.width + "px";
+  piece.style.height = rect.height + "px";
   piece.style.left = rect.left + "px";
   piece.style.top = rect.top + "px";
 }
@@ -588,15 +604,30 @@ function onUp(ev) {
   const piece = ev.currentTarget;
   if (!drag || drag.piece !== piece) return;
   const moved = drag.moved;
+  const slot = drag.slot;
   const bin = binAt(ev.clientX, ev.clientY, piece);
   clearDrag(piece);
   screen.querySelectorAll(".bin").forEach(function (el) { el.classList.remove("over"); });
   if (!moved) {
+    restorePiece(piece, slot);
     pick(piece);
     return;
   }
-  if (!bin) return;
-  settle(piece, bin, route);
+  if (!bin) {
+    restorePiece(piece, slot);
+    return;
+  }
+  const placed = settle(piece, bin, route);
+  if (!placed) restorePiece(piece, slot);
+}
+
+function restorePiece(piece, slot) {
+  piece.classList.remove("dragging");
+  piece.style.left = "";
+  piece.style.top = "";
+  piece.style.width = "";
+  piece.style.height = "";
+  if (slot && slot.parentNode) slot.replaceWith(piece);
 }
 
 function clearDrag(piece) {
@@ -605,6 +636,7 @@ function clearDrag(piece) {
   piece.style.left = "";
   piece.style.top = "";
   piece.style.width = "";
+  piece.style.height = "";
 }
 
 function binAt(x, y, ignore) {
@@ -623,7 +655,7 @@ function dropOnBin(bin, kind) {
 
 function settle(piece, bin, kind) {
   if (kind === "agua") return settleWater(piece, bin);
-  if (kind === "alimentos") return settleFood(piece, bin);
+  if (kind === "alimentos") return settleFood(piece, bin) !== false;
   const wanted = piece.dataset.group;
   const got = bin.dataset.bin;
   const item = itemsFor(kind).find(function (it) { return it.id === piece.dataset.id; });
