@@ -287,27 +287,34 @@ function shuffle(list) {
   return copy;
 }
 
-function speak(name) {
+function speak(name, thenName) {
   const src = "audio/" + name + ".mp3";
+  const follow = function (ms) {
+    if (!thenName) return;
+    setTimeout(function () { speak(thenName); }, ms);
+  };
   if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
     try {
       window.LeeConmigo.stopAudio && window.LeeConmigo.stopAudio();
-      window.LeeConmigo.playAudio(src);
+      const duration = Number(window.LeeConmigo.playAudio(src)) || 0;
+      follow(Math.max(duration, 700));
       return;
     } catch (err) { /* el navegador de Windows usa el audio de la página */ }
   }
   if (player) {
+    player.onended = null;
     player.pause();
   }
   player = new Audio(src);
-  player.play().catch(function () {});
+  if (thenName) player.onended = function () { speak(thenName); };
+  player.play().catch(function () { follow(1500); });
 }
 
-function showCheer(heading, text, audio, hold) {
+function showCheer(heading, text, audio, hold, thenAudio) {
   cheerTitle.textContent = heading;
   cheerText.textContent = text;
   cheer.hidden = false;
-  speak(audio);
+  speak(audio, thenAudio);
   clearTimeout(cheerTimer);
   cheerTimer = setTimeout(function () { cheer.hidden = true; }, hold || 1700);
 }
@@ -515,7 +522,7 @@ function settleFood(piece, bin) {
     piece.classList.add("shake");
     setTimeout(function () { piece.classList.remove("shake"); }, 360);
     cheerTitle.style.color = "var(--bad)";
-    showCheer("Inténtalo otra vez", item.say, "clase-" + item.id, 2800);
+    showCheer("Inténtalo otra vez", item.say, "otra-vez", 5200, "clase-" + item.id);
     return false;
   }
   cheerTitle.style.color = "";
@@ -528,20 +535,20 @@ function settleFood(piece, bin) {
   icon.alt = item.name;
   bin.querySelector(".placed").appendChild(icon);
   const left = screen.querySelectorAll('.piece[data-group="' + round.group + '"]').length;
-  showCheer("¡Muy bien, Ignacio!", item.say, "clase-" + item.id, 2600);
+  showCheer("¡Muy bien, Ignacio!", item.say, "feliz", 4600, "clase-" + item.id);
   if (left > 0) return true;
   if (foodRound < FOOD_ROUNDS.length - 1) {
     foodRound += 1;
     setTimeout(function () {
       if (route === "alimentos") renderFoodLamina();
-    }, 2700);
+    }, 4800);
     return true;
   }
   setTimeout(function () {
     if (route === "alimentos") {
       showCheer("¡Lo lograste, Ignacio!", "Ya sabes el origen de los alimentos.", "feliz", 2800);
     }
-  }, 2700);
+  }, 4800);
   return true;
 }
 
@@ -602,7 +609,7 @@ function answerQuiz(group, piece) {
   }
   if (group !== item.group) {
     cheerTitle.style.color = "var(--bad)";
-    showCheer("Inténtalo otra vez", item.say, "clase-" + item.id, 2800);
+    showCheer("Inténtalo otra vez", item.say, "otra-vez", 5200, "clase-" + item.id);
     return false;
   }
   cheerTitle.style.color = "";
@@ -613,13 +620,13 @@ function answerQuiz(group, piece) {
   }
   quizIndex += 1;
   if (quizIndex >= quizItems.length) {
-    showCheer("¡Muy bien, Ignacio!", item.say, "clase-" + item.id, 2200);
+    showCheer("¡Muy bien, Ignacio!", item.say, "feliz", 4600, "clase-" + item.id);
     setTimeout(function () {
       if (route === "pregunta") renderQuizRound();
-    }, 2300);
+    }, 4800);
     return true;
   }
-  showCheer("¡Muy bien, Ignacio!", item.say, "clase-" + item.id, 2000);
+  showCheer("¡Muy bien, Ignacio!", item.say, "feliz", 4600, "clase-" + item.id);
   setTimeout(function () {
     if (route !== "pregunta") return;
     const next = currentQuizItem();
@@ -629,7 +636,7 @@ function answerQuiz(group, piece) {
       el.classList.toggle("asked", el.dataset.id === next.id);
     });
     speak("pregunta-" + next.id);
-  }, 2100);
+  }, 4800);
   return true;
 }
 
@@ -806,7 +813,7 @@ function settle(piece, bin, kind) {
     piece.classList.remove("picked");
     piece.classList.add("shake");
     setTimeout(function () { piece.classList.remove("shake"); }, 360);
-    showCheer("Todavía no", "Ese no es su grupo, Ignacio.", "mal", 1400);
+    showCheer("Todavía no", "Ese no es su grupo, Ignacio.", "otra-vez", 2400);
     cheerTitle.style.color = "var(--bad)";
     return;
   }
@@ -823,11 +830,11 @@ function settle(piece, bin, kind) {
   const pending = screen.querySelectorAll(".piece:not([data-done])");
   const copy = COPY[kind];
   const line = item.line || item.name + " está en su grupo.";
-  showCheer("¡Muy bien, Ignacio!", line, "ok-" + item.id, 1600);
+  showCheer("¡Muy bien, Ignacio!", line, "feliz", 4200, "ok-" + item.id);
   if (pending.length === 0) {
     setTimeout(function () {
       showCheer("¡Lo lograste, Ignacio!", copy.finText, copy.fin, 3400);
-    }, 1700);
+    }, 4500);
   }
 }
 
