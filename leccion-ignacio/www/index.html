@@ -50,6 +50,23 @@
       outline: 4px solid #1565c0; outline-offset: 3px;
     }
     .stage { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; min-height: calc(100dvh - 110px); }
+    .order { margin: 0; text-align: center; font-size: 26px; font-weight: 700; }
+    .stage.water { min-height: calc(100dvh - 120px); gap: 8px; }
+    .stage.water .bins { flex: none; }
+    .stage.water .bin { min-height: 0; height: 78px; padding: 6px 8px; overflow: hidden; }
+    .stage.water .bin h2 { font-size: 18px; margin: 0; }
+    .stage.water .placed { display: none; }
+    .stage.water .bin.filled { box-shadow: inset 0 0 0 4px #2e7d32; }
+    .stage.water .tray {
+      flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      min-height: 0; background: transparent; padding: 0; align-items: stretch;
+    }
+    .stage.water .piece { width: auto; height: 100%; display: flex; flex-direction: column; }
+    .stage.water .piece img { flex: 1; height: auto; min-height: 0; }
+    .stage.water .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
+    .lesson-sheet { width: 100%; max-height: calc(100dvh - 250px); object-fit: contain; background: white; border-radius: 18px; }
+    .stage.food .bin { min-height: 110px; max-height: 150px; flex: none; }
+    .stage.food .bins { flex: none; }
     .bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; flex: 1; }
     .bins.many { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .bins.many h2 { font-size: 18px; }
@@ -295,12 +312,12 @@ function renderHome() {
       <button class="home-card" data-go="alimentos" type="button">
         <img src="laminas/animal.png" alt="" />
         <h2>Alimentos</h2>
-        <span>Lleva cada alimento a su origen.</span>
+        <span>Mira la lámina y ubica los de cada clase.</span>
       </button>
       <button class="home-card" data-go="agua" type="button">
         <img src="laminas/agua.png" alt="" />
         <h2>Estados del agua</h2>
-        <span>Sólido, líquido y gaseoso.</span>
+        <span>Mueve cada imagen cuando te lo pidan.</span>
       </button>
       <button class="home-card" data-go="resistencia" type="button">
         <img src="laminas/octubre.png" alt="" />
@@ -313,10 +330,165 @@ function renderHome() {
   });
 }
 
+const WATER_ORDER = ["liquido", "solido", "gaseoso"];
+const WATER_ASK = {
+  liquido: "Ignacio, mueve la imagen del estado líquido.",
+  solido: "Ignacio, mueve la imagen del estado sólido.",
+  gaseoso: "Ignacio, mueve la imagen del estado gaseoso."
+};
+const FOOD_ROUNDS = [
+  { group: "animal", title: "Origen animal", lamina: "laminas/animal.png", invite: "Ignacio, ubica en la caja los alimentos de origen animal." },
+  { group: "vegetal", title: "Origen vegetal", lamina: "laminas/vegetal.png", invite: "Ignacio, ubica en la caja los alimentos de origen vegetal." },
+  { group: "mineral", title: "Origen mineral", lamina: "laminas/mineral.png", invite: "Ignacio, ubica en la caja los alimentos de origen mineral." }
+];
+let waterStep = 0;
+let foodRound = 0;
+
 function openActivity(kind) {
   route = kind;
   back.hidden = false;
-  renderSort(kind);
+  if (kind === "agua") renderWater();
+  else if (kind === "alimentos") { foodRound = 0; renderFoodLamina(); }
+  else renderSort(kind);
+}
+
+function renderWater() {
+  waterStep = 0;
+  title.textContent = "Estados del agua";
+  subtitle.textContent = "Una imagen a la vez.";
+  const bins = BINS.agua.map(function (bin) {
+    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0"><h2>${bin.title}</h2><div class="placed"></div></section>`;
+  }).join("");
+  const tray = shuffle(WATER).map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" data-group="${item.group}" tabindex="0">
+      <img src="${item.img}" alt="" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage water">
+    <p class="order" id="order"></p>
+    <div class="bins">${bins}</div>
+    <div class="tray" id="tray">${tray}</div>
+    ${tools("agua")}
+  </div>`;
+  markWaterAsk();
+  bindSort("agua");
+}
+
+function markWaterAsk() {
+  const asked = WATER_ORDER[waterStep];
+  const order = document.getElementById("order");
+  const tray = document.getElementById("tray");
+  if (order && asked) order.textContent = WATER_ASK[asked];
+  if (tray) {
+    const count = Math.max(tray.querySelectorAll(".piece").length, 1);
+    tray.style.gridTemplateColumns = "repeat(" + count + ", minmax(0, 1fr))";
+  }
+  screen.querySelectorAll(".piece").forEach(function (piece) {
+    piece.classList.toggle("asked", piece.dataset.group === asked);
+  });
+}
+
+function settleWater(piece, bin) {
+  const asked = WATER_ORDER[waterStep];
+  const rightPiece = piece.dataset.group === asked;
+  const rightBin = bin.dataset.bin === asked;
+  const names = { liquido: "estado líquido", solido: "estado sólido", gaseoso: "estado gaseoso" };
+  if (!rightPiece || !rightBin) {
+    piece.classList.remove("picked");
+    piece.classList.add("shake");
+    setTimeout(function () { piece.classList.remove("shake"); }, 360);
+    cheerTitle.style.color = "var(--bad)";
+    const text = rightPiece
+      ? "Ese no es su lugar. Inténtalo otra vez."
+      : "Mueve la imagen del " + names[asked] + ".";
+    showCheer("Inténtalo otra vez", text, "otra-vez", 2200);
+    return;
+  }
+  cheerTitle.style.color = "";
+  piece.dataset.done = "1";
+  piece.classList.remove("picked");
+  pickedId = null;
+  piece.remove();
+  bin.classList.add("filled");
+  waterStep += 1;
+  if (waterStep >= WATER_ORDER.length) {
+    const tray = document.getElementById("tray");
+    if (tray) tray.style.gridTemplateColumns = "1fr";
+    showCheer("¡Muy bien, Ignacio!", "Ya moviste los tres estados del agua.", "feliz", 2600);
+    return;
+  }
+  markWaterAsk();
+  showCheer("¡Muy bien, Ignacio!", "El " + names[asked] + " está en su lugar.", "feliz", 1800);
+}
+
+function renderFoodLamina() {
+  const round = FOOD_ROUNDS[foodRound];
+  title.textContent = round.title;
+  subtitle.textContent = "Mira la lámina. Luego vamos a ubicarlos.";
+  screen.innerHTML = `<div class="stage">
+    <img class="lesson-sheet" src="${round.lamina}" alt="${round.title}" />
+    <p class="order">Estos son los alimentos de ${round.title.toLowerCase()}.</p>
+    <div class="tools"><button class="tool" type="button" id="startRound">Ubicar los alimentos</button></div>
+  </div>`;
+  document.getElementById("startRound").onclick = renderFoodPlay;
+}
+
+function renderFoodPlay() {
+  const round = FOOD_ROUNDS[foodRound];
+  title.textContent = round.title;
+  subtitle.textContent = round.invite;
+  const correct = FOODS.filter(function (item) { return item.group === round.group; });
+  const others = shuffle(FOODS.filter(function (item) { return item.group !== round.group; })).slice(0, 3);
+  const tray = shuffle(correct.concat(others)).map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" data-group="${item.group}" tabindex="0">
+      <img src="${item.img}" alt="" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage food">
+    <p class="order" id="order">${round.invite}</p>
+    <div class="bins"><section class="bin ${round.group}" data-bin="${round.group}" tabindex="0"><h2>${round.title}</h2><div class="placed"></div></section></div>
+    <div class="tray" id="tray">${tray}</div>
+    ${tools("alimentos")}
+  </div>`;
+  bindSort("alimentos");
+}
+
+function settleFood(piece, bin) {
+  const round = FOOD_ROUNDS[foodRound];
+  const item = FOODS.find(function (it) { return it.id === piece.dataset.id; });
+  if (piece.dataset.group !== round.group || bin.dataset.bin !== round.group) {
+    piece.classList.remove("picked");
+    piece.classList.add("shake");
+    setTimeout(function () { piece.classList.remove("shake"); }, 360);
+    cheerTitle.style.color = "var(--bad)";
+    showCheer("Inténtalo otra vez", item.name + " no es de " + round.title.toLowerCase() + ".", "otra-vez", 2200);
+    return;
+  }
+  cheerTitle.style.color = "";
+  piece.dataset.done = "1";
+  piece.classList.remove("picked");
+  pickedId = null;
+  piece.remove();
+  const icon = document.createElement("img");
+  icon.src = item.img;
+  icon.alt = item.name;
+  bin.querySelector(".placed").appendChild(icon);
+  const left = screen.querySelectorAll('.piece[data-group="' + round.group + '"]').length;
+  if (left > 0) {
+    showCheer("¡Muy bien, Ignacio!", item.name + " sí es de " + round.title.toLowerCase() + ".", "feliz", 1600);
+    return;
+  }
+  if (foodRound < FOOD_ROUNDS.length - 1) {
+    showCheer("¡Muy bien, Ignacio!", "Ya ubicaste los de " + round.title.toLowerCase() + ".", "feliz", 1800);
+    foodRound += 1;
+    setTimeout(function () {
+      if (route === "alimentos") renderFoodLamina();
+    }, 1900);
+    return;
+  }
+  showCheer("¡Lo lograste, Ignacio!", "Ya sabes el origen de los alimentos.", "feliz", 2800);
 }
 
 function renderSort(kind) {
@@ -424,8 +596,7 @@ function onUp(ev) {
     return;
   }
   if (!bin) return;
-  const kind = route;
-  settle(piece, bin, kind);
+  settle(piece, bin, route);
 }
 
 function clearDrag(piece) {
@@ -451,6 +622,8 @@ function dropOnBin(bin, kind) {
 }
 
 function settle(piece, bin, kind) {
+  if (kind === "agua") return settleWater(piece, bin);
+  if (kind === "alimentos") return settleFood(piece, bin);
   const wanted = piece.dataset.group;
   const got = bin.dataset.bin;
   const item = itemsFor(kind).find(function (it) { return it.id === piece.dataset.id; });
