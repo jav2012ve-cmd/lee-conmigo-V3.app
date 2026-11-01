@@ -57,13 +57,13 @@
     .stage.water .bin { min-height: 0; height: 100%; padding: 8px; overflow: hidden; }
     .stage.water .bin h2 { font-size: 18px; margin: 0 0 4px; flex: none; }
     .stage.water .placed { display: flex; flex: 1; min-height: 0; align-items: center; justify-content: center; }
-    .stage.water .placed img { width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
+    .stage.water .placed img { width: auto; height: auto; max-width: none; object-fit: contain; flex: none; }
     .stage.water .tray {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
       background: transparent; padding: 0; align-items: stretch;
     }
     .stage.water .piece { width: auto; height: 100%; display: flex; flex-direction: column; }
-    .stage.water .piece img { flex: 1; height: auto; min-height: 0; object-fit: contain; }
+    .stage.water .piece img { flex: none; margin: auto; object-fit: contain; }
     .stage.water .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
     .piece-slot { visibility: hidden; pointer-events: none; }
     .lesson-sheet { width: 100%; max-height: calc(100dvh - 250px); object-fit: contain; background: white; border-radius: 18px; }
@@ -164,19 +164,19 @@
   </div>
   <script>
 const FOODS = [
-  { id: "huevo", name: "Huevo", group: "animal", img: "img/huevo.png" },
-  { id: "pescado", name: "Pescado", group: "animal", img: "img/pescado.png" },
-  { id: "pollo", name: "Pollo", group: "animal", img: "img/pollo.png" },
-  { id: "yogur", name: "Yogur", group: "animal", img: "img/yogur.png" },
-  { id: "leche", name: "Leche", group: "animal", img: "img/leche.png" },
-  { id: "queso", name: "Queso", group: "animal", img: "img/queso.png" },
-  { id: "maiz", name: "Maíz", group: "vegetal", img: "img/maiz.png" },
-  { id: "frijoles", name: "Frijoles", group: "vegetal", img: "img/frijoles.png" },
-  { id: "arroz", name: "Arroz", group: "vegetal", img: "img/arroz.png" },
-  { id: "papa", name: "Papa", group: "vegetal", img: "img/papa.png" },
-  { id: "yuca", name: "Yuca", group: "vegetal", img: "img/yuca.png" },
-  { id: "agua", name: "Agua", group: "mineral", img: "img/agua.png" },
-  { id: "sal", name: "Sal", group: "mineral", img: "img/sal.png" }
+  { id: "huevo", name: "Huevo", group: "animal", img: "img/huevo.png", say: "El huevo pertenece al origen animal." },
+  { id: "pescado", name: "Pescado", group: "animal", img: "img/pescado.png", say: "El pescado pertenece al origen animal." },
+  { id: "pollo", name: "Pollo", group: "animal", img: "img/pollo.png", say: "El pollo pertenece al origen animal." },
+  { id: "yogur", name: "Yogur", group: "animal", img: "img/yogur.png", say: "El yogur pertenece al origen animal." },
+  { id: "leche", name: "Leche", group: "animal", img: "img/leche.png", say: "La leche pertenece al origen animal." },
+  { id: "queso", name: "Queso", group: "animal", img: "img/queso.png", say: "El queso pertenece al origen animal." },
+  { id: "maiz", name: "Maíz", group: "vegetal", img: "img/maiz.png", say: "El maíz pertenece al origen vegetal." },
+  { id: "frijoles", name: "Frijoles", group: "vegetal", img: "img/frijoles.png", say: "Los frijoles pertenecen al origen vegetal." },
+  { id: "arroz", name: "Arroz", group: "vegetal", img: "img/arroz.png", say: "El arroz pertenece al origen vegetal." },
+  { id: "papa", name: "Papa", group: "vegetal", img: "img/papa.png", say: "La papa pertenece al origen vegetal." },
+  { id: "yuca", name: "Yuca", group: "vegetal", img: "img/yuca.png", say: "La yuca pertenece al origen vegetal." },
+  { id: "agua", name: "Agua", group: "mineral", img: "img/agua.png", say: "El agua pertenece al origen mineral." },
+  { id: "sal", name: "Sal", group: "mineral", img: "img/sal.png", say: "La sal pertenece al origen mineral." }
 ];
 const WATER = [
   { id: "hielo", name: "Hielo", group: "solido", img: "img/hielo.png" },
@@ -340,9 +340,9 @@ const WATER_ASK = {
 };
 const FOOD_ASK = "Ignacio, ubica los alimentos correctos. Ten cuidado, hay 3 que no van acá.";
 const FOOD_ROUNDS = [
-  { group: "animal", title: "Origen animal", lamina: "laminas/animal.png", invite: "Ignacio, ubica en la caja los alimentos de origen animal." },
-  { group: "vegetal", title: "Origen vegetal", lamina: "laminas/vegetal.png", invite: "Ignacio, ubica en la caja los alimentos de origen vegetal." },
-  { group: "mineral", title: "Origen mineral", lamina: "laminas/mineral.png", invite: "Ignacio, ubica en la caja los alimentos de origen mineral." }
+  { group: "animal", title: "Origen animal", lamina: "laminas/animal.png", list: "Huevo, pescado, pollo, yogur, leche y queso.", voice: "lamina-animal" },
+  { group: "vegetal", title: "Origen vegetal", lamina: "laminas/vegetal.png", list: "Maíz, frijoles, arroz, papa y yuca.", voice: "lamina-vegetal" },
+  { group: "mineral", title: "Origen mineral", lamina: "laminas/mineral.png", list: "Agua y sal.", voice: "lamina-mineral" }
 ];
 let waterStep = 0;
 let foodRound = 0;
@@ -378,7 +378,23 @@ function renderWater() {
   </div>`;
   markWaterAsk();
   bindSort("agua");
+  requestAnimationFrame(function () { fitWaterImages(); });
   speak("ubica-" + WATER_ORDER[0]);
+}
+
+function fitWaterImages() {
+  const bin = document.querySelector(".stage.water .bin");
+  if (!bin) return;
+  const titleBox = bin.querySelector("h2").getBoundingClientRect();
+  const binBox = bin.getBoundingClientRect();
+  const innerH = Math.max(48, binBox.bottom - titleBox.bottom - 14);
+  const innerW = Math.max(48, binBox.width - 24);
+  const w = Math.round(innerW * 0.85);
+  const h = Math.round(innerH * 0.85);
+  document.querySelectorAll(".stage.water .piece img").forEach(function (img) {
+    img.style.width = w + "px";
+    img.style.height = h + "px";
+  });
 }
 
 function markWaterAsk() {
@@ -414,6 +430,8 @@ function settleWater(piece, bin) {
   const icon = document.createElement("img");
   icon.src = piece.querySelector("img").src;
   icon.alt = piece.querySelector("b").textContent;
+  icon.style.width = (piece.dataset.imgw || "120") + "px";
+  icon.style.height = (piece.dataset.imgh || "120") + "px";
   bin.querySelector(".placed").appendChild(icon);
   piece.remove();
   waterStep += 1;
@@ -431,13 +449,14 @@ function settleWater(piece, bin) {
 function renderFoodLamina() {
   const round = FOOD_ROUNDS[foodRound];
   title.textContent = round.title;
-  subtitle.textContent = "Mira la lámina. Luego vamos a ubicarlos.";
+  subtitle.textContent = "Escucha cuáles son los de esta clase.";
   screen.innerHTML = `<div class="stage">
     <img class="lesson-sheet" src="${round.lamina}" alt="${round.title}" />
-    <p class="order">Estos son los alimentos de ${round.title.toLowerCase()}.</p>
+    <p class="order">Estos son los alimentos de ${round.title.toLowerCase()}: ${round.list}</p>
     <div class="tools"><button class="tool" type="button" id="startRound">Ubicar los alimentos</button></div>
   </div>`;
   document.getElementById("startRound").onclick = renderFoodPlay;
+  speak(round.voice);
 }
 
 function renderFoodPlay() {
@@ -470,8 +489,8 @@ function settleFood(piece, bin) {
     piece.classList.add("shake");
     setTimeout(function () { piece.classList.remove("shake"); }, 360);
     cheerTitle.style.color = "var(--bad)";
-    showCheer("Inténtalo otra vez", item.name + " no es de " + round.title.toLowerCase() + ".", "otra-vez", 2200);
-    return;
+    showCheer("Inténtalo otra vez", item.say, "clase-" + item.id, 2800);
+    return false;
   }
   cheerTitle.style.color = "";
   piece.dataset.done = "1";
@@ -483,19 +502,21 @@ function settleFood(piece, bin) {
   icon.alt = item.name;
   bin.querySelector(".placed").appendChild(icon);
   const left = screen.querySelectorAll('.piece[data-group="' + round.group + '"]').length;
-  if (left > 0) {
-    showCheer("¡Muy bien, Ignacio!", item.name + " sí es de " + round.title.toLowerCase() + ".", "feliz", 1600);
-    return;
-  }
+  showCheer("¡Muy bien, Ignacio!", item.say, "clase-" + item.id, 2600);
+  if (left > 0) return true;
   if (foodRound < FOOD_ROUNDS.length - 1) {
-    showCheer("¡Muy bien, Ignacio!", "Ya ubicaste los de " + round.title.toLowerCase() + ".", "feliz", 1800);
     foodRound += 1;
     setTimeout(function () {
       if (route === "alimentos") renderFoodLamina();
-    }, 1900);
-    return;
+    }, 2700);
+    return true;
   }
-  showCheer("¡Lo lograste, Ignacio!", "Ya sabes el origen de los alimentos.", "feliz", 2800);
+  setTimeout(function () {
+    if (route === "alimentos") {
+      showCheer("¡Lo lograste, Ignacio!", "Ya sabes el origen de los alimentos.", "feliz", 2800);
+    }
+  }, 2700);
+  return true;
 }
 
 function renderSort(kind) {
@@ -568,6 +589,9 @@ function onDown(ev) {
   if (piece.dataset.done) return;
   piece.setPointerCapture(ev.pointerId);
   const rect = piece.getBoundingClientRect();
+  const imgBox = piece.querySelector("img").getBoundingClientRect();
+  piece.dataset.imgw = String(Math.round(imgBox.width));
+  piece.dataset.imgh = String(Math.round(imgBox.height));
   let slot = null;
   if (piece.closest(".stage.water")) {
     slot = document.createElement("div");
