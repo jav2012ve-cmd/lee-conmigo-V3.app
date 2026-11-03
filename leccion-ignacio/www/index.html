@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Lección de Ignacio</title>
+  <style>
+    :root {
+      --bg: #fff6ea;
+      --ink: #3e2723;
+      --orange: #ef6c00;
+      --deep: #e65100;
+      --card: #fff;
+      --good: #2e7d32;
+      --bad: #c62828;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    button, .piece { font: inherit; color: inherit; }
+    #app { min-height: 100%; display: flex; flex-direction: column; }
+    header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: var(--orange); color: white;
+    }
+    header h1 { margin: 0; font-size: 26px; }
+    header p { margin: 2px 0 0; font-size: 16px; }
+    #back {
+      width: 54px; height: 54px; border: 0; border-radius: 16px;
+      background: white; color: var(--deep); font-size: 28px; font-weight: 700;
+    }
+    #back[hidden] { display: none; }
+    main { flex: 1; padding: 14px; }
+    .home-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px; max-width: 1100px; margin: 0 auto;
+    }
+    .home-card {
+      background: var(--card); border: 0; border-radius: 22px; padding: 12px;
+      text-align: left; box-shadow: 0 8px 0 #f3d7b0; cursor: pointer;
+    }
+    .home-card img { width: 100%; height: 150px; object-fit: contain; background: #fff; border-radius: 14px; }
+    .home-card h2 { margin: 10px 0 4px; font-size: 24px; }
+    .home-card span { color: #6d4c41; font-size: 16px; }
+    .home-card:focus, .piece:focus, .bin:focus, .tool:focus {
+      outline: 4px solid #1565c0; outline-offset: 3px;
+    }
+    .stage { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; min-height: calc(100dvh - 110px); }
+    .order { margin: 0; text-align: center; font-size: 26px; font-weight: 700; }
+    .stage.water { height: calc(100dvh - 118px); min-height: 0; gap: 8px; }
+    .stage.water .split { flex: 1; min-height: 0; display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
+    .stage.water .bins, .stage.water .tray { height: 100%; min-height: 0; }
+    .stage.water .bin { min-height: 0; height: 100%; padding: 8px; overflow: hidden; }
+    .stage.water .bin h2 { font-size: 18px; margin: 0 0 4px; flex: none; }
+    .stage.water .placed { display: flex; flex: 1; min-height: 0; align-items: center; justify-content: center; }
+    .stage.water .placed img { width: auto; height: auto; max-width: none; object-fit: contain; flex: none; }
+    .stage.water .tray {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      background: transparent; padding: 0; align-items: stretch;
+    }
+    .stage.water .piece { width: auto; height: 100%; display: flex; flex-direction: column; }
+    .stage.water .piece img { flex: none; margin: auto; object-fit: contain; }
+    .stage.water .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
+    .piece-slot { visibility: hidden; pointer-events: none; }
+    .lesson-sheet { width: 100%; max-height: calc(100dvh - 250px); object-fit: contain; background: white; border-radius: 18px; }
+    .stage.food, .stage.quiz { height: calc(100dvh - 118px); min-height: 0; }
+    .stage.food .split, .stage.quiz .split { flex: 1; min-height: 0; display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
+    .stage.food .bins, .stage.food .tray, .stage.quiz .bins, .stage.quiz .tray { height: 100%; min-height: 0; }
+    .stage.food .bins { grid-template-columns: 1fr; }
+    .stage.food .bin, .stage.quiz .bin { min-height: 0; height: 100%; max-height: none; }
+    .stage.food .tray, .stage.quiz .tray { display: flex; flex-wrap: wrap; align-items: stretch; align-content: stretch; }
+    .stage.food .piece, .stage.quiz .piece { flex: 1 1 18%; width: auto; height: 46%; max-height: 46%; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .stage.food .piece img, .stage.quiz .piece img { flex: 1; width: 100%; max-height: calc(100% - 22px); min-height: 0; object-fit: contain; }
+    .stage.food .placed { flex: 1; min-height: 0; align-content: center; }
+    .stage.food .placed img { width: 70px; height: 70px; }
+    .stage.quiz .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
+    .stage.quiz .piece.done { opacity: 0.4; }
+    .stage.poem { align-items: center; }
+    .poem-art { width: min(320px, 70vw); height: 220px; object-fit: cover; border-radius: 22px; background: white; }
+    .poem-text { text-align: center; max-width: 720px; }
+    .poem-line { margin: 8px 0; font-size: 28px; font-weight: 800; line-height: 1.35; }
+    .poem-word { display: inline-block; margin: 0 3px; padding: 2px 6px; border-radius: 10px; transition: transform 0.15s, background 0.15s, color 0.15s; }
+    .poem-word.on { background: #fff59d; color: #e65100; transform: scale(1.14); }
+    .bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; flex: 1; }
+    .bins.many { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .bins.many h2 { font-size: 18px; }
+    .bin {
+      background: #fff; border-radius: 20px; min-height: 180px; padding: 10px;
+      border: 4px dashed #bcaaa4; display: flex; flex-direction: column;
+    }
+    .bin h2 { margin: 0 0 8px; text-align: center; font-size: 22px; }
+    .bin.animal { background: #fff3e0; border-color: #ef6c00; }
+    .bin.vegetal { background: #e8f5e9; border-color: #2e7d32; }
+    .bin.mineral { background: #e3f2fd; border-color: #1565c0; }
+    .bin.solido { background: #e1f5fe; border-color: #0277bd; }
+    .bin.liquido { background: #e0f7fa; border-color: #00838f; }
+    .bin.gaseoso { background: #f3e5f5; border-color: #6a1b9a; }
+    .bin.colon { background: #fff3e0; border-color: #ef6c00; }
+    .bin.rodrigo { background: #e3f2fd; border-color: #1565c0; }
+    .bin.indigena { background: #e8f5e9; border-color: #2e7d32; }
+    .bin.soldado { background: #fce4ec; border-color: #ad1457; }
+    .bin.over { transform: scale(1.02); box-shadow: inset 0 0 0 4px #f9a825; }
+    .placed { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .placed img { width: 54px; height: 54px; object-fit: contain; }
+    .tray {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      background: #fff8ef; border-radius: 18px; padding: 10px; min-height: 130px;
+    }
+    .piece {
+      width: 118px; border: 0; background: white; border-radius: 16px;
+      box-shadow: 0 5px 0 #ead7c2; padding: 6px; cursor: grab; touch-action: none;
+    }
+    .piece img { width: 100%; height: 78px; object-fit: contain; pointer-events: none; }
+    .piece b { display: block; text-align: center; font-size: 16px; }
+    .piece.picked { box-shadow: 0 0 0 4px var(--orange); }
+    .piece.dragging { position: fixed; z-index: 30; margin: 0; opacity: 0.95; cursor: grabbing; }
+    .piece.shake { animation: shake 0.35s linear; }
+    .tools { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .tool {
+      border: 0; background: white; color: var(--deep); border-radius: 14px;
+      padding: 12px 16px; font-size: 18px; font-weight: 700; box-shadow: 0 4px 0 #f3d7b0;
+    }
+    #cheer, #lamina {
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(62, 39, 35, 0.28); z-index: 40; padding: 18px;
+    }
+    #cheer { pointer-events: none; background: transparent; align-items: flex-start; padding-top: 76px; }
+    #cheer[hidden], #lamina[hidden] { display: none; }
+    .cheer-card, .lamina-card {
+      background: white; border-radius: 28px; padding: 22px 26px; text-align: center;
+      max-width: 640px; width: min(640px, 100%); box-shadow: 0 16px 0 rgba(0,0,0,0.08);
+    }
+    .cheer-card h2 { margin: 0; font-size: 40px; color: var(--good); }
+    .cheer-card p { margin: 10px 0 0; font-size: 24px; }
+    .stars { font-size: 36px; letter-spacing: 6px; }
+    .lamina-card img { width: 100%; max-height: 62vh; object-fit: contain; }
+    .lamina-nav { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+    @keyframes shake {
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    @media (max-width: 800px) {
+      .home-grid, .bins { grid-template-columns: 1fr; }
+      .bins.many { grid-template-columns: 1fr 1fr; }
+      header h1 { font-size: 22px; }
+      .piece { width: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <button id="back" type="button" hidden>←</button>
+      <div>
+        <h1 id="title">Lección de Ignacio</h1>
+        <p id="subtitle">Hola, Ignacio. Elige una actividad.</p>
+      </div>
+    </header>
+    <main id="screen"></main>
+  </div>
+  <div id="cheer" hidden>
+    <div class="cheer-card">
+      <div class="stars">★★★</div>
+      <h2 id="cheerTitle">¡Muy bien, Ignacio!</h2>
+      <p id="cheerText"></p>
+    </div>
+  </div>
+  <div id="lamina" hidden>
+    <div class="lamina-card">
+      <img id="laminaImg" alt="Lámina de la lección" />
+      <div class="lamina-nav" id="laminaNav"></div>
+      <button class="tool" id="laminaClose" type="button">Cerrar</button>
+    </div>
+  </div>
+  <script>
+const FOODS = [
+  { id: "huevo", name: "Huevo", ask: "el huevo", group: "animal", img: "img/huevo.png", say: "El huevo pertenece al origen animal." },
+  { id: "pescado", name: "Pescado", ask: "el pescado", group: "animal", img: "img/pescado.png", say: "El pescado pertenece al origen animal." },
+  { id: "pollo", name: "Pollo", ask: "el pollo", group: "animal", img: "img/pollo.png", say: "El pollo pertenece al origen animal." },
+  { id: "yogur", name: "Yogur", ask: "el yogur", group: "animal", img: "img/yogur.png", say: "El yogur pertenece al origen animal." },
+  { id: "leche", name: "Leche", ask: "la leche", group: "animal", img: "img/leche.png", say: "La leche pertenece al origen animal." },
+  { id: "queso", name: "Queso", ask: "el queso", group: "animal", img: "img/queso.png", say: "El queso pertenece al origen animal." },
+  { id: "maiz", name: "Maíz", ask: "el maíz", group: "vegetal", img: "img/maiz.png", say: "El maíz pertenece al origen vegetal." },
+  { id: "frijoles", name: "Frijoles", ask: "los frijoles", group: "vegetal", img: "img/frijoles.png", say: "Los frijoles pertenecen al origen vegetal." },
+  { id: "arroz", name: "Arroz", ask: "el arroz", group: "vegetal", img: "img/arroz.png", say: "El arroz pertenece al origen vegetal." },
+  { id: "papa", name: "Papa", ask: "la papa", group: "vegetal", img: "img/papa.png", say: "La papa pertenece al origen vegetal." },
+  { id: "yuca", name: "Yuca", ask: "la yuca", group: "vegetal", img: "img/yuca.png", say: "La yuca pertenece al origen vegetal." },
+  { id: "agua", name: "Agua", ask: "el agua", group: "mineral", img: "img/agua.png", say: "El agua pertenece al origen mineral." },
+  { id: "sal", name: "Sal", ask: "la sal", group: "mineral", img: "img/sal.png", say: "La sal pertenece al origen mineral." }
+];
+const WATER = [
+  { id: "hielo", name: "Hielo", group: "solido", img: "img/hielo.png" },
+  { id: "jarra", name: "Jarra", group: "liquido", img: "img/jarra.png" },
+  { id: "vapor", name: "Vapor", group: "gaseoso", img: "img/vapor.png" }
+];
+const PEOPLE = [
+  { id: "colon", name: "Cristóbal Colón", group: "colon", img: "img/colon.png", line: "Él es Cristóbal Colón." },
+  { id: "colon-escena", name: "Cristóbal Colón", group: "colon", img: "img/colon-escena.png", line: "También es Cristóbal Colón." },
+  { id: "rodrigo", name: "Rodrigo de Triana", group: "rodrigo", img: "img/rodrigo.png", line: "Él es Rodrigo de Triana." },
+  { id: "nino", name: "Niño indígena", group: "indigena", img: "img/nino.png", line: "Él es un niño indígena." },
+  { id: "nina", name: "Niña indígena", group: "indigena", img: "img/nina.png", line: "Ella es una niña indígena." },
+  { id: "casco", name: "Soldado", group: "soldado", img: "img/casco.png", line: "Él es un soldado conquistador." },
+  { id: "panuelo", name: "Soldado", group: "soldado", img: "img/panuelo.png", line: "Él es un soldado conquistador." }
+];
+const BINS = {
+  alimentos: [
+    { id: "animal", title: "Origen animal" },
+    { id: "vegetal", title: "Origen vegetal" },
+    { id: "mineral", title: "Origen mineral" }
+  ],
+  agua: [
+    { id: "solido", title: "Estado sólido" },
+    { id: "liquido", title: "Estado líquido" },
+    { id: "gaseoso", title: "Estado gaseoso" }
+  ],
+  resistencia: [
+    { id: "colon", title: "Cristóbal Colón" },
+    { id: "rodrigo", title: "Rodrigo de Triana" },
+    { id: "indigena", title: "Indígenas" },
+    { id: "soldado", title: "Soldados conquistadores" }
+  ]
+};
+const COPY = {
+  alimentos: {
+    title: "Alimentos",
+    sub: "Arrastra cada alimento a su grupo.",
+    fin: "fin-alimentos",
+    finText: "Ya sabes el origen de los alimentos."
+  },
+  agua: {
+    title: "Estados del agua",
+    sub: "Arrastra cada imagen a su estado.",
+    fin: "fin-agua",
+    finText: "Ya conoces los estados del agua."
+  },
+  resistencia: {
+    title: "Día de la Resistencia indígena",
+    sub: "Arrastra cada persona a su lugar.",
+    fin: "fin-resistencia",
+    finText: "Ya reconoces a Colón, a Triana, a los indígenas y a los soldados."
+  }
+};
+const LAMINAS = {
+  alimentos: [
+    ["Origen animal", "laminas/animal.png"],
+    ["Origen vegetal", "laminas/vegetal.png"],
+    ["Origen mineral", "laminas/mineral.png"]
+  ],
+  agua: [["Estados del agua", "laminas/agua.png"]],
+  resistencia: [
+    ["Día de la Resistencia indígena", "laminas/octubre.png"],
+    ["Las carabelas", "laminas/carabelas.png"],
+    ["Colón y Triana", "laminas/personas.png"]
+  ],
+  pregunta: [
+    ["Origen animal", "laminas/animal.png"],
+    ["Origen vegetal", "laminas/vegetal.png"],
+    ["Origen mineral", "laminas/mineral.png"]
+  ]
+};
+
+const screen = document.getElementById("screen");
+const title = document.getElementById("title");
+const subtitle = document.getElementById("subtitle");
+const back = document.getElementById("back");
+const cheer = document.getElementById("cheer");
+const cheerTitle = document.getElementById("cheerTitle");
+const cheerText = document.getElementById("cheerText");
+const lamina = document.getElementById("lamina");
+const laminaImg = document.getElementById("laminaImg");
+const laminaNav = document.getElementById("laminaNav");
+
+let route = "home";
+let player = null;
+let cheerTimer = null;
+let pickedId = null;
+let drag = null;
+
+function shuffle(list) {
+  const copy = list.slice();
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy;
+}
+
+function speak(name, thenName) {
+  const src = "audio/" + name + ".mp3";
+  const follow = function (ms) {
+    if (!thenName) return;
+    setTimeout(function () { speak(thenName); }, ms);
+  };
+  if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
+    try {
+      window.LeeConmigo.stopAudio && window.LeeConmigo.stopAudio();
+      const duration = Number(window.LeeConmigo.playAudio(src)) || 0;
+      follow(Math.max(duration, 700));
+      return;
+    } catch (err) { /* el navegador de Windows usa el audio de la página */ }
+  }
+  if (player) {
+    player.onended = null;
+    player.pause();
+  }
+  player = new Audio(src);
+  if (thenName) player.onended = function () { speak(thenName); };
+  player.play().catch(function () { follow(1500); });
+}
+
+function showCheer(heading, text, audio, hold, thenAudio) {
+  cheerTitle.textContent = heading;
+  cheerText.textContent = text;
+  cheer.hidden = false;
+  speak(audio, thenAudio);
+  clearTimeout(cheerTimer);
+  cheerTimer = setTimeout(function () { cheer.hidden = true; }, hold || 1700);
+}
+
+function itemsFor(kind) {
+  if (kind === "alimentos") return FOODS;
+  if (kind === "agua") return WATER;
+  return PEOPLE;
+}
+
+function renderHome() {
+  clearPoemTimers();
+  route = "home";
+  pickedId = null;
+  title.textContent = "Lección de Ignacio";
+  subtitle.textContent = "Hola, Ignacio. Elige una actividad.";
+  back.hidden = true;
+  screen.innerHTML = `
+    <div class="home-grid">
+      <button class="home-card" data-go="alimentos" type="button">
+        <img src="laminas/animal.png" alt="" />
+        <h2>Alimentos</h2>
+        <span>Mira la lámina y ubica los de cada clase.</span>
+      </button>
+      <button class="home-card" data-go="poema" type="button">
+        <img src="img/poema-cara.jpg" alt="" />
+        <h2>Poema del agua</h2>
+        <span>Tres partes, con la voz de mamá.</span>
+      </button>
+      <button class="home-card" data-go="agua" type="button">
+        <img src="laminas/agua.png" alt="" />
+        <h2>Estados del agua</h2>
+        <span>Mueve cada imagen cuando te lo pidan.</span>
+      </button>
+      <button class="home-card" data-go="pregunta" type="button">
+        <img src="laminas/vegetal.png" alt="" />
+        <h2>¿A qué clase?</h2>
+        <span>Te pregunto por cinco alimentos.</span>
+      </button>
+      <button class="home-card" data-go="resistencia" type="button">
+        <img src="laminas/octubre.png" alt="" />
+        <h2>Resistencia indígena</h2>
+        <span>Identifica a Colón, a Triana, a los indígenas y a los soldados.</span>
+      </button>
+    </div>`;
+  screen.querySelectorAll("[data-go]").forEach(function (btn) {
+    btn.onclick = function () { openActivity(btn.getAttribute("data-go")); };
+  });
+}
+
+const WATER_ORDER = ["liquido", "solido", "gaseoso"];
+const WATER_ASK = {
+  liquido: "Ignacio, ubica la imagen del estado líquido en la caja correspondiente.",
+  solido: "Ignacio, ubica la imagen del estado sólido en la caja correspondiente.",
+  gaseoso: "Ignacio, ubica la imagen del estado gaseoso en la caja correspondiente."
+};
+const FOOD_ASK = "Ignacio, ubica los alimentos correctos. Ten cuidado, hay 3 que no van acá.";
+const FOOD_ROUNDS = [
+  { group: "animal", title: "Origen animal", lamina: "laminas/animal.png", list: "Huevo, pescado, pollo, yogur, leche y queso.", voice: "lamina-animal" },
+  { group: "vegetal", title: "Origen vegetal", lamina: "laminas/vegetal.png", list: "Maíz, frijoles, arroz, papa y yuca.", voice: "lamina-vegetal" },
+  { group: "mineral", title: "Origen mineral", lamina: "laminas/mineral.png", list: "Agua y sal.", voice: "lamina-mineral" }
+];
+let waterStep = 0;
+let foodRound = 0;
+let quizLeft = [];
+let quizItems = [];
+let quizIndex = 0;
+let poemPart = 0;
+let poemTimers = [];
+const POEM = [
+  {
+    audio: "poema-1",
+    img: "img/poema-cara.jpg",
+    alt: "Una gotita deja la cara limpia",
+    lines: [
+      ["Gotita", "de", "agua,"],
+      ["pura", "y", "transparente,"],
+      ["me", "dejas", "la", "cara,"],
+      ["limpia", "y", "reluciente."]
+    ]
+  },
+  {
+    audio: "poema-2",
+    img: "img/poema-planeta.jpg",
+    alt: "Una gotita traviesa y el planeta",
+    lines: [
+      ["Gotita", "traviesa,"],
+      ["bello", "manantial,"],
+      ["eres", "del", "planeta,"],
+      ["líquido", "vital."]
+    ]
+  },
+  {
+    audio: "poema-3",
+    img: "img/poema-sed.jpg",
+    alt: "Una gotita para quitar la sed",
+    lines: [
+      ["Gotita", "de", "agua,"],
+      ["quítame", "la", "sed,"],
+      ["mi", "amiga", "apreciada,"],
+      ["de", "ti", "beberé."]
+    ]
+  }
+];
+
+function clearPoemTimers() {
+  poemTimers.forEach(clearTimeout);
+  poemTimers = [];
+}
+
+function renderPoema() {
+  clearPoemTimers();
+  const part = POEM[poemPart];
+  title.textContent = "Poema del agua";
+  subtitle.textContent = "Parte " + (poemPart + 1) + " de 3. Escucha a mamá.";
+  const text = part.lines.map(function (line) {
+    return `<p class="poem-line">${line.map(function (word) {
+      return `<span class="poem-word">${word}</span>`;
+    }).join(" ")}</p>`;
+  }).join("");
+  const prev = poemPart > 0 ? `<button class="tool" type="button" id="poemPrev">Anterior</button>` : "";
+  const next = poemPart < POEM.length - 1 ? `<button class="tool" type="button" id="poemNext">Siguiente</button>` : "";
+  screen.innerHTML = `<div class="stage poem">
+    <img class="poem-art" src="${part.img}" alt="${part.alt}" />
+    <div class="poem-text" id="poemText">${text}</div>
+    <div class="tools">
+      <button class="tool" type="button" id="poemHear">Oír de nuevo</button>
+      ${prev}${next}
+    </div>
+  </div>`;
+  document.getElementById("poemHear").onclick = function () { playPoem(poemPart); };
+  if (poemPart > 0) {
+    document.getElementById("poemPrev").onclick = function () { poemPart -= 1; renderPoema(); };
+  }
+  if (poemPart < POEM.length - 1) {
+    document.getElementById("poemNext").onclick = function () { poemPart += 1; renderPoema(); };
+  }
+  playPoem(poemPart);
+}
+
+function playPoem(index) {
+  const words = Array.from(document.querySelectorAll("#poemText .poem-word"));
+  clearPoemTimers();
+  words.forEach(function (word) { word.classList.remove("on"); });
+  const src = "audio/" + POEM[index].audio + ".mp3";
+  let started = false;
+  const begin = function (durationMs) {
+    if (started) return;
+    started = true;
+    startPoemKaraoke(words, durationMs);
+  };
+  if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
+    try {
+      window.LeeConmigo.stopAudio && window.LeeConmigo.stopAudio();
+      begin(Number(window.LeeConmigo.playAudio(src)) || 8000);
+      return;
+    } catch (err) { /* sigue el audio de la página */ }
+  }
+  if (player) {
+    player.onended = null;
+    player.pause();
+  }
+  player = new Audio(src);
+  player.onloadedmetadata = function () { begin(Math.round((player.duration || 8) * 1000)); };
+  player.play().catch(function () { begin(8000); });
+}
+
+function startPoemKaraoke(words, durationMs) {
+  if (!words.length) return;
+  const weights = words.map(function (word) { return 0.65 + word.textContent.length * 0.18; });
+  const total = weights.reduce(function (sum, n) { return sum + n; }, 0);
+  const span = Math.max((durationMs || 8000) - 250, words.length * 280);
+  let acc = 100;
+  words.forEach(function (word, i) {
+    const wait = acc;
+    poemTimers.push(setTimeout(function () {
+      words.forEach(function (chip) { chip.classList.remove("on"); });
+      word.classList.add("on");
+    }, wait));
+    acc += Math.max(240, Math.round((weights[i] / total) * span));
+  });
+  poemTimers.push(setTimeout(function () {
+    words.forEach(function (chip) { chip.classList.remove("on"); });
+    if (poemPart === POEM.length - 1) {
+      showCheer("¡Muy bien, Ignacio!", "Ya escuchaste el poema del agua.", "feliz", 2600);
+    }
+  }, acc));
+}
+
+function openActivity(kind) {
+  route = kind;
+  back.hidden = false;
+  if (kind === "agua") renderWater();
+  else if (kind === "alimentos") { foodRound = 0; renderFoodLamina(); }
+  else if (kind === "pregunta") { quizLeft = shuffle(FOODS); quizItems = []; quizIndex = 0; renderQuizRound(); }
+  else if (kind === "poema") { poemPart = 0; renderPoema(); }
+  else renderSort(kind);
+}
+
+function renderWater() {
+  waterStep = 0;
+  title.textContent = "Estados del agua";
+  subtitle.textContent = "Una imagen a la vez.";
+  const bins = BINS.agua.map(function (bin) {
+    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0"><h2>${bin.title}</h2><div class="placed"></div></section>`;
+  }).join("");
+  const tray = shuffle(WATER).map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" data-group="${item.group}" tabindex="0">
+      <img src="${item.img}" alt="" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage water">
+    <p class="order" id="order"></p>
+    <div class="split">
+      <div class="bins">${bins}</div>
+      <div class="tray" id="tray">${tray}</div>
+    </div>
+    ${tools("agua")}
+  </div>`;
+  markWaterAsk();
+  bindSort("agua");
+  requestAnimationFrame(function () { fitWaterImages(); });
+  speak("ubica-" + WATER_ORDER[0]);
+}
+
+function fitWaterImages() {
+  const bin = document.querySelector(".stage.water .bin");
+  if (!bin) return;
+  const titleBox = bin.querySelector("h2").getBoundingClientRect();
+  const binBox = bin.getBoundingClientRect();
+  const innerH = Math.max(48, binBox.bottom - titleBox.bottom - 14);
+  const innerW = Math.max(48, binBox.width - 24);
+  const w = Math.round(innerW * 0.85);
+  const h = Math.round(innerH * 0.85);
+  document.querySelectorAll(".stage.water .piece img").forEach(function (img) {
+    img.style.width = w + "px";
+    img.style.height = h + "px";
+  });
+}
+
+function markWaterAsk() {
+  const asked = WATER_ORDER[waterStep];
+  const order = document.getElementById("order");
+  const tray = document.getElementById("tray");
+  if (order && asked) order.textContent = WATER_ASK[asked];
+  screen.querySelectorAll(".piece").forEach(function (piece) {
+    piece.classList.toggle("asked", piece.dataset.group === asked);
+  });
+}
+
+function settleWater(piece, bin) {
+  const asked = WATER_ORDER[waterStep];
+  const rightPiece = piece.dataset.group === asked;
+  const rightBin = bin.dataset.bin === asked;
+  const names = { liquido: "estado líquido", solido: "estado sólido", gaseoso: "estado gaseoso" };
+  if (!rightPiece || !rightBin) {
+    piece.classList.remove("picked");
+    piece.classList.add("shake");
+    setTimeout(function () { piece.classList.remove("shake"); }, 360);
+    cheerTitle.style.color = "var(--bad)";
+    const text = rightPiece
+      ? "Ese no es su lugar. Inténtalo otra vez."
+      : "Mueve la imagen del " + names[asked] + ".";
+    showCheer("Inténtalo otra vez", text, "otra-vez", 2200);
+    return false;
+  }
+  cheerTitle.style.color = "";
+  piece.dataset.done = "1";
+  piece.classList.remove("picked");
+  pickedId = null;
+  const icon = document.createElement("img");
+  icon.src = piece.querySelector("img").src;
+  icon.alt = piece.querySelector("b").textContent;
+  icon.style.width = (piece.dataset.imgw || "120") + "px";
+  icon.style.height = (piece.dataset.imgh || "120") + "px";
+  bin.querySelector(".placed").appendChild(icon);
+  piece.remove();
+  waterStep += 1;
+  if (waterStep >= WATER_ORDER.length) {
+    showCheer("¡Muy bien, Ignacio!", "Ya ubicaste los tres estados del agua.", "feliz", 2600);
+    return true;
+  }
+  markWaterAsk();
+  showCheer("¡Muy bien, Ignacio!", "El " + names[asked] + " está en su lugar.", "feliz", 1700);
+  const next = WATER_ORDER[waterStep];
+  setTimeout(function () { if (route === "agua") speak("ubica-" + next); }, 1800);
+  return true;
+}
+
+function renderFoodLamina() {
+  const round = FOOD_ROUNDS[foodRound];
+  title.textContent = round.title;
+  subtitle.textContent = "Escucha cuáles son los de esta clase.";
+  screen.innerHTML = `<div class="stage">
+    <img class="lesson-sheet" src="${round.lamina}" alt="${round.title}" />
+    <p class="order">Estos son los alimentos de ${round.title.toLowerCase()}: ${round.list}</p>
+    <div class="tools"><button class="tool" type="button" id="startRound">Ubicar los alimentos</button></div>
+  </div>`;
+  document.getElementById("startRound").onclick = renderFoodPlay;
+  speak(round.voice);
+}
+
+function renderFoodPlay() {
+  const round = FOOD_ROUNDS[foodRound];
+  title.textContent = round.title;
+  subtitle.textContent = "Ten cuidado, hay 3 que no van acá.";
+  const correct = FOODS.filter(function (item) { return item.group === round.group; });
+  const others = shuffle(FOODS.filter(function (item) { return item.group !== round.group; })).slice(0, 3);
+  const tray = shuffle(correct.concat(others)).map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" data-group="${item.group}" tabindex="0">
+      <img src="${item.img}" alt="" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage food">
+    <p class="order" id="order">${FOOD_ASK}</p>
+    <div class="split">
+      <div class="bins"><section class="bin ${round.group}" data-bin="${round.group}" tabindex="0"><h2>${round.title}</h2><div class="placed"></div></section></div>
+      <div class="tray" id="tray">${tray}</div>
+    </div>
+    ${tools("alimentos")}
+  </div>`;
+  bindSort("alimentos");
+  speak("ubica-alimentos");
+}
+
+function settleFood(piece, bin) {
+  const round = FOOD_ROUNDS[foodRound];
+  const item = FOODS.find(function (it) { return it.id === piece.dataset.id; });
+  if (piece.dataset.group !== round.group || bin.dataset.bin !== round.group) {
+    piece.classList.remove("picked");
+    piece.classList.add("shake");
+    setTimeout(function () { piece.classList.remove("shake"); }, 360);
+    cheerTitle.style.color = "var(--bad)";
+    showCheer("Inténtalo otra vez", item.say, "otra-vez", 5200, "clase-" + item.id);
+    return false;
+  }
+  cheerTitle.style.color = "";
+  piece.dataset.done = "1";
+  piece.classList.remove("picked");
+  pickedId = null;
+  piece.remove();
+  const icon = document.createElement("img");
+  icon.src = item.img;
+  icon.alt = item.name;
+  bin.querySelector(".placed").appendChild(icon);
+  const left = screen.querySelectorAll('.piece[data-group="' + round.group + '"]').length;
+  showCheer("¡Muy bien, Ignacio!", item.say, "feliz", 4600, "clase-" + item.id);
+  if (left > 0) return true;
+  if (foodRound < FOOD_ROUNDS.length - 1) {
+    foodRound += 1;
+    setTimeout(function () {
+      if (route === "alimentos") renderFoodLamina();
+    }, 4800);
+    return true;
+  }
+  setTimeout(function () {
+    if (route === "alimentos") {
+      showCheer("¡Lo lograste, Ignacio!", "Ya sabes el origen de los alimentos.", "feliz", 2800);
+    }
+  }, 4800);
+  return true;
+}
+
+function renderQuizRound() {
+  quizItems = quizLeft.splice(0, 5);
+  quizIndex = 0;
+  if (!quizItems.length) {
+    showCheer("¡Lo lograste, Ignacio!", "Ya reconoces la clase de cada alimento.", "feliz", 2800);
+    return;
+  }
+  renderQuiz();
+}
+
+function currentQuizItem() {
+  return quizItems[quizIndex];
+}
+
+function renderQuiz() {
+  const item = currentQuizItem();
+  title.textContent = "¿A qué clase?";
+  subtitle.textContent = "Ronda de " + quizItems.length + " alimentos.";
+  const bins = BINS.alimentos.map(function (bin) {
+    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0"><h2>${bin.title}</h2></section>`;
+  }).join("");
+  const tray = quizItems.map(function (food) {
+    return `<button class="piece" type="button" data-id="${food.id}" data-group="${food.group}" tabindex="0">
+      <img src="${food.img}" alt="" />
+      <b>${food.name}</b>
+    </button>`;
+  }).join("");
+  const ask = "Ignacio, ¿a qué clase pertenece " + item.ask + "?";
+  screen.innerHTML = `<div class="stage quiz">
+    <p class="order" id="order">${ask}</p>
+    <div class="split">
+      <div class="bins">${bins}</div>
+      <div class="tray" id="tray">${tray}</div>
+    </div>
+    ${tools("pregunta")}
+  </div>`;
+  const asked = screen.querySelector('.piece[data-id="' + item.id + '"]');
+  if (asked) asked.classList.add("asked");
+  quizItems.forEach(function (food, index) {
+    if (index < quizIndex) {
+      const done = screen.querySelector('.piece[data-id="' + food.id + '"]');
+      if (done) done.classList.add("done");
+    }
+  });
+  bindSort("pregunta");
+  speak("pregunta-" + item.id);
+}
+
+function answerQuiz(group, piece) {
+  const item = currentQuizItem();
+  if (!item) return false;
+  if (piece && piece.dataset.id !== item.id) {
+    showCheer("Ignacio", "Ahora te pregunto por " + item.ask + ".", "pregunta-" + item.id, 2200);
+    return false;
+  }
+  if (group !== item.group) {
+    cheerTitle.style.color = "var(--bad)";
+    showCheer("Inténtalo otra vez", item.say, "otra-vez", 5200, "clase-" + item.id);
+    return false;
+  }
+  cheerTitle.style.color = "";
+  const card = screen.querySelector('.piece[data-id="' + item.id + '"]');
+  if (card) {
+    card.classList.remove("asked");
+    card.classList.add("done");
+  }
+  quizIndex += 1;
+  if (quizIndex >= quizItems.length) {
+    showCheer("¡Muy bien, Ignacio!", item.say, "feliz", 4600, "clase-" + item.id);
+    setTimeout(function () {
+      if (route === "pregunta") renderQuizRound();
+    }, 4800);
+    return true;
+  }
+  showCheer("¡Muy bien, Ignacio!", item.say, "feliz", 4600, "clase-" + item.id);
+  setTimeout(function () {
+    if (route !== "pregunta") return;
+    const next = currentQuizItem();
+    const order = document.getElementById("order");
+    if (order && next) order.textContent = "Ignacio, ¿a qué clase pertenece " + next.ask + "?";
+    screen.querySelectorAll(".piece").forEach(function (el) {
+      el.classList.toggle("asked", el.dataset.id === next.id);
+    });
+    speak("pregunta-" + next.id);
+  }, 4800);
+  return true;
+}
+
+function renderSort(kind) {
+  const bins = BINS[kind];
+  const copy = COPY[kind];
+  const items = shuffle(itemsFor(kind));
+  title.textContent = copy.title;
+  subtitle.textContent = copy.sub;
+  const binHtml = bins.map(function (bin) {
+    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0">
+      <h2>${bin.title}</h2>
+      <div class="placed" data-placed="${bin.id}"></div>
+    </section>`;
+  }).join("");
+  const tray = items.map(function (item) {
+    return `<button class="piece" type="button" data-id="${item.id}" data-group="${item.group}" tabindex="0">
+      <img src="${item.img}" alt="" />
+      <b>${item.name}</b>
+    </button>`;
+  }).join("");
+  screen.innerHTML = `<div class="stage">${binHtmlWrap(binHtml, bins.length > 3)}${trayWrap(tray)}${tools(kind)}</div>`;
+  bindSort(kind);
+}
+
+function binHtmlWrap(html, many) { return `<div class="bins${many ? " many" : ""}">${html}</div>`; }
+function trayWrap(html) { return `<div class="tray" id="tray">${html}</div>`; }
+function tools(kind) {
+  return `<div class="tools">
+    <button class="tool" type="button" id="seeLamina">Ver la lámina</button>
+    <button class="tool" type="button" id="reset">Otra vez</button>
+  </div>`;
+}
+
+function bindSort(kind) {
+  const pieces = screen.querySelectorAll(".piece");
+  pieces.forEach(function (piece) {
+    piece.addEventListener("pointerdown", onDown);
+    piece.addEventListener("pointermove", onMove);
+    piece.addEventListener("pointerup", onUp);
+    piece.addEventListener("pointercancel", onUp);
+    piece.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        pick(piece);
+      }
+    });
+  });
+  screen.querySelectorAll(".bin").forEach(function (bin) {
+    bin.addEventListener("click", function () { dropOnBin(bin, kind); });
+    bin.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        dropOnBin(bin, kind);
+      }
+    });
+  });
+  document.getElementById("seeLamina").onclick = function () { openLamina(kind, 0); };
+  document.getElementById("reset").onclick = function () { openActivity(kind); };
+}
+
+function pick(piece) {
+  if (piece.dataset.done) return;
+  screen.querySelectorAll(".piece").forEach(function (el) { el.classList.remove("picked"); });
+  piece.classList.add("picked");
+  pickedId = piece.dataset.id;
+}
+
+function onDown(ev) {
+  const piece = ev.currentTarget;
+  if (piece.dataset.done) return;
+  piece.setPointerCapture(ev.pointerId);
+  const rect = piece.getBoundingClientRect();
+  const imgBox = piece.querySelector("img").getBoundingClientRect();
+  piece.dataset.imgw = String(Math.round(imgBox.width));
+  piece.dataset.imgh = String(Math.round(imgBox.height));
+  let slot = null;
+  if (piece.closest(".stage.water")) {
+    slot = document.createElement("div");
+    slot.className = "piece-slot";
+    slot.style.height = rect.height + "px";
+    piece.replaceWith(slot);
+    document.body.appendChild(piece);
+  }
+  drag = {
+    piece: piece,
+    slot: slot,
+    id: ev.pointerId,
+    dx: ev.clientX - rect.left,
+    dy: ev.clientY - rect.top,
+    moved: false
+  };
+  piece.classList.add("dragging");
+  piece.style.width = rect.width + "px";
+  piece.style.height = rect.height + "px";
+  piece.style.left = rect.left + "px";
+  piece.style.top = rect.top + "px";
+}
+
+function onMove(ev) {
+  if (!drag || drag.piece !== ev.currentTarget) return;
+  drag.moved = true;
+  drag.piece.style.left = (ev.clientX - drag.dx) + "px";
+  drag.piece.style.top = (ev.clientY - drag.dy) + "px";
+  const bin = binAt(ev.clientX, ev.clientY, drag.piece);
+  screen.querySelectorAll(".bin").forEach(function (el) { el.classList.toggle("over", el === bin); });
+}
+
+function onUp(ev) {
+  const piece = ev.currentTarget;
+  if (!drag || drag.piece !== piece) return;
+  const moved = drag.moved;
+  const slot = drag.slot;
+  const bin = binAt(ev.clientX, ev.clientY, piece);
+  clearDrag(piece);
+  screen.querySelectorAll(".bin").forEach(function (el) { el.classList.remove("over"); });
+  if (!moved) {
+    restorePiece(piece, slot);
+    pick(piece);
+    return;
+  }
+  if (!bin) {
+    restorePiece(piece, slot);
+    return;
+  }
+  const placed = settle(piece, bin, route);
+  if (!placed) restorePiece(piece, slot);
+}
+
+function restorePiece(piece, slot) {
+  piece.classList.remove("dragging");
+  piece.style.left = "";
+  piece.style.top = "";
+  piece.style.width = "";
+  piece.style.height = "";
+  if (slot && slot.parentNode) slot.replaceWith(piece);
+}
+
+function clearDrag(piece) {
+  drag = null;
+  piece.classList.remove("dragging");
+  piece.style.left = "";
+  piece.style.top = "";
+  piece.style.width = "";
+  piece.style.height = "";
+}
+
+function binAt(x, y, ignore) {
+  ignore.style.visibility = "hidden";
+  const el = document.elementFromPoint(x, y);
+  ignore.style.visibility = "";
+  return el ? el.closest(".bin") : null;
+}
+
+function dropOnBin(bin, kind) {
+  if (kind === "pregunta") {
+    answerQuiz(bin.dataset.bin, null);
+    return;
+  }
+  if (!pickedId) return;
+  const piece = screen.querySelector('.piece[data-id="' + pickedId + '"]');
+  if (!piece || piece.dataset.done) return;
+  settle(piece, bin, kind);
+}
+
+function settle(piece, bin, kind) {
+  if (kind === "agua") return settleWater(piece, bin);
+  if (kind === "alimentos") return settleFood(piece, bin) !== false;
+  if (kind === "pregunta") return answerQuiz(bin.dataset.bin, piece);
+  const wanted = piece.dataset.group;
+  const got = bin.dataset.bin;
+  const item = itemsFor(kind).find(function (it) { return it.id === piece.dataset.id; });
+  if (wanted !== got) {
+    piece.classList.remove("picked");
+    piece.classList.add("shake");
+    setTimeout(function () { piece.classList.remove("shake"); }, 360);
+    showCheer("Todavía no", "Ese no es su grupo, Ignacio.", "otra-vez", 2400);
+    cheerTitle.style.color = "var(--bad)";
+    return;
+  }
+  cheerTitle.style.color = "";
+  piece.dataset.done = "1";
+  piece.classList.remove("picked");
+  pickedId = null;
+  piece.remove();
+  const placed = bin.querySelector(".placed");
+  const icon = document.createElement("img");
+  icon.src = item.img;
+  icon.alt = item.name;
+  placed.appendChild(icon);
+  const pending = screen.querySelectorAll(".piece:not([data-done])");
+  const copy = COPY[kind];
+  const line = item.line || item.name + " está en su grupo.";
+  showCheer("¡Muy bien, Ignacio!", line, "feliz", 4200, "ok-" + item.id);
+  if (pending.length === 0) {
+    setTimeout(function () {
+      showCheer("¡Lo lograste, Ignacio!", copy.finText, copy.fin, 3400);
+    }, 4500);
+  }
+}
+
+function openLamina(kind, index) {
+  const pages = LAMINAS[kind];
+  const page = pages[index];
+  laminaImg.src = page[1];
+  laminaImg.alt = page[0];
+  laminaNav.innerHTML = pages.map(function (p, i) {
+    return `<button class="tool" type="button" data-i="${i}">${p[0]}</button>`;
+  }).join("");
+  laminaNav.querySelectorAll("button").forEach(function (btn) {
+    btn.onclick = function () { openLamina(kind, Number(btn.getAttribute("data-i"))); };
+  });
+  lamina.hidden = false;
+}
+
+document.getElementById("laminaClose").onclick = function () { lamina.hidden = true; };
+cheer.addEventListener("click", function () { cheer.hidden = true; });
+
+function appBack() {
+  if (!lamina.hidden) { lamina.hidden = true; return true; }
+  if (!cheer.hidden) { cheer.hidden = true; return true; }
+  if (route !== "home") { renderHome(); return true; }
+  return false;
+}
+window.appBack = appBack;
+back.onclick = appBack;
+
+document.addEventListener("keydown", function (ev) {
+  if (ev.key !== "ArrowRight" && ev.key !== "ArrowLeft" && ev.key !== "ArrowDown" && ev.key !== "ArrowUp") return;
+  if (route === "home" || !lamina.hidden) return;
+  const nodes = Array.from(screen.querySelectorAll(".piece:not([data-done]), .bin, .tool"));
+  if (!nodes.length) return;
+  ev.preventDefault();
+  const step = (ev.key === "ArrowRight" || ev.key === "ArrowDown") ? 1 : -1;
+  const index = nodes.indexOf(document.activeElement);
+  const next = nodes[(index + step + nodes.length) % nodes.length];
+  next.focus();
+});
+
+renderHome();
+speak("hola");
+  </script>
+</body>
+</html>
