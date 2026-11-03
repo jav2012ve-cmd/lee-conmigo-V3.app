@@ -79,6 +79,12 @@
     .stage.food .placed img { width: 70px; height: 70px; }
     .stage.quiz .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
     .stage.quiz .piece.done { opacity: 0.4; }
+    .stage.poem { align-items: center; }
+    .poem-art { width: min(320px, 70vw); height: 220px; object-fit: cover; border-radius: 22px; background: white; }
+    .poem-text { text-align: center; max-width: 720px; }
+    .poem-line { margin: 8px 0; font-size: 28px; font-weight: 800; line-height: 1.35; }
+    .poem-word { display: inline-block; margin: 0 3px; padding: 2px 6px; border-radius: 10px; transition: transform 0.15s, background 0.15s, color 0.15s; }
+    .poem-word.on { background: #fff59d; color: #e65100; transform: scale(1.14); }
     .bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; flex: 1; }
     .bins.many { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .bins.many h2 { font-size: 18px; }
@@ -326,6 +332,7 @@ function itemsFor(kind) {
 }
 
 function renderHome() {
+  clearPoemTimers();
   route = "home";
   pickedId = null;
   title.textContent = "Lección de Ignacio";
@@ -337,6 +344,11 @@ function renderHome() {
         <img src="laminas/animal.png" alt="" />
         <h2>Alimentos</h2>
         <span>Mira la lámina y ubica los de cada clase.</span>
+      </button>
+      <button class="home-card" data-go="poema" type="button">
+        <img src="img/poema-cara.jpg" alt="" />
+        <h2>Poema del agua</h2>
+        <span>Tres partes, con la voz de mamá.</span>
       </button>
       <button class="home-card" data-go="agua" type="button">
         <img src="laminas/agua.png" alt="" />
@@ -376,6 +388,127 @@ let foodRound = 0;
 let quizLeft = [];
 let quizItems = [];
 let quizIndex = 0;
+let poemPart = 0;
+let poemTimers = [];
+const POEM = [
+  {
+    audio: "poema-1",
+    img: "img/poema-cara.jpg",
+    alt: "Una gotita deja la cara limpia",
+    lines: [
+      ["Gotita", "de", "agua,"],
+      ["pura", "y", "transparente,"],
+      ["me", "dejas", "la", "cara,"],
+      ["limpia", "y", "reluciente."]
+    ]
+  },
+  {
+    audio: "poema-2",
+    img: "img/poema-planeta.jpg",
+    alt: "Una gotita traviesa y el planeta",
+    lines: [
+      ["Gotita", "traviesa,"],
+      ["bello", "manantial,"],
+      ["eres", "del", "planeta,"],
+      ["líquido", "vital."]
+    ]
+  },
+  {
+    audio: "poema-3",
+    img: "img/poema-sed.jpg",
+    alt: "Una gotita para quitar la sed",
+    lines: [
+      ["Gotita", "de", "agua,"],
+      ["quítame", "la", "sed,"],
+      ["mi", "amiga", "apreciada,"],
+      ["de", "ti", "beberé."]
+    ]
+  }
+];
+
+function clearPoemTimers() {
+  poemTimers.forEach(clearTimeout);
+  poemTimers = [];
+}
+
+function renderPoema() {
+  clearPoemTimers();
+  const part = POEM[poemPart];
+  title.textContent = "Poema del agua";
+  subtitle.textContent = "Parte " + (poemPart + 1) + " de 3. Escucha a mamá.";
+  const text = part.lines.map(function (line) {
+    return `<p class="poem-line">${line.map(function (word) {
+      return `<span class="poem-word">${word}</span>`;
+    }).join(" ")}</p>`;
+  }).join("");
+  const prev = poemPart > 0 ? `<button class="tool" type="button" id="poemPrev">Anterior</button>` : "";
+  const next = poemPart < POEM.length - 1 ? `<button class="tool" type="button" id="poemNext">Siguiente</button>` : "";
+  screen.innerHTML = `<div class="stage poem">
+    <img class="poem-art" src="${part.img}" alt="${part.alt}" />
+    <div class="poem-text" id="poemText">${text}</div>
+    <div class="tools">
+      <button class="tool" type="button" id="poemHear">Oír de nuevo</button>
+      ${prev}${next}
+    </div>
+  </div>`;
+  document.getElementById("poemHear").onclick = function () { playPoem(poemPart); };
+  if (poemPart > 0) {
+    document.getElementById("poemPrev").onclick = function () { poemPart -= 1; renderPoema(); };
+  }
+  if (poemPart < POEM.length - 1) {
+    document.getElementById("poemNext").onclick = function () { poemPart += 1; renderPoema(); };
+  }
+  playPoem(poemPart);
+}
+
+function playPoem(index) {
+  const words = Array.from(document.querySelectorAll("#poemText .poem-word"));
+  clearPoemTimers();
+  words.forEach(function (word) { word.classList.remove("on"); });
+  const src = "audio/" + POEM[index].audio + ".mp3";
+  let started = false;
+  const begin = function (durationMs) {
+    if (started) return;
+    started = true;
+    startPoemKaraoke(words, durationMs);
+  };
+  if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
+    try {
+      window.LeeConmigo.stopAudio && window.LeeConmigo.stopAudio();
+      begin(Number(window.LeeConmigo.playAudio(src)) || 8000);
+      return;
+    } catch (err) { /* sigue el audio de la página */ }
+  }
+  if (player) {
+    player.onended = null;
+    player.pause();
+  }
+  player = new Audio(src);
+  player.onloadedmetadata = function () { begin(Math.round((player.duration || 8) * 1000)); };
+  player.play().catch(function () { begin(8000); });
+}
+
+function startPoemKaraoke(words, durationMs) {
+  if (!words.length) return;
+  const weights = words.map(function (word) { return 0.65 + word.textContent.length * 0.18; });
+  const total = weights.reduce(function (sum, n) { return sum + n; }, 0);
+  const span = Math.max((durationMs || 8000) - 250, words.length * 280);
+  let acc = 100;
+  words.forEach(function (word, i) {
+    const wait = acc;
+    poemTimers.push(setTimeout(function () {
+      words.forEach(function (chip) { chip.classList.remove("on"); });
+      word.classList.add("on");
+    }, wait));
+    acc += Math.max(240, Math.round((weights[i] / total) * span));
+  });
+  poemTimers.push(setTimeout(function () {
+    words.forEach(function (chip) { chip.classList.remove("on"); });
+    if (poemPart === POEM.length - 1) {
+      showCheer("¡Muy bien, Ignacio!", "Ya escuchaste el poema del agua.", "feliz", 2600);
+    }
+  }, acc));
+}
 
 function openActivity(kind) {
   route = kind;
@@ -383,6 +516,7 @@ function openActivity(kind) {
   if (kind === "agua") renderWater();
   else if (kind === "alimentos") { foodRound = 0; renderFoodLamina(); }
   else if (kind === "pregunta") { quizLeft = shuffle(FOODS); quizItems = []; quizIndex = 0; renderQuizRound(); }
+  else if (kind === "poema") { poemPart = 0; renderPoema(); }
   else renderSort(kind);
 }
 
