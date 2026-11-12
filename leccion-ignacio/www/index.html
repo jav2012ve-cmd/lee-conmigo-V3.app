@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Lección de Ignacio</title>
+    <title>Lección 4.6</title>
   <style>
     :root {
       --bg: #fff6ea;
@@ -78,7 +78,10 @@
     .stage.food .placed { flex: 1; min-height: 0; align-content: center; }
     .stage.food .placed img { width: 70px; height: 70px; }
     .stage.quiz .piece.asked { box-shadow: 0 0 0 5px var(--orange); }
-    .stage.quiz .piece.done { opacity: 0.4; }
+    .stage.quiz .placed { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-content: flex-start; flex: 1; min-height: 0; overflow: auto; }
+    .stage.quiz .kept { width: 78px; text-align: center; }
+    .stage.quiz .kept img { width: 64px; height: 64px; object-fit: contain; }
+    .stage.quiz .kept b { display: block; font-size: 13px; }
     .stage.poem { align-items: center; }
     .poem-art { width: min(320px, 70vw); height: 220px; object-fit: cover; border-radius: 22px; background: white; }
     .poem-text { text-align: center; max-width: 720px; }
@@ -335,7 +338,7 @@ function renderHome() {
   clearPoemTimers();
   route = "home";
   pickedId = null;
-  title.textContent = "Lección de Ignacio";
+  title.textContent = "Lección 4.6";
   subtitle.textContent = "Hola, Ignacio. Elige una actividad.";
   back.hidden = true;
   screen.innerHTML = `
@@ -705,7 +708,7 @@ function renderQuiz() {
   title.textContent = "¿A qué clase?";
   subtitle.textContent = "Ronda de " + quizItems.length + " alimentos.";
   const bins = BINS.alimentos.map(function (bin) {
-    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0"><h2>${bin.title}</h2></section>`;
+    return `<section class="bin ${bin.id}" data-bin="${bin.id}" tabindex="0"><h2>${bin.title}</h2><div class="placed"></div></section>`;
   }).join("");
   const tray = quizItems.map(function (food) {
     return `<button class="piece" type="button" data-id="${food.id}" data-group="${food.group}" tabindex="0">
@@ -748,9 +751,13 @@ function answerQuiz(group, piece) {
   }
   cheerTitle.style.color = "";
   const card = screen.querySelector('.piece[data-id="' + item.id + '"]');
-  if (card) {
-    card.classList.remove("asked");
-    card.classList.add("done");
+  const bin = document.querySelector('.stage.quiz .bin.' + item.group + ' .placed');
+  if (card && bin) {
+    const kept = document.createElement("div");
+    kept.className = "kept";
+    kept.innerHTML = card.innerHTML;
+    bin.appendChild(kept);
+    card.remove();
   }
   quizIndex += 1;
   if (quizIndex >= quizItems.length) {
