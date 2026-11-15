@@ -1,0 +1,3451 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Libro digital 1.6</title>
+    <style>
+:root {
+  --ink: #3e1d00;
+  --deep: #e65100;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #fff8e7;
+  color: var(--ink);
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  overflow: hidden;
+}
+
+#book { height: 100%; }
+
+.page {
+  position: relative;
+  height: 100%;
+  background: #fff8e7;
+}
+
+.page img.art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 16px 28px 12px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.line {
+  margin: 0;
+  max-width: 92vw;
+  text-align: center;
+  font-size: clamp(20px, 3vw, 34px);
+  line-height: 1.25;
+  font-weight: 800;
+  color: #3e1d00;
+  text-shadow:
+    0 0 8px #fff8e7,
+    0 1px 0 #fff,
+    0 2px 8px rgba(255, 248, 231, 0.9);
+  pointer-events: auto;
+}
+
+.actions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  z-index: 2;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+  background: none;
+}
+
+.tv-btn {
+  min-width: 160px;
+  min-height: 64px;
+  padding: 0 22px;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background: #e65100;
+  color: #fff;
+  font: inherit;
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: 0 4px 0 #bf360c;
+}
+
+.tv-btn:focus,
+.tv-btn:focus-visible {
+  outline: none;
+  border-color: #fff59d;
+  box-shadow: 0 0 0 4px #fff59d, 0 4px 0 #bf360c;
+}
+
+.tv-btn.ghost {
+  background: #5d4037;
+  box-shadow: 0 4px 0 #3e2723;
+}
+
+.tv-btn:disabled {
+  opacity: 0.45;
+}
+
+.empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.home {
+  height: 100%;
+  padding: 28px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+
+.home-kicker {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--deep);
+}
+
+.home h1 {
+  margin: 0 0 22px;
+  font-size: clamp(28px, 4vw, 42px);
+  text-align: center;
+}
+
+.stories {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  padding: 0;
+  border: 4px solid transparent;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 6px 0 #d7ccc8;
+  cursor: pointer;
+}
+
+.story-card img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #fff3e0;
+}
+
+.story-card span {
+  display: block;
+  padding: 16px 14px 18px;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.story-card:focus,
+.story-card:focus-visible {
+  outline: none;
+  border-color: #fff59d;
+  box-shadow: 0 0 0 4px #fff59d, 0 6px 0 #bf360c;
+}
+
+@media (max-width: 640px) {
+  .home {
+    padding: 20px 14px 24px;
+  }
+
+  .stories {
+    grid-template-columns: 1fr;
+  }
+
+  .story-card {
+    min-height: 0;
+  }
+
+  .story-card img {
+    height: 170px;
+  }
+
+  .tv-btn {
+    min-width: 120px;
+    min-height: 56px;
+    font-size: 18px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <main id="book"></main>
+    <script>window.PAGES = {
+  "app": "Libro digital 1.6",
+  "stories": [
+    {
+      "id": "lluvia",
+      "title": "Harold y la lluvia",
+      "cover": "pages/m2.jpg",
+      "pages": [
+        {
+          "id": "m1",
+          "image": "pages/m1.jpg",
+          "word": "Érase una vez ...",
+          "syllables": [
+            "É",
+            "ra",
+            "se",
+            "u",
+            "na",
+            "vez"
+          ],
+          "audio": "audio/m1.mp3"
+        },
+        {
+          "id": "m2",
+          "image": "pages/m2.jpg",
+          "word": "Un dinosaurio",
+          "syllables": [
+            "Un",
+            "di",
+            "no",
+            "sau",
+            "rio"
+          ],
+          "audio": "audio/m2.mp3"
+        },
+        {
+          "id": "m3",
+          "image": "pages/m3.jpg",
+          "word": "que al ver por la ventana vio un cielo despejado y un sol radiante",
+          "syllables": [
+            "que",
+            "al",
+            "ver",
+            "por",
+            "la",
+            "ven",
+            "ta",
+            "na",
+            "vio",
+            "un",
+            "cie",
+            "lo",
+            "des",
+            "pe",
+            "ja",
+            "do",
+            "y",
+            "un",
+            "sol",
+            "ra",
+            "dian",
+            "te"
+          ],
+          "audio": "audio/m3.mp3"
+        },
+        {
+          "id": "m4",
+          "image": "pages/m4.jpg",
+          "word": "Recordó a su amigo Harold ... la hormiga...",
+          "syllables": [
+            "Re",
+            "cor",
+            "dó",
+            "a",
+            "su",
+            "a",
+            "mi",
+            "go",
+            "Ha",
+            "rold",
+            "la",
+            "hor",
+            "mi",
+            "ga"
+          ],
+          "audio": "audio/m4.mp3"
+        },
+        {
+          "id": "m5",
+          "image": "pages/m5.jpg",
+          "word": "Al salir en su moto a visitarlo ... rum rum rum rum ... el cielo se puso oscuro y nublado",
+          "syllables": [
+            "Al",
+            "sa",
+            "lir",
+            "en",
+            "su",
+            "mo",
+            "to",
+            "a",
+            "vi",
+            "si",
+            "tar",
+            "lo",
+            "rum",
+            "rum",
+            "rum",
+            "rum",
+            "el",
+            "cie",
+            "lo",
+            "se",
+            "pu",
+            "so",
+            "os",
+            "cu",
+            "ro",
+            "y",
+            "nu",
+            "bla",
+            "do"
+          ],
+          "audio": "audio/m5.mp3"
+        },
+        {
+          "id": "m6",
+          "image": "pages/m6.jpg",
+          "word": "Empezó a llover...",
+          "syllables": [
+            "Em",
+            "pe",
+            "zó",
+            "a",
+            "llo",
+            "ver"
+          ],
+          "audio": "audio/m6.mp3"
+        },
+        {
+          "id": "m7",
+          "image": "pages/m7.jpg",
+          "word": "soleado",
+          "syllables": [
+            "so",
+            "le",
+            "a",
+            "do"
+          ],
+          "audio": "audio/m7.mp3"
+        },
+        {
+          "id": "m8",
+          "image": "pages/m8.jpg",
+          "word": "lluvia",
+          "syllables": [
+            "llu",
+            "via"
+          ],
+          "audio": "audio/m8.mp3"
+        },
+        {
+          "id": "m9",
+          "image": "pages/m9.jpg",
+          "word": "mucha lluvia",
+          "syllables": [
+            "mu",
+            "cha",
+            "llu",
+            "via"
+          ],
+          "audio": "audio/m9.mp3"
+        },
+        {
+          "id": "m10",
+          "image": "pages/m10.jpg",
+          "word": "el dinosaurio estaba muy triste... viendo la lluvia",
+          "syllables": [
+            "el",
+            "di",
+            "no",
+            "sau",
+            "rio",
+            "es",
+            "ta",
+            "ba",
+            "muy",
+            "tris",
+            "te",
+            "vien",
+            "do",
+            "la",
+            "llu",
+            "via"
+          ],
+          "audio": "audio/m10.mp3"
+        },
+        {
+          "id": "m11",
+          "image": "pages/m11.jpg",
+          "word": "pero de repente... sonó el timbre... din don ... din don...",
+          "syllables": [
+            "pe",
+            "ro",
+            "de",
+            "re",
+            "pen",
+            "te",
+            "so",
+            "nó",
+            "el",
+            "tim",
+            "bre",
+            "din",
+            "don",
+            "din",
+            "don"
+          ],
+          "audio": "audio/m11.mp3"
+        },
+        {
+          "id": "m13",
+          "image": "pages/m13.jpg",
+          "word": "din don ... din don...",
+          "syllables": [
+            "din",
+            "don",
+            "din",
+            "don"
+          ],
+          "audio": "audio/m13.mp3"
+        },
+        {
+          "id": "m14",
+          "image": "pages/m14.jpg",
+          "word": "era Harold ... que tenía un paraguas...",
+          "syllables": [
+            "e",
+            "ra",
+            "Ha",
+            "rold",
+            "que",
+            "te",
+            "ní",
+            "a",
+            "un",
+            "pa",
+            "ra",
+            "guas"
+          ],
+          "audio": "audio/m14.mp3"
+        },
+        {
+          "id": "m15",
+          "image": "pages/m15.jpg",
+          "word": "y fin",
+          "syllables": [
+            "y",
+            "fin"
+          ],
+          "audio": "audio/m15.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ejercicios",
+      "title": "El dinosaurio y la hormiga",
+      "cover": "pages/b2.jpg",
+      "pages": [
+        {
+          "id": "b1",
+          "image": "pages/b1.jpg",
+          "word": "Érase una vez...",
+          "syllables": [
+            "É",
+            "ra",
+            "se",
+            "u",
+            "na",
+            "vez"
+          ],
+          "audio": "audio/b1.mp3"
+        },
+        {
+          "id": "b2",
+          "image": "pages/b2.jpg",
+          "word": "un dinosaurio y una hormiga que estaban haciendo ejercicios ... 1... 2.... 3.... 1... 2.... 3....",
+          "syllables": [
+            "un",
+            "di",
+            "no",
+            "sau",
+            "rio",
+            "y",
+            "u",
+            "na",
+            "hor",
+            "mi",
+            "ga",
+            "que",
+            "es",
+            "ta",
+            "ban",
+            "ha",
+            "cien",
+            "do",
+            "e",
+            "jer",
+            "ci",
+            "cios"
+          ],
+          "audio": "audio/b2.mp3"
+        },
+        {
+          "id": "b3",
+          "image": "pages/b3.jpg",
+          "word": "Seguimos  1... 2.... 3.... 1... 2.... 3....",
+          "syllables": [
+            "Se",
+            "gui",
+            "mos"
+          ],
+          "audio": "audio/b3.mp3"
+        },
+        {
+          "id": "b4",
+          "image": "pages/b4.jpg",
+          "word": "Corriendo",
+          "syllables": [
+            "Co",
+            "rrien",
+            "do"
+          ],
+          "audio": "audio/b4.mp3"
+        },
+        {
+          "id": "b5",
+          "image": "pages/b5.jpg",
+          "word": "nadando",
+          "syllables": [
+            "na",
+            "dan",
+            "do"
+          ],
+          "audio": "audio/b5.mp3"
+        },
+        {
+          "id": "b6",
+          "image": "pages/b6.jpg",
+          "word": "montando bicicleta",
+          "syllables": [
+            "mon",
+            "tan",
+            "do",
+            "bi",
+            "ci",
+            "cle",
+            "ta"
+          ],
+          "audio": "audio/b6.mp3"
+        },
+        {
+          "id": "b7",
+          "image": "pages/b7.jpg",
+          "word": "muy cansado",
+          "syllables": [
+            "muy",
+            "can",
+            "sa",
+            "do"
+          ],
+          "audio": "audio/b7.mp3"
+        },
+        {
+          "id": "b8",
+          "image": "pages/b8.jpg",
+          "word": "Corriendo",
+          "syllables": [
+            "Co",
+            "rrien",
+            "do"
+          ],
+          "audio": "audio/b8.mp3"
+        },
+        {
+          "id": "b10",
+          "image": "pages/b10.jpg",
+          "word": "Nadando",
+          "syllables": [
+            "Na",
+            "dan",
+            "do"
+          ],
+          "audio": "audio/b10.mp3"
+        },
+        {
+          "id": "b9",
+          "image": "pages/b9.jpg",
+          "word": "montando bicicleta",
+          "syllables": [
+            "mon",
+            "tan",
+            "do",
+            "bi",
+            "ci",
+            "cle",
+            "ta"
+          ],
+          "audio": "audio/b9.mp3"
+        },
+        {
+          "id": "b11",
+          "image": "pages/b11.jpg",
+          "word": "y ganó",
+          "syllables": [
+            "y",
+            "ga",
+            "nó"
+          ],
+          "audio": "audio/b11.mp3"
+        },
+        {
+          "id": "b12",
+          "image": "pages/b12.jpg",
+          "word": "y fin...",
+          "syllables": [
+            "y",
+            "fin"
+          ],
+          "audio": "audio/b12.mp3"
+        }
+      ]
+    },
+    {
+      "id": "spike",
+      "title": "Spike y su hijo",
+      "cover": "pages/y10.jpg",
+      "pages": [
+        {
+          "id": "y1",
+          "image": "pages/y1.jpg",
+          "word": "Spike le hace señas a su hijo",
+          "syllables": [
+            "Spi",
+            "ke",
+            "le",
+            "ha",
+            "ce",
+            "se",
+            "ñas",
+            "a",
+            "su",
+            "hi",
+            "jo"
+          ],
+          "audio": "audio/y1.mp3"
+        },
+        {
+          "id": "y3",
+          "image": "pages/y3.jpg",
+          "word": "Su hijo le hace señas ... contento...",
+          "syllables": [
+            "Su",
+            "hi",
+            "jo",
+            "le",
+            "ha",
+            "ce",
+            "se",
+            "ñas",
+            "con",
+            "ten",
+            "to"
+          ],
+          "audio": "audio/y3.mp3"
+        },
+        {
+          "id": "y2",
+          "image": "pages/y2.jpg",
+          "word": "GUAU GUAU GUAU ... GUAU... Tom sale corriendo asustado...",
+          "syllables": [
+            "GUAU",
+            "GUAU",
+            "GUAU",
+            "GUAU",
+            "Tom",
+            "sa",
+            "le",
+            "co",
+            "rrien",
+            "do",
+            "a",
+            "sus",
+            "ta",
+            "do"
+          ],
+          "audio": "audio/y2.mp3"
+        },
+        {
+          "id": "y4",
+          "image": "pages/y4.jpg",
+          "word": "Spike corretea a Tom asustado...",
+          "syllables": [
+            "Spi",
+            "ke",
+            "co",
+            "rre",
+            "te",
+            "a",
+            "a",
+            "Tom",
+            "a",
+            "sus",
+            "ta",
+            "do"
+          ],
+          "audio": "audio/y4.mp3"
+        },
+        {
+          "id": "y5",
+          "image": "pages/y5.jpg",
+          "word": "Tom se sube al árbol muy asustado",
+          "syllables": [
+            "Tom",
+            "se",
+            "su",
+            "be",
+            "al",
+            "ár",
+            "bol",
+            "muy",
+            "a",
+            "sus",
+            "ta",
+            "do"
+          ],
+          "audio": "audio/y5.mp3"
+        },
+        {
+          "id": "y6",
+          "image": "pages/y6.jpg",
+          "word": "Spike le cuenta a su hijo que debe aprender asustar gatos...",
+          "syllables": [
+            "Spi",
+            "ke",
+            "le",
+            "cuen",
+            "ta",
+            "a",
+            "su",
+            "hi",
+            "jo",
+            "que",
+            "de",
+            "be",
+            "a",
+            "pren",
+            "der",
+            "a",
+            "sus",
+            "tar",
+            "ga",
+            "tos"
+          ],
+          "audio": "audio/y6.mp3"
+        },
+        {
+          "id": "y7",
+          "image": "pages/y7.jpg",
+          "word": "Spike carga a Tom",
+          "syllables": [
+            "Spi",
+            "ke",
+            "car",
+            "ga",
+            "a",
+            "Tom"
+          ],
+          "audio": "audio/y7.mp3"
+        },
+        {
+          "id": "y8",
+          "image": "pages/y8.jpg",
+          "word": "Spike le dice a Tom que debe ayudar a su hijo a espantar gatos",
+          "syllables": [
+            "Spi",
+            "ke",
+            "le",
+            "di",
+            "ce",
+            "a",
+            "Tom",
+            "que",
+            "de",
+            "be",
+            "a",
+            "yu",
+            "dar",
+            "a",
+            "su",
+            "hi",
+            "jo",
+            "a",
+            "es",
+            "pan",
+            "tar",
+            "ga",
+            "tos"
+          ],
+          "audio": "audio/y8.mp3"
+        },
+        {
+          "id": "y9",
+          "image": "pages/y9.jpg",
+          "word": "Jerry escucha con atención",
+          "syllables": [
+            "Je",
+            "rry",
+            "es",
+            "cu",
+            "cha",
+            "con",
+            "a",
+            "ten",
+            "ción"
+          ],
+          "audio": "audio/y9.mp3"
+        },
+        {
+          "id": "y10",
+          "image": "pages/y10.jpg",
+          "word": "El hijo de Spike ve a Tom",
+          "syllables": [
+            "El",
+            "hi",
+            "jo",
+            "de",
+            "Spi",
+            "ke",
+            "ve",
+            "a",
+            "Tom"
+          ],
+          "audio": "audio/y10.mp3"
+        },
+        {
+          "id": "y11",
+          "image": "pages/y11.jpg",
+          "word": "Se decide a ladrar... Guauuuu Guauuu",
+          "syllables": [
+            "Se",
+            "de",
+            "ci",
+            "de",
+            "a",
+            "la",
+            "drar",
+            "Guau",
+            "Guau"
+          ],
+          "audio": "audio/y11.mp3"
+        },
+        {
+          "id": "y12",
+          "image": "pages/y12.jpg",
+          "word": "El hijo de Spike Ladra: Guauu Guauu Guauu",
+          "syllables": [
+            "El",
+            "hi",
+            "jo",
+            "de",
+            "Spi",
+            "ke",
+            "La",
+            "dra",
+            "Guau",
+            "Guau",
+            "Guau"
+          ],
+          "audio": "audio/y12.mp3"
+        },
+        {
+          "id": "y13",
+          "image": "pages/y13.jpg",
+          "word": "el hijo de Spike se asusta...",
+          "syllables": [
+            "el",
+            "hi",
+            "jo",
+            "de",
+            "Spi",
+            "ke",
+            "se",
+            "a",
+            "sus",
+            "ta"
+          ],
+          "audio": "audio/y13.mp3"
+        },
+        {
+          "id": "y14",
+          "image": "pages/y14.jpg",
+          "word": "Spike agarra a Tom",
+          "syllables": [
+            "Spi",
+            "ke",
+            "a",
+            "ga",
+            "rra",
+            "a",
+            "Tom"
+          ],
+          "audio": "audio/y14.mp3"
+        },
+        {
+          "id": "y15",
+          "image": "pages/y15.jpg",
+          "word": "y lo lanza hasta arriba",
+          "syllables": [
+            "y",
+            "lo",
+            "lan",
+            "za",
+            "has",
+            "ta",
+            "a",
+            "rri",
+            "ba"
+          ],
+          "audio": "audio/y15.mp3"
+        },
+        {
+          "id": "y16",
+          "image": "pages/y16.jpg",
+          "word": "Tom espera a Jerry",
+          "syllables": [
+            "Tom",
+            "es",
+            "pe",
+            "ra",
+            "a",
+            "Je",
+            "rry"
+          ],
+          "audio": "audio/y16.mp3"
+        },
+        {
+          "id": "y17",
+          "image": "pages/y17.jpg",
+          "word": "Jerry le ladra por detrás...",
+          "syllables": [
+            "Je",
+            "rry",
+            "le",
+            "la",
+            "dra",
+            "por",
+            "de",
+            "trás"
+          ],
+          "audio": "audio/y17.mp3"
+        },
+        {
+          "id": "y18",
+          "image": "pages/y18.jpg",
+          "word": "Tom se asusta..",
+          "syllables": [
+            "Tom",
+            "se",
+            "a",
+            "sus",
+            "ta"
+          ],
+          "audio": "audio/y18.mp3"
+        },
+        {
+          "id": "y19",
+          "image": "pages/y19.jpg",
+          "word": "Tom corre asustado",
+          "syllables": [
+            "Tom",
+            "co",
+            "rre",
+            "a",
+            "sus",
+            "ta",
+            "do"
+          ],
+          "audio": "audio/y19.mp3"
+        }
+      ]
+    },
+    {
+      "id": "tom-buch-jerry",
+      "title": "Tom, Buch y Jerry",
+      "cover": "pages/a20.jpg",
+      "pages": [
+        {
+          "id": "a1",
+          "image": "pages/a1.jpg",
+          "word": "Buch sostiene un pincel y una tuerca azul.",
+          "syllables": [
+            "Buch",
+            "sos",
+            "tie",
+            "ne",
+            "un",
+            "pin",
+            "cel",
+            "y",
+            "u",
+            "na",
+            "tuer",
+            "ca",
+            "a",
+            "zul"
+          ],
+          "audio": "audio/a1.mp3"
+        },
+        {
+          "id": "a2",
+          "image": "pages/a2.jpg",
+          "word": "Buch pinta la tuerca de amarillo.",
+          "syllables": [
+            "Buch",
+            "pin",
+            "ta",
+            "la",
+            "tuer",
+            "ca",
+            "de",
+            "a",
+            "ma",
+            "ri",
+            "llo"
+          ],
+          "audio": "audio/a2.mp3"
+        },
+        {
+          "id": "a3",
+          "image": "pages/a3.jpg",
+          "word": "Buch sostiene la tuerca y un frasco de esencia de queso.",
+          "syllables": [
+            "Buch",
+            "sos",
+            "tie",
+            "ne",
+            "la",
+            "tuer",
+            "ca",
+            "y",
+            "un",
+            "fras",
+            "co",
+            "de",
+            "e",
+            "sen",
+            "cia",
+            "de",
+            "que",
+            "so"
+          ],
+          "audio": "audio/a3.mp3"
+        },
+        {
+          "id": "a4",
+          "image": "pages/a4.jpg",
+          "word": "Buch rocía la tuerca y sale una nube blanca.",
+          "syllables": [
+            "Buch",
+            "ro",
+            "cí",
+            "a",
+            "la",
+            "tuer",
+            "ca",
+            "y",
+            "sa",
+            "le",
+            "u",
+            "na",
+            "nu",
+            "be",
+            "blan",
+            "ca"
+          ],
+          "audio": "audio/a4.mp3"
+        },
+        {
+          "id": "a5",
+          "image": "pages/a5.jpg",
+          "word": "Buch enseña la tuerca amarilla y se ríe.",
+          "syllables": [
+            "Buch",
+            "en",
+            "se",
+            "ña",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla",
+            "y",
+            "se",
+            "rí",
+            "e"
+          ],
+          "audio": "audio/a5.mp3"
+        },
+        {
+          "id": "a6",
+          "image": "pages/a6.jpg",
+          "word": "Buch pone la tuerca amarilla junto al agujero.",
+          "syllables": [
+            "Buch",
+            "po",
+            "ne",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla",
+            "jun",
+            "to",
+            "al",
+            "a",
+            "gu",
+            "je",
+            "ro"
+          ],
+          "audio": "audio/a6.mp3"
+        },
+        {
+          "id": "a7",
+          "image": "pages/a7.jpg",
+          "word": "Jerry se acerca a la tuerca amarilla.",
+          "syllables": [
+            "Je",
+            "rry",
+            "se",
+            "a",
+            "cer",
+            "ca",
+            "a",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla"
+          ],
+          "audio": "audio/a7.mp3"
+        },
+        {
+          "id": "a8",
+          "image": "pages/a8.jpg",
+          "word": "Jerry coge la tuerca amarilla con las dos manos.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "ge",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla",
+            "con",
+            "las",
+            "dos",
+            "ma",
+            "nos"
+          ],
+          "audio": "audio/a8.mp3"
+        },
+        {
+          "id": "a9",
+          "image": "pages/a9.jpg",
+          "word": "Jerry huele la tuerca amarilla.",
+          "syllables": [
+            "Je",
+            "rry",
+            "hue",
+            "le",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla"
+          ],
+          "audio": "audio/a9.mp3"
+        },
+        {
+          "id": "a10",
+          "image": "pages/a10.jpg",
+          "word": "Jerry sonríe con la tuerca amarilla en las manos.",
+          "syllables": [
+            "Je",
+            "rry",
+            "son",
+            "rí",
+            "e",
+            "con",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla",
+            "en",
+            "las",
+            "ma",
+            "nos"
+          ],
+          "audio": "audio/a10.mp3"
+        },
+        {
+          "id": "a11",
+          "image": "pages/a11.jpg",
+          "word": "Jerry muerde la tuerca amarilla.",
+          "syllables": [
+            "Je",
+            "rry",
+            "muer",
+            "de",
+            "la",
+            "tuer",
+            "ca",
+            "a",
+            "ma",
+            "ri",
+            "lla"
+          ],
+          "audio": "audio/a11.mp3"
+        },
+        {
+          "id": "a12",
+          "image": "pages/a12.jpg",
+          "word": "Jerry sonríe con los brazos abiertos.",
+          "syllables": [
+            "Je",
+            "rry",
+            "son",
+            "rí",
+            "e",
+            "con",
+            "los",
+            "bra",
+            "zos",
+            "a",
+            "bier",
+            "tos"
+          ],
+          "audio": "audio/a12.mp3"
+        },
+        {
+          "id": "a13",
+          "image": "pages/a13.jpg",
+          "word": "Buch se agacha con la mano en la oreja.",
+          "syllables": [
+            "Buch",
+            "se",
+            "a",
+            "ga",
+            "cha",
+            "con",
+            "la",
+            "ma",
+            "no",
+            "en",
+            "la",
+            "o",
+            "re",
+            "ja"
+          ],
+          "audio": "audio/a13.mp3"
+        },
+        {
+          "id": "a14",
+          "image": "pages/a14.jpg",
+          "word": "Buch abre la boca y estira la mano.",
+          "syllables": [
+            "Buch",
+            "a",
+            "bre",
+            "la",
+            "bo",
+            "ca",
+            "y",
+            "es",
+            "ti",
+            "ra",
+            "la",
+            "ma",
+            "no"
+          ],
+          "audio": "audio/a14.mp3"
+        },
+        {
+          "id": "a15",
+          "image": "pages/a15.jpg",
+          "word": "Buch saca un imán de la caja.",
+          "syllables": [
+            "Buch",
+            "sa",
+            "ca",
+            "un",
+            "i",
+            "mán",
+            "de",
+            "la",
+            "ca",
+            "ja"
+          ],
+          "audio": "audio/a15.mp3"
+        },
+        {
+          "id": "a16",
+          "image": "pages/a16.jpg",
+          "word": "Buch acerca el imán al agujero y saltan chispas.",
+          "syllables": [
+            "Buch",
+            "a",
+            "cer",
+            "ca",
+            "el",
+            "i",
+            "mán",
+            "al",
+            "a",
+            "gu",
+            "je",
+            "ro",
+            "y",
+            "sal",
+            "tan",
+            "chis",
+            "pas"
+          ],
+          "audio": "audio/a16.mp3"
+        },
+        {
+          "id": "a17",
+          "image": "pages/a17.jpg",
+          "word": "Jerry levanta un brazo y hay chispas en el suelo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "le",
+            "van",
+            "ta",
+            "un",
+            "bra",
+            "zo",
+            "y",
+            "hay",
+            "chis",
+            "pas",
+            "en",
+            "el",
+            "sue",
+            "lo"
+          ],
+          "audio": "audio/a17.mp3"
+        },
+        {
+          "id": "a18",
+          "image": "pages/a18.jpg",
+          "word": "Jerry corre por el suelo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "rre",
+            "por",
+            "el",
+            "sue",
+            "lo"
+          ],
+          "audio": "audio/a18.mp3"
+        },
+        {
+          "id": "a19",
+          "image": "pages/a19.jpg",
+          "word": "Buch sostiene un imán y Jerry tiembla pegado a él.",
+          "syllables": [
+            "Buch",
+            "sos",
+            "tie",
+            "ne",
+            "un",
+            "i",
+            "mán",
+            "y",
+            "Je",
+            "rry",
+            "tiem",
+            "bla",
+            "pe",
+            "ga",
+            "do",
+            "a",
+            "él"
+          ],
+          "audio": "audio/a19.mp3"
+        },
+        {
+          "id": "a20",
+          "image": "pages/a20.jpg",
+          "word": "Buch muestra a Jerry pegado al imán y Tom sonríe.",
+          "syllables": [
+            "Buch",
+            "mues",
+            "tra",
+            "a",
+            "Je",
+            "rry",
+            "pe",
+            "ga",
+            "do",
+            "al",
+            "i",
+            "mán",
+            "y",
+            "Tom",
+            "son",
+            "rí",
+            "e"
+          ],
+          "audio": "audio/a20.mp3"
+        },
+        {
+          "id": "a21",
+          "image": "pages/a21.jpg",
+          "word": "Buch pone a Jerry en el suelo y sujeta el imán.",
+          "syllables": [
+            "Buch",
+            "po",
+            "ne",
+            "a",
+            "Je",
+            "rry",
+            "en",
+            "el",
+            "sue",
+            "lo",
+            "y",
+            "su",
+            "je",
+            "ta",
+            "el",
+            "i",
+            "mán"
+          ],
+          "audio": "audio/a21.mp3"
+        },
+        {
+          "id": "a22",
+          "image": "pages/a22.jpg",
+          "word": "Buch acerca el martillo a Jerry.",
+          "syllables": [
+            "Buch",
+            "a",
+            "cer",
+            "ca",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "a",
+            "Je",
+            "rry"
+          ],
+          "audio": "audio/a22.mp3"
+        },
+        {
+          "id": "a23",
+          "image": "pages/a23.jpg",
+          "word": "Buch levanta el martillo y Jerry está en el suelo.",
+          "syllables": [
+            "Buch",
+            "le",
+            "van",
+            "ta",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "y",
+            "Je",
+            "rry",
+            "es",
+            "tá",
+            "en",
+            "el",
+            "sue",
+            "lo"
+          ],
+          "audio": "audio/a23.mp3"
+        },
+        {
+          "id": "a24",
+          "image": "pages/a24.jpg",
+          "word": "Tom grita con la boca muy abierta.",
+          "syllables": [
+            "Tom",
+            "gri",
+            "ta",
+            "con",
+            "la",
+            "bo",
+            "ca",
+            "muy",
+            "a",
+            "bier",
+            "ta"
+          ],
+          "audio": "audio/a24.mp3"
+        },
+        {
+          "id": "a25",
+          "image": "pages/a25.jpg",
+          "word": "Tom se tapa los ojos con las dos patas.",
+          "syllables": [
+            "Tom",
+            "se",
+            "ta",
+            "pa",
+            "los",
+            "o",
+            "jos",
+            "con",
+            "las",
+            "dos",
+            "pa",
+            "tas"
+          ],
+          "audio": "audio/a25.mp3"
+        },
+        {
+          "id": "a26",
+          "image": "pages/a26.jpg",
+          "word": "Jerry está boca arriba en el suelo, entre Tom y Buch.",
+          "syllables": [
+            "Je",
+            "rry",
+            "es",
+            "tá",
+            "bo",
+            "ca",
+            "a",
+            "rri",
+            "ba",
+            "en",
+            "el",
+            "sue",
+            "lo",
+            "en",
+            "tre",
+            "Tom",
+            "y",
+            "Buch"
+          ],
+          "audio": "audio/a26.mp3"
+        },
+        {
+          "id": "a27",
+          "image": "pages/a27.jpg",
+          "word": "Tom y Buch agarran a Jerry.",
+          "syllables": [
+            "Tom",
+            "y",
+            "Buch",
+            "a",
+            "ga",
+            "rran",
+            "a",
+            "Je",
+            "rry"
+          ],
+          "audio": "audio/a27.mp3"
+        },
+        {
+          "id": "a28",
+          "image": "pages/a28.jpg",
+          "word": "Jerry corre y sale de entre las patas de Tom y Buch.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "rre",
+            "y",
+            "sa",
+            "le",
+            "de",
+            "en",
+            "tre",
+            "las",
+            "pa",
+            "tas",
+            "de",
+            "Tom",
+            "y",
+            "Buch"
+          ],
+          "audio": "audio/a28.mp3"
+        },
+        {
+          "id": "a29",
+          "image": "pages/a29.jpg",
+          "word": "Buch mueve el martillo en alto y Tom se tapa la cara.",
+          "syllables": [
+            "Buch",
+            "mue",
+            "ve",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "en",
+            "al",
+            "to",
+            "y",
+            "Tom",
+            "se",
+            "ta",
+            "pa",
+            "la",
+            "ca",
+            "ra"
+          ],
+          "audio": "audio/a29.mp3"
+        },
+        {
+          "id": "a30",
+          "image": "pages/a30.jpg",
+          "word": "Tom abre mucho los ojos y Buch sonríe con el martillo.",
+          "syllables": [
+            "Tom",
+            "a",
+            "bre",
+            "mu",
+            "cho",
+            "los",
+            "o",
+            "jos",
+            "y",
+            "Buch",
+            "son",
+            "rí",
+            "e",
+            "con",
+            "el",
+            "mar",
+            "ti",
+            "llo"
+          ],
+          "audio": "audio/a30.mp3"
+        },
+        {
+          "id": "a31",
+          "image": "pages/a31.jpg",
+          "word": "Tom grita y Buch lo mira.",
+          "syllables": [
+            "Tom",
+            "gri",
+            "ta",
+            "y",
+            "Buch",
+            "lo",
+            "mi",
+            "ra"
+          ],
+          "audio": "audio/a31.mp3"
+        },
+        {
+          "id": "a32",
+          "image": "pages/a32.jpg",
+          "word": "Tom está en el aire cabeza abajo y Buch lo mira.",
+          "syllables": [
+            "Tom",
+            "es",
+            "tá",
+            "en",
+            "el",
+            "ai",
+            "re",
+            "ca",
+            "be",
+            "za",
+            "a",
+            "ba",
+            "jo",
+            "y",
+            "Buch",
+            "lo",
+            "mi",
+            "ra"
+          ],
+          "audio": "audio/a32.mp3"
+        },
+        {
+          "id": "a33",
+          "image": "pages/a33.jpg",
+          "word": "Jerry corre por el suelo delante del sillón.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "rre",
+            "por",
+            "el",
+            "sue",
+            "lo",
+            "de",
+            "lan",
+            "te",
+            "del",
+            "si",
+            "llón"
+          ],
+          "audio": "audio/a33.mp3"
+        },
+        {
+          "id": "a34",
+          "image": "pages/a34.jpg",
+          "word": "Jerry corre hacia un agujero de la pared.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "rre",
+            "ha",
+            "cia",
+            "un",
+            "a",
+            "gu",
+            "je",
+            "ro",
+            "de",
+            "la",
+            "pa",
+            "red"
+          ],
+          "audio": "audio/a34.mp3"
+        },
+        {
+          "id": "a35",
+          "image": "pages/a35.jpg",
+          "word": "Buch gira el taladro hacia el agujero.",
+          "syllables": [
+            "Buch",
+            "gi",
+            "ra",
+            "el",
+            "ta",
+            "la",
+            "dro",
+            "ha",
+            "cia",
+            "el",
+            "a",
+            "gu",
+            "je",
+            "ro"
+          ],
+          "audio": "audio/a35.mp3"
+        },
+        {
+          "id": "a36",
+          "image": "pages/a36.jpg",
+          "word": "Caen pedacitos amarillos del taladro de Buch.",
+          "syllables": [
+            "Ca",
+            "en",
+            "pe",
+            "da",
+            "ci",
+            "tos",
+            "a",
+            "ma",
+            "ri",
+            "llos",
+            "del",
+            "ta",
+            "la",
+            "dro",
+            "de",
+            "Buch"
+          ],
+          "audio": "audio/a36.mp3"
+        },
+        {
+          "id": "a37",
+          "image": "pages/a37.jpg",
+          "word": "Jerry abre la boca junto al tornillo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "a",
+            "bre",
+            "la",
+            "bo",
+            "ca",
+            "jun",
+            "to",
+            "al",
+            "tor",
+            "ni",
+            "llo"
+          ],
+          "audio": "audio/a37.mp3"
+        },
+        {
+          "id": "a38",
+          "image": "pages/a38.jpg",
+          "word": "Jerry agarra los cables de la polea.",
+          "syllables": [
+            "Je",
+            "rry",
+            "a",
+            "ga",
+            "rra",
+            "los",
+            "ca",
+            "bles",
+            "de",
+            "la",
+            "po",
+            "le",
+            "a"
+          ],
+          "audio": "audio/a38.mp3"
+        },
+        {
+          "id": "a39",
+          "image": "pages/a39.jpg",
+          "word": "Jerry sujeta los cables y saltan chispas.",
+          "syllables": [
+            "Je",
+            "rry",
+            "su",
+            "je",
+            "ta",
+            "los",
+            "ca",
+            "bles",
+            "y",
+            "sal",
+            "tan",
+            "chis",
+            "pas"
+          ],
+          "audio": "audio/a39.mp3"
+        },
+        {
+          "id": "a40",
+          "image": "pages/a40.jpg",
+          "word": "Buch mira el taladro doblado.",
+          "syllables": [
+            "Buch",
+            "mi",
+            "ra",
+            "el",
+            "ta",
+            "la",
+            "dro",
+            "do",
+            "bla",
+            "do"
+          ],
+          "audio": "audio/a40.mp3"
+        },
+        {
+          "id": "a41",
+          "image": "pages/a41.jpg",
+          "word": "El taladro gira y golpea la cara de Buch.",
+          "syllables": [
+            "El",
+            "ta",
+            "la",
+            "dro",
+            "gi",
+            "ra",
+            "y",
+            "gol",
+            "pe",
+            "a",
+            "la",
+            "ca",
+            "ra",
+            "de",
+            "Buch"
+          ],
+          "audio": "audio/a41.mp3"
+        },
+        {
+          "id": "a42",
+          "image": "pages/a42.jpg",
+          "word": "El taladro hace un aro azul delante de Buch.",
+          "syllables": [
+            "El",
+            "ta",
+            "la",
+            "dro",
+            "ha",
+            "ce",
+            "un",
+            "a",
+            "ro",
+            "a",
+            "zul",
+            "de",
+            "lan",
+            "te",
+            "de",
+            "Buch"
+          ],
+          "audio": "audio/a42.mp3"
+        },
+        {
+          "id": "A43",
+          "image": "pages/A43.jpg",
+          "word": "Buch sujeta el taladro, que da muchas vueltas.",
+          "syllables": [
+            "Buch",
+            "su",
+            "je",
+            "ta",
+            "el",
+            "ta",
+            "la",
+            "dro",
+            "que",
+            "da",
+            "mu",
+            "chas",
+            "vuel",
+            "tas"
+          ],
+          "audio": "audio/A43.mp3"
+        },
+        {
+          "id": "A44",
+          "image": "pages/A44.jpg",
+          "word": "Buch vuela con el taladro.",
+          "syllables": [
+            "Buch",
+            "vue",
+            "la",
+            "con",
+            "el",
+            "ta",
+            "la",
+            "dro"
+          ],
+          "audio": "audio/A44.mp3"
+        },
+        {
+          "id": "A45",
+          "image": "pages/A45.jpg",
+          "word": "Buch cae boca arriba y el taladro vuela.",
+          "syllables": [
+            "Buch",
+            "ca",
+            "e",
+            "bo",
+            "ca",
+            "a",
+            "rri",
+            "ba",
+            "y",
+            "el",
+            "ta",
+            "la",
+            "dro",
+            "vue",
+            "la"
+          ],
+          "audio": "audio/A45.mp3"
+        },
+        {
+          "id": "a46",
+          "image": "pages/a46.jpg",
+          "word": "Buch está en el suelo con la boca abierta.",
+          "syllables": [
+            "Buch",
+            "es",
+            "tá",
+            "en",
+            "el",
+            "sue",
+            "lo",
+            "con",
+            "la",
+            "bo",
+            "ca",
+            "a",
+            "bier",
+            "ta"
+          ],
+          "audio": "audio/a46.mp3"
+        },
+        {
+          "id": "a47",
+          "image": "pages/a47.jpg",
+          "word": "Tom y Buch sostienen el tubo de gas y sale humo verde.",
+          "syllables": [
+            "Tom",
+            "y",
+            "Buch",
+            "sos",
+            "tie",
+            "nen",
+            "el",
+            "tu",
+            "bo",
+            "de",
+            "gas",
+            "y",
+            "sa",
+            "le",
+            "hu",
+            "mo",
+            "ver",
+            "de"
+          ],
+          "audio": "audio/a47.mp3"
+        },
+        {
+          "id": "a49",
+          "image": "pages/a49.jpg",
+          "word": "Jerry pasa bajo el tubo con casco y máscara.",
+          "syllables": [
+            "Je",
+            "rry",
+            "pa",
+            "sa",
+            "ba",
+            "jo",
+            "el",
+            "tu",
+            "bo",
+            "con",
+            "cas",
+            "co",
+            "y",
+            "más",
+            "ca",
+            "ra"
+          ],
+          "audio": "audio/a49.mp3"
+        },
+        {
+          "id": "A50",
+          "image": "pages/A50.jpg",
+          "word": "Jerry camina con casco y máscara junto al humo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "ca",
+            "mi",
+            "na",
+            "con",
+            "cas",
+            "co",
+            "y",
+            "más",
+            "ca",
+            "ra",
+            "jun",
+            "to",
+            "al",
+            "hu",
+            "mo"
+          ],
+          "audio": "audio/A50.mp3"
+        },
+        {
+          "id": "a51",
+          "image": "pages/a51.jpg",
+          "word": "Tom y Buch sostienen el tubo y Jerry camina abajo.",
+          "syllables": [
+            "Tom",
+            "y",
+            "Buch",
+            "sos",
+            "tie",
+            "nen",
+            "el",
+            "tu",
+            "bo",
+            "y",
+            "Je",
+            "rry",
+            "ca",
+            "mi",
+            "na",
+            "a",
+            "ba",
+            "jo"
+          ],
+          "audio": "audio/a51.mp3"
+        },
+        {
+          "id": "a52",
+          "image": "pages/a52.jpg",
+          "word": "Buch sostiene el tubo de gas mientras Tom y Jerry miran.",
+          "syllables": [
+            "Buch",
+            "sos",
+            "tie",
+            "ne",
+            "el",
+            "tu",
+            "bo",
+            "de",
+            "gas",
+            "mien",
+            "tras",
+            "Tom",
+            "y",
+            "Je",
+            "rry",
+            "mi",
+            "ran"
+          ],
+          "audio": "audio/a52.mp3"
+        },
+        {
+          "id": "a53",
+          "image": "pages/a53.jpg",
+          "word": "Tom y Buch levantan las patas y Jerry mira con su casco.",
+          "syllables": [
+            "Tom",
+            "y",
+            "Buch",
+            "le",
+            "van",
+            "tan",
+            "las",
+            "pa",
+            "tas",
+            "y",
+            "Je",
+            "rry",
+            "mi",
+            "ra",
+            "con",
+            "su",
+            "cas",
+            "co"
+          ],
+          "audio": "audio/a53.mp3"
+        },
+        {
+          "id": "a54",
+          "image": "pages/a54.jpg",
+          "word": "Tom muerde el aro rojo del tubo y Buch lo mira.",
+          "syllables": [
+            "Tom",
+            "muer",
+            "de",
+            "el",
+            "a",
+            "ro",
+            "ro",
+            "jo",
+            "del",
+            "tu",
+            "bo",
+            "y",
+            "Buch",
+            "lo",
+            "mi",
+            "ra"
+          ],
+          "audio": "audio/a54.mp3"
+        },
+        {
+          "id": "a55",
+          "image": "pages/a55.jpg",
+          "word": "Buch levanta la mano y Tom aprieta los ojos.",
+          "syllables": [
+            "Buch",
+            "le",
+            "van",
+            "ta",
+            "la",
+            "ma",
+            "no",
+            "y",
+            "Tom",
+            "a",
+            "prie",
+            "ta",
+            "los",
+            "o",
+            "jos"
+          ],
+          "audio": "audio/a55.mp3"
+        },
+        {
+          "id": "a56",
+          "image": "pages/a56.jpg",
+          "word": "Buch señala hacia abajo y Tom lo mira.",
+          "syllables": [
+            "Buch",
+            "se",
+            "ña",
+            "la",
+            "ha",
+            "cia",
+            "a",
+            "ba",
+            "jo",
+            "y",
+            "Tom",
+            "lo",
+            "mi",
+            "ra"
+          ],
+          "audio": "audio/a56.mp3"
+        },
+        {
+          "id": "a57",
+          "image": "pages/a57.jpg",
+          "word": "Buch señala a un lado y Tom lo mira.",
+          "syllables": [
+            "Buch",
+            "se",
+            "ña",
+            "la",
+            "a",
+            "un",
+            "la",
+            "do",
+            "y",
+            "Tom",
+            "lo",
+            "mi",
+            "ra"
+          ],
+          "audio": "audio/a57.mp3"
+        },
+        {
+          "id": "a58",
+          "image": "pages/a58.jpg",
+          "word": "Jerry levanta un casco y una máscara.",
+          "syllables": [
+            "Je",
+            "rry",
+            "le",
+            "van",
+            "ta",
+            "un",
+            "cas",
+            "co",
+            "y",
+            "u",
+            "na",
+            "más",
+            "ca",
+            "ra"
+          ],
+          "audio": "audio/a58.mp3"
+        },
+        {
+          "id": "a59",
+          "image": "pages/a59.jpg",
+          "word": "Jerry corre con el casco y la máscara.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "rre",
+            "con",
+            "el",
+            "cas",
+            "co",
+            "y",
+            "la",
+            "más",
+            "ca",
+            "ra"
+          ],
+          "audio": "audio/a59.mp3"
+        },
+        {
+          "id": "a60",
+          "image": "pages/a60.jpg",
+          "word": "Tom camina y Buch asoma la cabeza por detrás.",
+          "syllables": [
+            "Tom",
+            "ca",
+            "mi",
+            "na",
+            "y",
+            "Buch",
+            "a",
+            "so",
+            "ma",
+            "la",
+            "ca",
+            "be",
+            "za",
+            "por",
+            "de",
+            "trás"
+          ],
+          "audio": "audio/a60.mp3"
+        },
+        {
+          "id": "a61",
+          "image": "pages/a61.jpg",
+          "word": "Tom camina y Buch se estira detrás de él.",
+          "syllables": [
+            "Tom",
+            "ca",
+            "mi",
+            "na",
+            "y",
+            "Buch",
+            "se",
+            "es",
+            "ti",
+            "ra",
+            "de",
+            "trás",
+            "de",
+            "él"
+          ],
+          "audio": "audio/a61.mp3"
+        },
+        {
+          "id": "a62",
+          "image": "pages/a62.jpg",
+          "word": "Jerry carga una plancha azul grande.",
+          "syllables": [
+            "Je",
+            "rry",
+            "car",
+            "ga",
+            "u",
+            "na",
+            "plan",
+            "cha",
+            "a",
+            "zul",
+            "gran",
+            "de"
+          ],
+          "audio": "audio/a62.mp3"
+        },
+        {
+          "id": "a63",
+          "image": "pages/a63.jpg",
+          "word": "Jerry sujeta la plancha azul sobre Tom, y Buch mira.",
+          "syllables": [
+            "Je",
+            "rry",
+            "su",
+            "je",
+            "ta",
+            "la",
+            "plan",
+            "cha",
+            "a",
+            "zul",
+            "so",
+            "bre",
+            "Tom",
+            "y",
+            "Buch",
+            "mi",
+            "ra"
+          ],
+          "audio": "audio/a63.mp3"
+        },
+        {
+          "id": "a64",
+          "image": "pages/a64.jpg",
+          "word": "Buch se lanza con la boca abierta hacia la plancha.",
+          "syllables": [
+            "Buch",
+            "se",
+            "lan",
+            "za",
+            "con",
+            "la",
+            "bo",
+            "ca",
+            "a",
+            "bier",
+            "ta",
+            "ha",
+            "cia",
+            "la",
+            "plan",
+            "cha"
+          ],
+          "audio": "audio/a64.mp3"
+        },
+        {
+          "id": "a65",
+          "image": "pages/a65.jpg",
+          "word": "Buch está con las patas en alto y la cara enfadada.",
+          "syllables": [
+            "Buch",
+            "es",
+            "tá",
+            "con",
+            "las",
+            "pa",
+            "tas",
+            "en",
+            "al",
+            "to",
+            "y",
+            "la",
+            "ca",
+            "ra",
+            "en",
+            "fa",
+            "da",
+            "da"
+          ],
+          "audio": "audio/a65.mp3"
+        },
+        {
+          "id": "a66",
+          "image": "pages/a66.jpg",
+          "word": "La cabeza de Tom asoma por la boca abierta de Buch.",
+          "syllables": [
+            "La",
+            "ca",
+            "be",
+            "za",
+            "de",
+            "Tom",
+            "a",
+            "so",
+            "ma",
+            "por",
+            "la",
+            "bo",
+            "ca",
+            "a",
+            "bier",
+            "ta",
+            "de",
+            "Buch"
+          ],
+          "audio": "audio/a66.mp3"
+        },
+        {
+          "id": "a67",
+          "image": "pages/a67.jpg",
+          "word": "Jerry corre hacia el agujero de la pared.",
+          "syllables": [
+            "Je",
+            "rry",
+            "co",
+            "rre",
+            "ha",
+            "cia",
+            "el",
+            "a",
+            "gu",
+            "je",
+            "ro",
+            "de",
+            "la",
+            "pa",
+            "red"
+          ],
+          "audio": "audio/a67.mp3"
+        },
+        {
+          "id": "a68",
+          "image": "pages/a68.jpg",
+          "word": "Jerry entra corriendo por el agujero.",
+          "syllables": [
+            "Je",
+            "rry",
+            "en",
+            "tra",
+            "co",
+            "rrien",
+            "do",
+            "por",
+            "el",
+            "a",
+            "gu",
+            "je",
+            "ro"
+          ],
+          "audio": "audio/a68.mp3"
+        },
+        {
+          "id": "a69",
+          "image": "pages/a69.jpg",
+          "word": "Buch y Tom se miran junto a la caja abierta.",
+          "syllables": [
+            "Buch",
+            "y",
+            "Tom",
+            "se",
+            "mi",
+            "ran",
+            "jun",
+            "to",
+            "a",
+            "la",
+            "ca",
+            "ja",
+            "a",
+            "bier",
+            "ta"
+          ],
+          "audio": "audio/a69.mp3"
+        },
+        {
+          "id": "a70",
+          "image": "pages/a70.jpg",
+          "word": "Buch mete una barra bajo el zócalo y Tom observa.",
+          "syllables": [
+            "Buch",
+            "me",
+            "te",
+            "u",
+            "na",
+            "ba",
+            "rra",
+            "ba",
+            "jo",
+            "el",
+            "zó",
+            "ca",
+            "lo",
+            "y",
+            "Tom",
+            "ob",
+            "ser",
+            "va"
+          ],
+          "audio": "audio/a70.mp3"
+        },
+        {
+          "id": "a71",
+          "image": "pages/a71.jpg",
+          "word": "Buch empuja la barra y Tom frunce el ceño.",
+          "syllables": [
+            "Buch",
+            "em",
+            "pu",
+            "ja",
+            "la",
+            "ba",
+            "rra",
+            "y",
+            "Tom",
+            "frun",
+            "ce",
+            "el",
+            "ce",
+            "ño"
+          ],
+          "audio": "audio/a71.mp3"
+        },
+        {
+          "id": "a72",
+          "image": "pages/a72.jpg",
+          "word": "Buch tira de la pared y Tom asoma a un lado.",
+          "syllables": [
+            "Buch",
+            "ti",
+            "ra",
+            "de",
+            "la",
+            "pa",
+            "red",
+            "y",
+            "Tom",
+            "a",
+            "so",
+            "ma",
+            "a",
+            "un",
+            "la",
+            "do"
+          ],
+          "audio": "audio/a72.mp3"
+        },
+        {
+          "id": "a73",
+          "image": "pages/a73.jpg",
+          "word": "Buch mira las grietas y Tom asoma una pata.",
+          "syllables": [
+            "Buch",
+            "mi",
+            "ra",
+            "las",
+            "grie",
+            "tas",
+            "y",
+            "Tom",
+            "a",
+            "so",
+            "ma",
+            "u",
+            "na",
+            "pa",
+            "ta"
+          ],
+          "audio": "audio/a73.mp3"
+        },
+        {
+          "id": "a74",
+          "image": "pages/a74.jpg",
+          "word": "Buch y Tom se miran a los lados del zócalo.",
+          "syllables": [
+            "Buch",
+            "y",
+            "Tom",
+            "se",
+            "mi",
+            "ran",
+            "a",
+            "los",
+            "la",
+            "dos",
+            "del",
+            "zó",
+            "ca",
+            "lo"
+          ],
+          "audio": "audio/a74.mp3"
+        },
+        {
+          "id": "a75",
+          "image": "pages/a75.jpg",
+          "word": "Buch mira la grieta y Tom se agacha al otro lado.",
+          "syllables": [
+            "Buch",
+            "mi",
+            "ra",
+            "la",
+            "grie",
+            "ta",
+            "y",
+            "Tom",
+            "se",
+            "a",
+            "ga",
+            "cha",
+            "al",
+            "o",
+            "tro",
+            "la",
+            "do"
+          ],
+          "audio": "audio/a75.mp3"
+        },
+        {
+          "id": "a76",
+          "image": "pages/a76.jpg",
+          "word": "Buch y Tom levantan el muro y Jerry está debajo.",
+          "syllables": [
+            "Buch",
+            "y",
+            "Tom",
+            "le",
+            "van",
+            "tan",
+            "el",
+            "mu",
+            "ro",
+            "y",
+            "Je",
+            "rry",
+            "es",
+            "tá",
+            "de",
+            "ba",
+            "jo"
+          ],
+          "audio": "audio/a76.mp3"
+        },
+        {
+          "id": "a77",
+          "image": "pages/a77.jpg",
+          "word": "Jerry sujeta un poste amarillo bajo el muro.",
+          "syllables": [
+            "Je",
+            "rry",
+            "su",
+            "je",
+            "ta",
+            "un",
+            "pos",
+            "te",
+            "a",
+            "ma",
+            "ri",
+            "llo",
+            "ba",
+            "jo",
+            "el",
+            "mu",
+            "ro"
+          ],
+          "audio": "audio/a77.mp3"
+        },
+        {
+          "id": "a78",
+          "image": "pages/a78.jpg",
+          "word": "Jerry se apoya en el martillo amarillo junto a las patas.",
+          "syllables": [
+            "Je",
+            "rry",
+            "se",
+            "a",
+            "po",
+            "ya",
+            "en",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "a",
+            "ma",
+            "ri",
+            "llo",
+            "jun",
+            "to",
+            "a",
+            "las",
+            "pa",
+            "tas"
+          ],
+          "audio": "audio/a78.mp3"
+        },
+        {
+          "id": "a79",
+          "image": "pages/a79.jpg",
+          "word": "Jerry cuelga del martillo amarillo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "cuel",
+            "ga",
+            "del",
+            "mar",
+            "ti",
+            "llo",
+            "a",
+            "ma",
+            "ri",
+            "llo"
+          ],
+          "audio": "audio/a79.mp3"
+        },
+        {
+          "id": "a80",
+          "image": "pages/a80.jpg",
+          "word": "Jerry está boca abajo sobre el martillo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "es",
+            "tá",
+            "bo",
+            "ca",
+            "a",
+            "ba",
+            "jo",
+            "so",
+            "bre",
+            "el",
+            "mar",
+            "ti",
+            "llo"
+          ],
+          "audio": "audio/a80.mp3"
+        },
+        {
+          "id": "a81",
+          "image": "pages/a81.jpg",
+          "word": "Buch sujeta el muro, Jerry tiene el martillo y Tom aprieta los puños.",
+          "syllables": [
+            "Buch",
+            "su",
+            "je",
+            "ta",
+            "el",
+            "mu",
+            "ro",
+            "Je",
+            "rry",
+            "tie",
+            "ne",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "y",
+            "Tom",
+            "a",
+            "prie",
+            "ta",
+            "los",
+            "pu",
+            "ños"
+          ],
+          "audio": "audio/a81.mp3"
+        },
+        {
+          "id": "a82",
+          "image": "pages/a82.jpg",
+          "word": "Buch grita con la boca muy abierta y Jerry está bajo el muro.",
+          "syllables": [
+            "Buch",
+            "gri",
+            "ta",
+            "con",
+            "la",
+            "bo",
+            "ca",
+            "muy",
+            "a",
+            "bier",
+            "ta",
+            "y",
+            "Je",
+            "rry",
+            "es",
+            "tá",
+            "ba",
+            "jo",
+            "el",
+            "mu",
+            "ro"
+          ],
+          "audio": "audio/a82.mp3"
+        },
+        {
+          "id": "a83",
+          "image": "pages/a83.jpg",
+          "word": "Buch se arquea y caen pedazos de la pared.",
+          "syllables": [
+            "Buch",
+            "se",
+            "ar",
+            "que",
+            "a",
+            "y",
+            "ca",
+            "en",
+            "pe",
+            "da",
+            "zos",
+            "de",
+            "la",
+            "pa",
+            "red"
+          ],
+          "audio": "audio/a83.mp3"
+        },
+        {
+          "id": "a84",
+          "image": "pages/a84.png",
+          "word": "Buch abre mucho la boca en el suelo, entre el polvo.",
+          "syllables": [
+            "Buch",
+            "a",
+            "bre",
+            "mu",
+            "cho",
+            "la",
+            "bo",
+            "ca",
+            "en",
+            "el",
+            "sue",
+            "lo",
+            "en",
+            "tre",
+            "el",
+            "pol",
+            "vo"
+          ],
+          "audio": "audio/a84.mp3"
+        },
+        {
+          "id": "a85",
+          "image": "pages/a85.jpg",
+          "word": "Jerry levanta el martillo junto a los dedos blancos.",
+          "syllables": [
+            "Je",
+            "rry",
+            "le",
+            "van",
+            "ta",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "jun",
+            "to",
+            "a",
+            "los",
+            "de",
+            "dos",
+            "blan",
+            "cos"
+          ],
+          "audio": "audio/a85.mp3"
+        },
+        {
+          "id": "a86",
+          "image": "pages/a86.jpg",
+          "word": "Jerry golpea los dedos con el martillo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "gol",
+            "pe",
+            "a",
+            "los",
+            "de",
+            "dos",
+            "con",
+            "el",
+            "mar",
+            "ti",
+            "llo"
+          ],
+          "audio": "audio/a86.mp3"
+        },
+        {
+          "id": "a87",
+          "image": "pages/a87.jpg",
+          "word": "Jerry baja el martillo sobre los dedos blancos.",
+          "syllables": [
+            "Je",
+            "rry",
+            "ba",
+            "ja",
+            "el",
+            "mar",
+            "ti",
+            "llo",
+            "so",
+            "bre",
+            "los",
+            "de",
+            "dos",
+            "blan",
+            "cos"
+          ],
+          "audio": "audio/a87.mp3"
+        },
+        {
+          "id": "a88",
+          "image": "pages/a88.jpg",
+          "word": "Jerry se sujeta del palo amarillo del martillo.",
+          "syllables": [
+            "Je",
+            "rry",
+            "se",
+            "su",
+            "je",
+            "ta",
+            "del",
+            "pa",
+            "lo",
+            "a",
+            "ma",
+            "ri",
+            "llo",
+            "del",
+            "mar",
+            "ti",
+            "llo"
+          ],
+          "audio": "audio/a88.mp3"
+        },
+        {
+          "id": "a89",
+          "image": "pages/a89.jpg",
+          "word": "Buch cae de cabeza junto a la pared rota.",
+          "syllables": [
+            "Buch",
+            "ca",
+            "e",
+            "de",
+            "ca",
+            "be",
+            "za",
+            "jun",
+            "to",
+            "a",
+            "la",
+            "pa",
+            "red",
+            "ro",
+            "ta"
+          ],
+          "audio": "audio/a89.mp3"
+        },
+        {
+          "id": "a90",
+          "image": "pages/a90.jpg",
+          "word": "Buch estira los brazos y saca la lengua.",
+          "syllables": [
+            "Buch",
+            "es",
+            "ti",
+            "ra",
+            "los",
+            "bra",
+            "zos",
+            "y",
+            "sa",
+            "ca",
+            "la",
+            "len",
+            "gua"
+          ],
+          "audio": "audio/a90.mp3"
+        },
+        {
+          "id": "a91",
+          "image": "pages/a91.jpg",
+          "word": "Buch se mira las manos hinchadas.",
+          "syllables": [
+            "Buch",
+            "se",
+            "mi",
+            "ra",
+            "las",
+            "ma",
+            "nos",
+            "hin",
+            "cha",
+            "das"
+          ],
+          "audio": "audio/a91.mp3"
+        },
+        {
+          "id": "a92",
+          "image": "pages/a92.png",
+          "word": "Buch sacude las manos hinchadas.",
+          "syllables": [
+            "Buch",
+            "sa",
+            "cu",
+            "de",
+            "las",
+            "ma",
+            "nos",
+            "hin",
+            "cha",
+            "das"
+          ],
+          "audio": "audio/a92.mp3"
+        },
+        {
+          "id": "a93",
+          "image": "pages/a93.jpg",
+          "word": "Los dedos de Buch están rojos e hinchados.",
+          "syllables": [
+            "Los",
+            "de",
+            "dos",
+            "de",
+            "Buch",
+            "es",
+            "tán",
+            "ro",
+            "jos",
+            "e",
+            "hin",
+            "cha",
+            "dos"
+          ],
+          "audio": "audio/a93.mp3"
+        },
+        {
+          "id": "a94",
+          "image": "pages/a94.jpg",
+          "word": "Caen golpes sobre los dedos rojos de Buch.",
+          "syllables": [
+            "Ca",
+            "en",
+            "gol",
+            "pes",
+            "so",
+            "bre",
+            "los",
+            "de",
+            "dos",
+            "ro",
+            "jos",
+            "de",
+            "Buch"
+          ],
+          "audio": "audio/a94.mp3"
+        },
+        {
+          "id": "a95",
+          "image": "pages/a95.jpg",
+          "word": "Los golpes siguen cayendo sobre los dedos rojos.",
+          "syllables": [
+            "Los",
+            "gol",
+            "pes",
+            "si",
+            "guen",
+            "ca",
+            "yen",
+            "do",
+            "so",
+            "bre",
+            "los",
+            "de",
+            "dos",
+            "ro",
+            "jos"
+          ],
+          "audio": "audio/a95.mp3"
+        }
+      ]
+    }
+  ]
+};</script>
+    <script>
+const APP_NAME = "Libro digital 1.6";
+const APP_VERSION = "1.6";
+const $ = (id) => document.getElementById(id);
+
+let catalog = [];
+let story = null;
+let index = 0;
+let player = null;
+let playToken = 0;
+let homeFocus = 0;
+
+function pageAt(i) {
+  return story && story.pages ? story.pages[i] || null : null;
+}
+
+function stopPlayback() {
+  playToken += 1;
+  window.appAudioEnded = null;
+  if (window.LeeConmigo && typeof window.LeeConmigo.stopAudio === "function") {
+    try {
+      window.LeeConmigo.stopAudio();
+    } catch (err) {
+      /* ignore */
+    }
+  }
+  if (player) {
+    try {
+      player.pause();
+      player.removeAttribute("src");
+    } catch (err) {
+      /* ignore */
+    }
+    player = null;
+  }
+}
+
+function finishStoryIfLast(token) {
+  if (token !== playToken) return;
+  if (!story || !story.pages || !story.pages.length) return;
+  if (index < story.pages.length - 1) return;
+  setTimeout(() => {
+    if (token !== playToken) return;
+    if (!story) return;
+    goHome();
+  }, 800);
+}
+
+function playSrc(src, onEnded) {
+  const token = playToken;
+  if (!src) return;
+  const done = () => {
+    if (token !== playToken) return;
+    if (onEnded) onEnded();
+  };
+  if (window.LeeConmigo && typeof window.LeeConmigo.playAudio === "function") {
+    let duration = 0;
+    try {
+      duration = window.LeeConmigo.playAudio(src) || 0;
+    } catch (err) {
+      /* ignore */
+    }
+    window.appAudioEnded = done;
+    if (duration > 0) {
+      setTimeout(done, duration + 700);
+    }
+    return;
+  }
+  try {
+    if (player) {
+      player.pause();
+      player.removeAttribute("src");
+    }
+    player = new Audio(src);
+    player.onended = done;
+    player.play().catch(() => {
+      if (token !== playToken) return;
+    });
+  } catch (err) {
+    /* ignore */
+  }
+}
+
+function speakPage(card) {
+  if (!card) return;
+  stopPlayback();
+  playSrc(card.audio, () => finishStoryIfLast(playToken));
+}
+
+function goHome() {
+  stopPlayback();
+  story = null;
+  index = 0;
+  renderHome();
+}
+
+function openStory(id) {
+  const next = catalog.find((item) => item.id === id);
+  if (!next || !next.pages || !next.pages.length) return;
+  story = next;
+  index = 0;
+  renderPage();
+}
+
+function goTo(next) {
+  if (!story) return;
+  const last = story.pages.length - 1;
+  if (next < 0) {
+    goHome();
+    return;
+  }
+  if (next > last) {
+    goHome();
+    return;
+  }
+  index = next;
+  renderPage();
+}
+
+function renderHome() {
+  stopPlayback();
+  const root = $("book");
+  if (!catalog.length) {
+    root.innerHTML = `<p class="empty">No hay cuentos (app ${APP_VERSION}).</p>`;
+    return;
+  }
+  if (homeFocus < 0 || homeFocus >= catalog.length) homeFocus = 0;
+  const cards = catalog
+    .map(
+      (item, i) => `
+      <button type="button" class="story-card" id="story-${item.id}" data-id="${item.id}">
+        <img src="${item.cover}" alt="">
+        <span>${item.title}</span>
+      </button>`
+    )
+    .join("");
+  root.innerHTML = `
+    <section class="home">
+      <p class="home-kicker">${APP_NAME}</p>
+      <h1>Elige un cuento</h1>
+      <div class="stories">${cards}</div>
+    </section>`;
+  catalog.forEach((item) => {
+    const btn = $(`story-${item.id}`);
+    if (btn) btn.onclick = () => openStory(item.id);
+  });
+  const focusBtn = $(`story-${catalog[homeFocus].id}`);
+  if (focusBtn) focusBtn.focus();
+}
+
+function renderPage() {
+  stopPlayback();
+  const card = pageAt(index);
+  const root = $("book");
+  if (!card) {
+    root.innerHTML = `<p class="empty">No pude cargar el cuento (app ${APP_VERSION}).</p>`;
+    return;
+  }
+  const total = story.pages.length;
+  root.innerHTML = `
+    <section class="page">
+      <img class="art" src="${card.image}" alt="">
+      <header class="caption">
+        <p class="line" id="wordBtn">${card.word}</p>
+      </header>
+      <div class="actions">
+        <button type="button" class="tv-btn ghost" id="btnPrev">${index === 0 ? "← Cuentos" : "← Anterior"}</button>
+        <button type="button" class="tv-btn" id="btnReplay">Oír de nuevo</button>
+        <button type="button" class="tv-btn ghost" id="btnNext">${index >= total - 1 ? "Cuentos →" : "Siguiente →"}</button>
+      </div>
+    </section>`;
+  const prev = $("btnPrev");
+  const next = $("btnNext");
+  const replay = $("btnReplay");
+  const word = $("wordBtn");
+  if (prev) {
+    prev.onclick = () => goTo(index - 1);
+  }
+  if (next) {
+    next.onclick = () => goTo(index + 1);
+  }
+  if (replay) replay.onclick = () => speakPage(card);
+  if (word) word.onclick = () => speakPage(card);
+  if (replay) replay.focus();
+  speakPage(card);
+}
+
+function goBack() {
+  stopPlayback();
+  if (story) {
+    if (index > 0) {
+      goTo(index - 1);
+      return true;
+    }
+    goHome();
+    return true;
+  }
+  return false;
+}
+
+window.appBack = goBack;
+
+document.addEventListener("keydown", (ev) => {
+  const back =
+    ev.key === "Escape" ||
+    ev.key === "Backspace" ||
+    ev.key === "GoBack" ||
+    ev.keyCode === 4 ||
+    ev.keyCode === 10009;
+  if (back) {
+    ev.preventDefault();
+    if (!goBack() && window.LeeConmigo && typeof window.LeeConmigo.leave === "function") {
+      window.LeeConmigo.leave();
+    }
+    return;
+  }
+  if (!story) {
+    if (ev.key === "ArrowLeft") {
+      ev.preventDefault();
+      homeFocus = (homeFocus - 1 + catalog.length) % catalog.length;
+      const btn = $(`story-${catalog[homeFocus].id}`);
+      if (btn) btn.focus();
+      return;
+    }
+    if (ev.key === "ArrowRight") {
+      ev.preventDefault();
+      homeFocus = (homeFocus + 1) % catalog.length;
+      const btn = $(`story-${catalog[homeFocus].id}`);
+      if (btn) btn.focus();
+      return;
+    }
+    if (ev.key === "Enter" || ev.key === " " || ev.key === "OK") {
+      ev.preventDefault();
+      openStory(catalog[homeFocus].id);
+    }
+    return;
+  }
+  if (ev.key === "ArrowLeft") {
+    ev.preventDefault();
+    goTo(index - 1);
+    return;
+  }
+  if (ev.key === "ArrowRight") {
+    ev.preventDefault();
+    goTo(index + 1);
+    return;
+  }
+  if (ev.key === "Enter" || ev.key === " " || ev.key === "OK") {
+    ev.preventDefault();
+    speakPage(pageAt(index));
+  }
+});
+
+function boot(data) {
+  if (data && Array.isArray(data.stories) && data.stories.length) {
+    catalog = data.stories.filter((item) => item && item.pages && item.pages.length);
+  } else if (data && Array.isArray(data.pages) && data.pages.length) {
+    catalog = [
+      {
+        id: "cuento",
+        title: data.title || "Cuento",
+        cover: data.pages[0].image,
+        pages: data.pages,
+      },
+    ];
+  } else {
+    throw new Error("El libro está vacío.");
+  }
+  if (!catalog.length) throw new Error("El libro está vacío.");
+  renderHome();
+}
+
+try {
+  if (window.PAGES) {
+    boot(window.PAGES);
+  } else {
+    throw new Error("Falta el libro embebido.");
+  }
+} catch (err) {
+  $("book").innerHTML =
+    `<p class="empty">No pude cargar el libro (app ${APP_VERSION}). ${err}</p>`;
+}
+
+    </script>
+  </body>
+</html>
