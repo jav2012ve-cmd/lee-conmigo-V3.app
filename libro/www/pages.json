@@ -1,5 +1,5 @@
 {
-  "app": "Libro digital 1.6",
+  "app": "Libro digital 1.7",
   "stories": [
     {
       "id": "lluvia",
@@ -83,7 +83,7 @@
             "mi",
             "ga"
           ],
-          "audio": "audio/m4.mp3"
+          "audio": ""
         },
         {
           "id": "m5",

@@ -19,7 +19,7 @@ func main() {
 		AutoFocus: true,
 		DataPath:  dataPath,
 		WindowOptions: webview2.WindowOptions{
-			Title:  "Libro digital 1.6",
+			Title:  "Libro digital 1.7",
 			Width:  1200,
 			Height: 760,
 			Center: true,
@@ -35,7 +35,7 @@ func main() {
 }
 
 func alert(text string) {
-	title, _ := windows.UTF16PtrFromString("Libro digital 1.6")
+	title, _ := windows.UTF16PtrFromString("Libro digital 1.7")
 	body, _ := windows.UTF16PtrFromString(text)
 	_, _, _ = procMessageBox.Call(0, uintptr(unsafe.Pointer(body)), uintptr(unsafe.Pointer(title)), 0x10)
 }
